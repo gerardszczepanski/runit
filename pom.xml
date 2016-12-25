@@ -13,7 +13,6 @@
 
 	<modules>
 		<module>runit-common</module>
-		<module>runit-model</module>
 		<module>runit-service</module>
 		<module>runit-view</module>
 		<module>runit-program</module>
