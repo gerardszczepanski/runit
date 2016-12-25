@@ -49,9 +49,9 @@ public class SearchAutocompleteSelect {
 		innerTextField.setPrefHeight(dimenstion.height);
 		innerTextField.setLayoutX(position.x);
 		innerTextField.setLayoutY(position.y);
-		innerTextField.setFont(new Font("System", 18.0));
+		innerTextField.setFont(new Font("System", 14.0));
 		
-		innerTextField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+		innerTextField.setOnKeyReleased(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent event) {
             	handleKeyType();
             }});

@@ -1,0 +1,9 @@
+* {
+	-fx-panel-button-color: #2E5266;
+}
+
+.close-button{
+	-fx-background-image: url("../images/buttons/close.png");
+	-fx-background-color: #2E5266;
+}
+

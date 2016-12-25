@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.program.config.DependenciesConfig;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
@@ -24,9 +25,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Platform.setImplicitExit(false);
 		MainSceneFactory mainSceneFactory = ctx.getBean(MainSceneFactory.class);
 		
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setTitle(ProgramConfig.PROGRAM_TITLE);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(mainSceneFactory.createComponent());
