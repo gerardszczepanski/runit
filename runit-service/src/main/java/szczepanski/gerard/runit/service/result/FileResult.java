@@ -1,6 +1,8 @@
 package szczepanski.gerard.runit.service.result;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
@@ -28,8 +30,14 @@ public class FileResult implements SearchResult {
 	
 	@Override
 	public void run() {
+		Desktop desktop = Desktop.getDesktop();
+		try {
+			desktop.open(file);
+		} catch (IOException e) {
+			throw new RunitRuntimeException("File can not be executed.");
+		}
 	}
-
+	
 	@Override
 	public SearchResultRepresentation getSearchResultRepresentation() {
 		return searchResultRepresentation;

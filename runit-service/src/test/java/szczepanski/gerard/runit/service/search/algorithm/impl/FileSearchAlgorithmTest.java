@@ -26,14 +26,14 @@ public class FileSearchAlgorithmTest {
 		List<String> rootDirectoriesToScan = new ArrayList<>();
 		rootDirectoriesToScan.add(fullRootDirPath);
 		List<String> fileExtensions = new ArrayList<>();
-		fileExtensions.add(".exe");
+		fileExtensions.add("exe");
 		
-		String searchTerm = "runnit";
+		String searchTerm = "runit";
 		Settings settings = Settings.builder()
 									.rootDirectioresToScan(rootDirectoriesToScan)
 									.fileExtensions(fileExtensions)
 									.build();
-		int numberOfExecutableFiles = 1;
+		int numberOfExecutableFiles = 2; //From path and second level path
 		
 		//	Act
 		List<SearchResult> searchResults = searchAlgorithm.search(searchTerm, settings);
