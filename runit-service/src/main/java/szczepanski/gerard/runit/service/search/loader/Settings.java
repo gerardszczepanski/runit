@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Spliterator;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
 public class Settings {

@@ -7,6 +7,8 @@ package szczepanski.gerard.runit.service.result;
  */
 public interface SearchResult {
 	
+	SearchResultRepresentation getSearchResultRepresentation();
+	
 	void run();
 	
 }

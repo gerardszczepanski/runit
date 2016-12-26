@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import lombok.Setter;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.SearchResult;
-import szczepanski.gerard.runit.service.search.algorithm.SearchService;
+import szczepanski.gerard.runit.service.service.SearchService;
 
 /**
  * This is Autocomplete Select component responsible for handle typed text,

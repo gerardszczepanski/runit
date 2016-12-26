@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.service.search.algorithm;
+package szczepanski.gerard.runit.service.service;
 
 import java.util.List;
 
