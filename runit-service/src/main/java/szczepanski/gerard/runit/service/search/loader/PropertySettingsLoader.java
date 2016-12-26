@@ -22,11 +22,22 @@ public class PropertySettingsLoader implements SettingsLoader {
 	private final String propertiesPath;
 	private final PropertySpliterator<String> stringPropertySpliterator;
 	private final PropertySpliterator<WebAlias> webAliasPropertySpliterator;
+	
+	private Settings currentSettings;
+	private boolean isSettingsActual;
 
 	@Override
 	public Settings loadSettings() {
+		if (!isSettingsActual) {
+			reloadSettings();
+		}
+		
+		return currentSettings;
+	}
+	
+	private void reloadSettings() {
 		Properties properties = loadProperties();
-		return loadSettingsFromProperties(properties);
+		currentSettings = loadSettingsFromProperties(properties);
 	}
 
 	private Properties loadProperties() {
@@ -48,6 +59,11 @@ public class PropertySettingsLoader implements SettingsLoader {
 					.fileExtensions(stringPropertySpliterator.fromPropertyString(properties.getProperty(FILE_EXTENSIONS_KEY)))
 					.webAliases(webAliasPropertySpliterator.fromPropertyString(properties.getProperty(WEB_ALIASES_KEY)))
 					.build();
+	}
+
+	@Override
+	public void markSettingsChanged() {
+		isSettingsActual = false;
 	}
 
 }
