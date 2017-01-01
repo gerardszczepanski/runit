@@ -1,14 +1,21 @@
 package szczepanski.gerard.runit.service.result;
 
+import lombok.Getter;
+
 /**
  * Represents search result to run.
  * 
  *  It may be any extension file, and web page alias.
  */
-public interface SearchResult {
+public abstract class SearchResult {
+		
+	@Getter
+	private final SearchResultRepresentation searchResultRepresentation;
 	
-	SearchResultRepresentation getSearchResultRepresentation();
+	protected SearchResult(SearchResultRepresentation searchResultRepresentation) {
+		this.searchResultRepresentation = searchResultRepresentation;
+	}
 	
-	void run();
+	public abstract void run();
 	
 }

@@ -8,10 +8,9 @@ import java.net.URISyntaxException;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.search.loader.WebAlias;
 
-public class WebPageResult implements SearchResult {
+public class WebPageResult extends SearchResult {
 
 	private final URI webAddress;
-	private final SearchResultRepresentation searchResultRepresentation;
 	
 	public static WebPageResult fromWebAlias(WebAlias webAlias) {
 		isWebAliasValid(webAlias);
@@ -25,8 +24,8 @@ public class WebPageResult implements SearchResult {
 	}
 	
 	private WebPageResult(WebAlias webAlias) {
+		super(new SearchResultRepresentation(null, webAlias.getAlias()));
 		this.webAddress = createUriFromString(webAlias.getFullAddress());
-		this.searchResultRepresentation = new SearchResultRepresentation(null, webAlias.getAlias());
 	}
 	
 	private URI createUriFromString(String fullWebAddress) {
@@ -45,11 +44,6 @@ public class WebPageResult implements SearchResult {
 		} catch (IOException e) {
 			throw new RunitRuntimeException("URI can not be browsed.");
 		}
-	}
-
-	@Override
-	public SearchResultRepresentation getSearchResultRepresentation() {
-		return searchResultRepresentation;
 	}
 	
 }

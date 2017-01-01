@@ -6,10 +6,9 @@ import java.io.IOException;
 
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
-public class FileResult implements SearchResult {
+public class FileResult extends SearchResult {
 	
 	private final File file;
-	private final SearchResultRepresentation searchResultRepresentation;
 	
 	
 	public static FileResult fromFile(File file) {
@@ -24,8 +23,8 @@ public class FileResult implements SearchResult {
 	}
 	
 	private FileResult(File file) {
+		super(new SearchResultRepresentation(null, file.getName()));
 		this.file = file;
-		this.searchResultRepresentation = new SearchResultRepresentation(null, file.getName());
 	}
 	
 	@Override
@@ -36,11 +35,6 @@ public class FileResult implements SearchResult {
 		} catch (IOException e) {
 			throw new RunitRuntimeException("File can not be executed.");
 		}
-	}
-	
-	@Override
-	public SearchResultRepresentation getSearchResultRepresentation() {
-		return searchResultRepresentation;
 	}
 
 }
