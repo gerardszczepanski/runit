@@ -21,9 +21,17 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<SearchResult> searchFor(String searchTerm) {
+		if (isSearchTermEmpty(searchTerm)) {
+			return new ArrayList<>();
+		}
+		
 		LOG.debug("Fire search for searchTerm: " + searchTerm);
 		Settings settings = settingsLoader.loadSettings();
 		return triggerSearchAlgorithms(searchTerm, settings);
+	}
+	
+	private boolean isSearchTermEmpty(String searchTerm) {
+		return searchTerm == null || "".equals(searchTerm);
 	}
 
 	private List<SearchResult> triggerSearchAlgorithms(String searchTerm, Settings settings) {

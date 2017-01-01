@@ -5,29 +5,32 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.search.loader.WebAlias;
 
 public class WebPageResult extends SearchResult {
 
 	private final URI webAddress;
-	
+
 	public static WebPageResult fromWebAlias(WebAlias webAlias) {
 		isWebAliasValid(webAlias);
 		return new WebPageResult(webAlias);
 	}
-	
+
 	private static void isWebAliasValid(WebAlias webAlias) {
 		if (webAlias == null || webAlias.getAlias() == null || webAlias.getFullAddress() == null) {
 			throw new RunitRuntimeException("SearchResult creation failure. Input File is null");
 		}
 	}
-	
+
 	private WebPageResult(WebAlias webAlias) {
-		super(new SearchResultRepresentation(null, webAlias.getAlias()));
+		super(new SearchResultRepresentation(
+				new Image(WebPageResult.class.getResourceAsStream("/images/search-results/webPageResult.png")),
+				webAlias.getAlias()));
 		this.webAddress = createUriFromString(webAlias.getFullAddress());
 	}
-	
+
 	private URI createUriFromString(String fullWebAddress) {
 		try {
 			return new URI(fullWebAddress);
@@ -35,7 +38,7 @@ public class WebPageResult extends SearchResult {
 			throw new RunitRuntimeException("URI can not be created from Web Address: " + webAddress);
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		Desktop desktop = Desktop.getDesktop();
@@ -45,5 +48,5 @@ public class WebPageResult extends SearchResult {
 			throw new RunitRuntimeException("URI can not be browsed.");
 		}
 	}
-	
+
 }

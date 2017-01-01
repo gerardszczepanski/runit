@@ -17,5 +17,11 @@ public abstract class SearchResult {
 	}
 	
 	public abstract void run();
+
+	@Override
+	public String toString() {
+		return searchResultRepresentation.getSearchresultTitle();
+	}
+	
 	
 }
