@@ -40,6 +40,8 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 	private List<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {
 		try {
 			return Files.walk(Paths.get(rootPath))
+				.filter(p -> !isPathHidden(p))
+				.filter(Files::isReadable)
 				.filter(Files::isRegularFile)
 				.filter(Files::isExecutable)
 				.filter(p -> hasFileAcceptableExtension(p, fileExtensions))
@@ -48,6 +50,14 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 				.collect(Collectors.toList());
 		} catch (IOException e) {
 			throw new RunitRuntimeException(String.format("Cannot read files from path %s. Maybe path is invaid?", rootPath));
+		}
+	}
+	
+	private boolean isPathHidden(Path path) {
+		try {
+			return Files.isHidden(path);
+		} catch (IOException e) {
+			throw new RunitRuntimeException(String.format("Cannot read files from path %s. Maybe path is invaid?", path));
 		}
 	}
 	

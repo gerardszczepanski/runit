@@ -11,6 +11,7 @@ public class PropertySettingsLoaderTest {
 
 	PropertySettingsLoader settingsLoader;
 
+	@SuppressWarnings("unchecked")
 	@BeforeTest
 	public void beforeTest() {
 		PropertySpliterator<String> stringPropertySpliterator = Mockito.mock(PropertySpliterator.class);
