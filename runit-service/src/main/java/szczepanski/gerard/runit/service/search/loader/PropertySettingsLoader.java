@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 

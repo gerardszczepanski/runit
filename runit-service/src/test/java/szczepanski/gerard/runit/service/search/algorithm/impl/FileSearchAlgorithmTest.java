@@ -22,7 +22,7 @@ public class FileSearchAlgorithmTest {
 	@Test
 	public void loadExecutableFilesSuccess() {
 		// Arrange
-		String fullRootDirPath = "C:\\Users\\User\\Documents\\workspace\\runit-parent\\runit-service\\src\\test\\resources\\fileAlgorithmTest";
+		String fullRootDirPath = "C:\\Users\\User\\Documents";
 		List<String> rootDirectoriesToScan = new ArrayList<>();
 		rootDirectoriesToScan.add(fullRootDirPath);
 		List<String> fileExtensions = new ArrayList<>();
