@@ -1,11 +1,14 @@
 package szczepanski.gerard.runnit.view.component;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -28,7 +31,8 @@ import szczepanski.gerard.runit.service.service.SearchService;
 public class SearchAutocompleteSelect {
 
 	private final ComboBox<SearchResult> innerSelect;
-
+	private final SelectKeyFilter selectKeyFilter;
+	
 	@Setter
 	private SearchService searchService;
 
@@ -49,6 +53,7 @@ public class SearchAutocompleteSelect {
 
 	private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
 		this.innerSelect = new ComboBox<>();
+		this.selectKeyFilter = new SelectKeyFilter();
 		initInnerTextField(currentPane, dimenstion, position);
 	}
 
@@ -61,7 +66,9 @@ public class SearchAutocompleteSelect {
 		innerSelect.setCellFactory(configureDisplayRow());
 		
 		innerSelect.getEditor().addEventFilter(KeyEvent.KEY_RELEASED, e -> {
-			handleKeyType();
+			if (selectKeyFilter.isKeyAllowed(e.getCode())) {
+				handleKeyType();
+			}
 		});
 		
 		pane.getChildren().add(innerSelect);
@@ -86,7 +93,7 @@ public class SearchAutocompleteSelect {
 			}
 		};
 	}
-
+	
 	private void handleKeyType() {
 		checkSearchService();
 		List<SearchResult> searchResults = fireSearch();
@@ -112,6 +119,35 @@ public class SearchAutocompleteSelect {
 		if (searchService == null) {
 			throw new RunitRuntimeException("Set SearchService before use SearchAutocompleteSelect object!");
 		}
+	}
+	
+	/**
+	 * Inner static class for SearchAutocompleteSelect. 
+	 * 
+	 * This class is responsible for filter search sensitive keys.
+	 *  
+	 * @author Gerard Szczepanski
+	 *
+	 */
+	private static class SelectKeyFilter {
+		
+		private final Set<KeyCode> notAllowedKeys;
+		
+		private SelectKeyFilter() {
+			this.notAllowedKeys = new HashSet<>();
+			registerNotAllowedkKeys();
+		}
+		
+		private void registerNotAllowedkKeys() {
+			notAllowedKeys.add(KeyCode.UP);
+			notAllowedKeys.add(KeyCode.DOWN);
+			notAllowedKeys.add(KeyCode.ENTER);
+		}
+		
+		public boolean isKeyAllowed(KeyCode keyCode) {
+			return !notAllowedKeys.contains(keyCode);
+		}
+		
 	}
 
 }

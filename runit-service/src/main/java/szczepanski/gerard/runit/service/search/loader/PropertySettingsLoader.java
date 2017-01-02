@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import lombok.Builder;
+import org.apache.log4j.Logger;
+
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
@@ -15,6 +16,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
  */
 @RequiredArgsConstructor
 public class PropertySettingsLoader implements SettingsLoader {
+	private static final Logger LOG = Logger.getLogger(PropertySettingsLoader.class);
 
 	private static final String ROOT_DIRECTORIES_KEY = "root.directories";
 	private static final String FILE_EXTENSIONS_KEY = "file.extensions";
@@ -30,6 +32,7 @@ public class PropertySettingsLoader implements SettingsLoader {
 	@Override
 	public Settings loadSettings() {
 		if (!isSettingsActual) {
+			LOG.debug("Loading settings from " + propertiesPath);
 			reloadSettings();
 		}
 		
@@ -39,6 +42,7 @@ public class PropertySettingsLoader implements SettingsLoader {
 	private void reloadSettings() {
 		Properties properties = loadProperties();
 		currentSettings = loadSettingsFromProperties(properties);
+		isSettingsActual = true;
 	}
 
 	private Properties loadProperties() {

@@ -4,6 +4,10 @@
 
 .close-button{
 	-fx-background-image: url("../images/buttons/close.png");
-	-fx-background-color: #2E5266;
+	-fx-background-color: #36566f;
+}
+
+.main-panel {
+	-fx-background-image: url("../images/background.png"); 
 }
 
