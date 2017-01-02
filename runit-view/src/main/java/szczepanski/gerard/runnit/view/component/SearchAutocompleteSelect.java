@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -56,7 +57,39 @@ public class SearchAutocompleteSelect {
 		this.selectKeyFilter = new SelectKeyFilter();
 		initInnerTextField(currentPane, dimenstion, position);
 	}
+	
+	private void search() {
+		checkSearchService();
+		List<SearchResult> searchResults = fireSearch();
+		displaySearchResults(searchResults);
+	}
+	
+	private void runSelected() {
+		SearchResult triggeredSearchResult = innerSelect.getSelectionModel().getSelectedItem();
+		triggeredSearchResult.run();
+	}
 
+	private List<SearchResult> fireSearch() {
+		String searchTerm = innerSelect.getEditor().getText();
+		return searchService.searchFor(searchTerm);
+	}
+	
+	private void displaySearchResults(List<SearchResult> searchResults) {
+		innerSelect.hide();
+		innerSelect.getItems().clear();
+		innerSelect.getItems().addAll(searchResults);
+
+		if (!searchResults.isEmpty()) {
+			innerSelect.show();
+		}
+	}
+
+	private void checkSearchService() {
+		if (searchService == null) {
+			throw new RunitRuntimeException("Set SearchService before use SearchAutocompleteSelect object!");
+		}
+	}
+	
 	private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
 		innerSelect.setPrefWidth(dimenstion.width);
 		innerSelect.setPrefHeight(dimenstion.height);
@@ -65,9 +98,15 @@ public class SearchAutocompleteSelect {
 		innerSelect.setEditable(true);
 		innerSelect.setCellFactory(configureDisplayRow());
 		
+		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+			if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
+				runSelected();
+			}
+		});
+		
 		innerSelect.getEditor().addEventFilter(KeyEvent.KEY_RELEASED, e -> {
-			if (selectKeyFilter.isKeyAllowed(e.getCode())) {
-				handleKeyType();
+			if (selectKeyFilter.isKeyAllowedForSearch(e.getCode())) {
+				search();
 			}
 		});
 		
@@ -94,33 +133,6 @@ public class SearchAutocompleteSelect {
 		};
 	}
 	
-	private void handleKeyType() {
-		checkSearchService();
-		List<SearchResult> searchResults = fireSearch();
-		displaySearchResults(searchResults);
-	}
-
-	private List<SearchResult> fireSearch() {
-		String searchTerm = innerSelect.getEditor().getText();
-		return searchService.searchFor(searchTerm);
-	}
-	
-	private void displaySearchResults(List<SearchResult> searchResults) {
-		innerSelect.hide();
-		innerSelect.getItems().clear();
-		innerSelect.getItems().addAll(searchResults);
-
-		if (!searchResults.isEmpty()) {
-			innerSelect.show();
-		}
-	}
-
-	private void checkSearchService() {
-		if (searchService == null) {
-			throw new RunitRuntimeException("Set SearchService before use SearchAutocompleteSelect object!");
-		}
-	}
-	
 	/**
 	 * Inner static class for SearchAutocompleteSelect. 
 	 * 
@@ -131,21 +143,60 @@ public class SearchAutocompleteSelect {
 	 */
 	private static class SelectKeyFilter {
 		
-		private final Set<KeyCode> notAllowedKeys;
+		private final Set<KeyCode> allowedKeys;
 		
 		private SelectKeyFilter() {
-			this.notAllowedKeys = new HashSet<>();
-			registerNotAllowedkKeys();
+			this.allowedKeys = new HashSet<>();
+			registerAllowedkKeys();
 		}
 		
-		private void registerNotAllowedkKeys() {
-			notAllowedKeys.add(KeyCode.UP);
-			notAllowedKeys.add(KeyCode.DOWN);
-			notAllowedKeys.add(KeyCode.ENTER);
+		private void registerAllowedkKeys() {
+			allowedKeys.add(KeyCode.DIGIT0);
+			allowedKeys.add(KeyCode.DIGIT1);
+			allowedKeys.add(KeyCode.DIGIT2);
+			allowedKeys.add(KeyCode.DIGIT3);
+			allowedKeys.add(KeyCode.DIGIT4);
+			allowedKeys.add(KeyCode.DIGIT5);
+			allowedKeys.add(KeyCode.DIGIT6);
+			allowedKeys.add(KeyCode.DIGIT7);
+			allowedKeys.add(KeyCode.DIGIT8);
+			allowedKeys.add(KeyCode.DIGIT9);
+			allowedKeys.add(KeyCode.Q);
+			allowedKeys.add(KeyCode.W);
+			allowedKeys.add(KeyCode.E);
+			allowedKeys.add(KeyCode.R);
+			allowedKeys.add(KeyCode.T);
+			allowedKeys.add(KeyCode.Y);
+			allowedKeys.add(KeyCode.U);
+			allowedKeys.add(KeyCode.I);
+			allowedKeys.add(KeyCode.O);			
+			allowedKeys.add(KeyCode.P);
+			allowedKeys.add(KeyCode.A);
+			allowedKeys.add(KeyCode.S);
+			allowedKeys.add(KeyCode.D);
+			allowedKeys.add(KeyCode.F);
+			allowedKeys.add(KeyCode.G);
+			allowedKeys.add(KeyCode.H);
+			allowedKeys.add(KeyCode.J);
+			allowedKeys.add(KeyCode.K);
+			allowedKeys.add(KeyCode.L);
+			allowedKeys.add(KeyCode.Z);
+			allowedKeys.add(KeyCode.X);
+			allowedKeys.add(KeyCode.C);
+			allowedKeys.add(KeyCode.V);
+			allowedKeys.add(KeyCode.B);
+			allowedKeys.add(KeyCode.N);
+			allowedKeys.add(KeyCode.M);
+			allowedKeys.add(KeyCode.SPACE);
+			allowedKeys.add(KeyCode.BACK_SPACE);
 		}
 		
-		public boolean isKeyAllowed(KeyCode keyCode) {
-			return !notAllowedKeys.contains(keyCode);
+		public boolean isKeyAllowedForSearch(KeyCode keyCode) {
+			return allowedKeys.contains(keyCode);
+		}
+		
+		public boolean isKeyAllowedForRun(KeyCode keyCode) {
+			return keyCode == KeyCode.ENTER;
 		}
 		
 	}
