@@ -74,7 +74,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 	private boolean isFileNameContainsSearchTerm(Path path, String searchTerm) {
 		String fullFileName = path.getFileName().toString();
 		String fileName = FilenameUtils.getName(fullFileName);
-		return fileName.contains(searchTerm);
+		return fileName.toLowerCase().contains(searchTerm.toLowerCase());
 	}
 
 }

@@ -25,6 +25,6 @@ public class WebAliasSearchAlgorithm implements SearchAlgorithm{
 	 * TODO Gerard Szczepanski 01.01.2017
 	 */
 	private boolean isAliasContainsSearchTerm(String alias, String searchTerm) {
-		return alias.contains(searchTerm);
+		return alias.toLowerCase().contains(searchTerm.toLowerCase());
 	}
 }
