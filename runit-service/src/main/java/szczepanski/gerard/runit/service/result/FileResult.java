@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
 public class FileResult extends SearchResult {
@@ -23,7 +24,7 @@ public class FileResult extends SearchResult {
 	}
 	
 	private FileResult(File file) {
-		super(new SearchResultRepresentation(null, file.getName()));
+		super(new SearchResultRepresentation(new Image(WebPageResult.class.getResourceAsStream("/images/search-results/fileResult.png")), file.getName()));
 		this.file = file;
 	}
 	

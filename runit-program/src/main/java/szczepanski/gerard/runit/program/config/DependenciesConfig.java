@@ -59,7 +59,7 @@ public class DependenciesConfig {
 	private List<SearchAlgorithm> searchAlgorithms() {
 		List<SearchAlgorithm> searchAlgrithms = new ArrayList<>();
 
-		//searchAlgrithms.add(new FileSearchAlgorithm());
+		searchAlgrithms.add(new FileSearchAlgorithm());
 		searchAlgrithms.add(new WebAliasSearchAlgorithm());
 
 		return searchAlgrithms;
