@@ -7,5 +7,7 @@ public class ProgramConfig {
 	
 	public static final String PROPERTIES_CONFIG_FILE_PATH = "runit.properties";
 	public static final int CACHE_LIMIT = 20;
+	public static final double CACHE_CLEAR_PERCENTAGE_SIZE = 0.40;
+	
 	
 }

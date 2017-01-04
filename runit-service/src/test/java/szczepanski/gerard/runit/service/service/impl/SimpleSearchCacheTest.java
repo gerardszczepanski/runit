@@ -15,12 +15,13 @@ import szczepanski.gerard.runit.service.service.Cache;
 public class SimpleSearchCacheTest {
 
 	final int cacheLimit = 10;
+	final double cacheClearSizeInPercentage = 0.1; 
 
 	Cache cache;
 
 	@BeforeMethod
 	public void beforeMethodO() {
-		cache = new SimpleSearchCache(cacheLimit);
+		cache = new SimpleSearchCache(cacheLimit, cacheClearSizeInPercentage);
 	}
 
 	@Test

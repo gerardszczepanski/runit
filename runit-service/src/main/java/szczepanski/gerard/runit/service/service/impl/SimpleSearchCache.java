@@ -17,11 +17,13 @@ public class SimpleSearchCache implements Cache {
 	private static final Logger LOG = Logger.getLogger(SimpleSearchCache.class);
 
 	private final int cacheLimit;
+	private final int clearCacheHeadSize; 
 	private final Queue<CachedSearchResults> cachedSearchResults;
 
-	public SimpleSearchCache(int cacheLimit) {
+	public SimpleSearchCache(int cacheLimit, double cachePercentageCleaningSize) {
 		LOG.debug("Instantizing Cache with size: " + cacheLimit);
 		this.cacheLimit = cacheLimit;
+		this.clearCacheHeadSize = (int) (cacheLimit * cachePercentageCleaningSize);
 		this.cachedSearchResults = new LinkedList<>();
 	}
 
@@ -41,9 +43,11 @@ public class SimpleSearchCache implements Cache {
 
 	private void removeOldestCacheValueIfCacheIsFull() {
 		if (isCacheFull()) {
-			LOG.debug("Cache is full. Removing oldest cached value.");
-			CachedSearchResults oldestCachedSearchResults = cachedSearchResults.peek();
-			cachedSearchResults.remove(oldestCachedSearchResults);
+			LOG.debug(String.format("Cache is full. Removing %s oldest cached values.", clearCacheHeadSize));
+			for (int i = 0; i < clearCacheHeadSize; i++) {
+				CachedSearchResults oldestCachedSearchResults = cachedSearchResults.peek();
+				cachedSearchResults.remove(oldestCachedSearchResults);
+			}
 		}
 	}
 	

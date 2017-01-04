@@ -53,7 +53,7 @@ public class DependenciesConfig {
 	
 	@Bean
 	public Cache cache() {
-		return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT);
+		return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
 	}
 
 	@Bean
