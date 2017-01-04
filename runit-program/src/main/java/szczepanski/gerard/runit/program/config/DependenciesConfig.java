@@ -16,8 +16,10 @@ import szczepanski.gerard.runit.service.search.loader.SettingsLoader;
 import szczepanski.gerard.runit.service.search.loader.StringPropertySpliterator;
 import szczepanski.gerard.runit.service.search.loader.WebAlias;
 import szczepanski.gerard.runit.service.search.loader.WebAliasPropertySpliterator;
+import szczepanski.gerard.runit.service.service.Cache;
 import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runit.service.service.impl.SearchServiceImpl;
+import szczepanski.gerard.runit.service.service.impl.SimpleSearchCache;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 
@@ -36,14 +38,22 @@ public class DependenciesConfig {
 
 	@Bean
 	public SearchService searchService() {
-		return SearchServiceImpl.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader())
-				.build();
+		return SearchServiceImpl.builder()
+								.searchAlgorithms(searchAlgorithms())
+								.settingsLoader(settingsLoader())
+								.cache(cache())
+								.build();
 	}
 
 	@Bean
 	public SettingsLoader settingsLoader() {
 		return new PropertySettingsLoader(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, stringPropertySpliterator(),
 				webAliasPropertySpliterator());
+	}
+	
+	@Bean
+	public Cache cache() {
+		return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT);
 	}
 
 	@Bean

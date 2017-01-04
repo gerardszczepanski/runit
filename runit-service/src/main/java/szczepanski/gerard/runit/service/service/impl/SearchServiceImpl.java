@@ -2,6 +2,7 @@ package szczepanski.gerard.runit.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
@@ -10,6 +11,7 @@ import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.search.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.service.search.loader.Settings;
 import szczepanski.gerard.runit.service.search.loader.SettingsLoader;
+import szczepanski.gerard.runit.service.service.Cache;
 import szczepanski.gerard.runit.service.service.SearchService;
 
 @Builder
@@ -18,6 +20,7 @@ public class SearchServiceImpl implements SearchService {
 
 	private final List<SearchAlgorithm> searchAlgorithms;
 	private final SettingsLoader settingsLoader;
+	private final Cache cache;
 
 	@Override
 	public List<SearchResult> searchFor(String searchTerm) {
@@ -25,13 +28,24 @@ public class SearchServiceImpl implements SearchService {
 			return new ArrayList<>();
 		}
 		
+		Optional<List<SearchResult>> cachedSearchResults = cache.getFromCache(searchTerm);
+		if (cachedSearchResults.isPresent()) {
+			return cachedSearchResults.get();
+		}
+		
+		return triggerNewSearchFor(searchTerm);
+	}
+	
+	private List<SearchResult> triggerNewSearchFor(String searchTerm) {
 		LOG.debug("Fire search for searchTerm: " + searchTerm);
 		Settings settings = settingsLoader.loadSettings();
-		return triggerSearchAlgorithms(searchTerm, settings);
+		List<SearchResult> searchResults = triggerSearchAlgorithms(searchTerm, settings);
+		cache.addSearchResultsToCache(searchTerm, searchResults);
+		return searchResults;
 	}
 	
 	private boolean isSearchTermEmpty(String searchTerm) {
-		return searchTerm == null || "".equals(searchTerm);
+		return "".equals(searchTerm);
 	}
 
 	private List<SearchResult> triggerSearchAlgorithms(String searchTerm, Settings settings) {

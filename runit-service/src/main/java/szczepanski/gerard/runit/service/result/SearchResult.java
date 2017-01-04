@@ -16,6 +16,9 @@ public abstract class SearchResult {
 		this.searchResultRepresentation = searchResultRepresentation;
 	}
 	
+	/**
+	 * Command pattern method. Execution of this method should run (open) SearchResult.
+	 */
 	public abstract void run();
 
 	@Override
