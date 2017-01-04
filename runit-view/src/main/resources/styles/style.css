@@ -4,7 +4,18 @@
 
 .close-button{
 	-fx-background-image: url("../images/buttons/close.png");
-	-fx-background-color: #36566f;
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
+.settings-button{
+	-fx-background-image: url("../images/buttons/settings.png");
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
 
 .main-panel {
