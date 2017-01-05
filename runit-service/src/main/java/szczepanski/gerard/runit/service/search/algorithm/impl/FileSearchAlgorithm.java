@@ -15,26 +15,31 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
+import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.FileResult;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.search.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.service.search.loader.Settings;
+import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 
+@RequiredArgsConstructor
 public class FileSearchAlgorithm implements SearchAlgorithm {
 	private static final Logger LOG = Logger.getLogger(FileSearchAlgorithm.class);
-
+	
+	private final SearchTermMatcher searchTermMatcher;
+	
 	@Override
 	public List<SearchResult> search(String searchTerm, Settings settings) {
 		List<SearchResult> searchResults = new ArrayList<>();
 		List<String> paths = settings.getRootDirectioresToScan();
 		List<String> fileExtensions = settings.getFileExtensions();
 		
-		LOG.debug(String.format("Searching started"));
+		LOG.debug("Searching started");
 		paths.forEach(p -> {
 			searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions));
 		});
-		LOG.debug(String.format("Searching finished"));
+		LOG.debug("Searching finished");
 
 		return searchResults;
 	}
@@ -100,14 +105,11 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return acceptableFileExtensions.contains(extension);
 	}
 
-	/**
-	 * Temporary implementation. Will be changed in future to Regex patterns.
-	 * TODO Gerard Szczepanski 26.12.2016
-	 */
 	private boolean isFileNameContainsSearchTerm(Path path, String searchTerm) {
 		String fullFileName = path.getFileName().toString();
 		String fileName = FilenameUtils.getName(fullFileName);
-		return fileName.toLowerCase().contains(searchTerm.toLowerCase());
+		String baseFileName = FilenameUtils.getBaseName(fileName);
+		return searchTermMatcher.isMatch(searchTerm, baseFileName);
 	}
 
 }

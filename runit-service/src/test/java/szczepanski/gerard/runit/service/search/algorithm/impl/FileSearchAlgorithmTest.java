@@ -3,20 +3,24 @@ package szczepanski.gerard.runit.service.search.algorithm.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.search.loader.Settings;
+import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 
 public class FileSearchAlgorithmTest {
 
+	SearchTermMatcher searchTermMatcher;
 	FileSearchAlgorithm searchAlgorithm;
 
 	@BeforeTest
 	public void beforeTest() {
-		searchAlgorithm = new FileSearchAlgorithm();
+		searchTermMatcher = Mockito.mock(SearchTermMatcher.class);
+		searchAlgorithm = new FileSearchAlgorithm(searchTermMatcher);
 	}
 
 	@Test
@@ -34,6 +38,8 @@ public class FileSearchAlgorithmTest {
 									.fileExtensions(fileExtensions)
 									.build();
 		int numberOfExecutableFiles = 2; //From path and second level path
+		
+		Mockito.when(searchTermMatcher.isMatch(searchTerm, "runit")).thenReturn(true);
 		
 		//	Act
 		List<SearchResult> searchResults = searchAlgorithm.search(searchTerm, settings);

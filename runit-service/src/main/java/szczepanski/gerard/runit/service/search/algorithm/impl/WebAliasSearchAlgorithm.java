@@ -3,14 +3,19 @@ package szczepanski.gerard.runit.service.search.algorithm.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.result.WebPageResult;
 import szczepanski.gerard.runit.service.search.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.service.search.loader.Settings;
 import szczepanski.gerard.runit.service.search.loader.WebAlias;
+import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 
-public class WebAliasSearchAlgorithm implements SearchAlgorithm{
-
+@RequiredArgsConstructor
+public class WebAliasSearchAlgorithm implements SearchAlgorithm {
+	
+	private final SearchTermMatcher searchtermMatcher;
+	
 	@Override
 	public List<SearchResult> search(String searchTerm, Settings settings) {
 		List<WebAlias> webAliases = settings.getWebAliases();
@@ -20,11 +25,7 @@ public class WebAliasSearchAlgorithm implements SearchAlgorithm{
 					.collect(Collectors.toList());
 	}
 	
-	/**
-	 * Temporary implementation. Will be changed in future to Regex patterns.
-	 * TODO Gerard Szczepanski 01.01.2017
-	 */
 	private boolean isAliasContainsSearchTerm(String alias, String searchTerm) {
-		return alias.toLowerCase().contains(searchTerm.toLowerCase());
+		return searchtermMatcher.isMatch(searchTerm, alias);
 	}
 }

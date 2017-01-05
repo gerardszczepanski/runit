@@ -18,8 +18,10 @@ import szczepanski.gerard.runit.service.search.loader.WebAlias;
 import szczepanski.gerard.runit.service.search.loader.WebAliasPropertySpliterator;
 import szczepanski.gerard.runit.service.service.Cache;
 import szczepanski.gerard.runit.service.service.SearchService;
+import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.service.service.impl.SearchServiceImpl;
 import szczepanski.gerard.runit.service.service.impl.SimpleSearchCache;
+import szczepanski.gerard.runit.service.service.impl.SimpleSearchTermMatcher;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 
@@ -69,10 +71,15 @@ public class DependenciesConfig {
 	private List<SearchAlgorithm> searchAlgorithms() {
 		List<SearchAlgorithm> searchAlgrithms = new ArrayList<>();
 
-		searchAlgrithms.add(new FileSearchAlgorithm());
-		searchAlgrithms.add(new WebAliasSearchAlgorithm());
+		searchAlgrithms.add(new FileSearchAlgorithm(searchTermMatcher()));
+		searchAlgrithms.add(new WebAliasSearchAlgorithm(searchTermMatcher()));
 
 		return searchAlgrithms;
+	}
+	
+	@Bean
+	public SearchTermMatcher searchTermMatcher() {
+		return new SimpleSearchTermMatcher();
 	}
 
 }
