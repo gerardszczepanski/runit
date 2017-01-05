@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -18,6 +20,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
+import szczepanski.gerard.runit.service.service.impl.SearchServiceImpl;
 
 /**
  * This is Autocomplete Select component responsible for handle typed text, and
@@ -30,6 +33,7 @@ import szczepanski.gerard.runit.service.service.SearchService;
  * 
  */
 public class SearchAutocompleteSelect {
+	private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
 
 	private final ComboBox<SearchResult> innerSelect;
 	private final SelectKeyFilter selectKeyFilter;
@@ -109,7 +113,9 @@ public class SearchAutocompleteSelect {
 
 		innerSelect.getEditor().addEventFilter(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForSearch(e.getCode())) {
+				LOG.debug("SEARCH START");
 				search();
+				LOG.debug("SEARCH FINISHED");
 			}
 		});
 
