@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runnit.view.component.Dimension;
@@ -33,7 +34,8 @@ public class MainSceneController {
 	@FXML
 	public void handleCloseButton() {
 		LOG.debug("handleCloseButton");
-		System.exit(0);
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.hide();
 	}
 	
 }
