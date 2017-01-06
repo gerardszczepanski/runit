@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>szczepanski.gerard</groupId>
 		<artifactId>runit-parent</artifactId>
-		<version>0.2</version>
+		<version>0.4</version>
 	</parent>
 	<artifactId>runit-service</artifactId>
 

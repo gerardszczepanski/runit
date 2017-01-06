@@ -20,7 +20,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
-import szczepanski.gerard.runit.service.service.impl.SearchServiceImpl;
+import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
 
 /**
  * This is Autocomplete Select component responsible for handle typed text, and
@@ -71,6 +71,7 @@ public class SearchAutocompleteSelect {
 	private void runSelected() {
 		SearchResult triggeredSearchResult = innerSelect.getSelectionModel().getSelectedItem();
 		if (triggeredSearchResult != null) {
+			ProgramTrayManager.hideProgramStage();
 			triggeredSearchResult.run();
 		}
 	}

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.program.config.DependenciesConfig;
+import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
 
@@ -30,7 +31,8 @@ public class Main extends Application {
 		MainSceneFactory mainSceneFactory = ctx.getBean(MainSceneFactory.class);
 
 		SwingUtilities.invokeLater(() -> {
-			ProgramTrayManager.installAsTrayIcon(primaryStage);
+			ProgramTrayManager.installInSystemTray(primaryStage);
+			ProgramHotKeyListener.getInstance().registerProgramHotKey();
 		});
 		
 		primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -39,6 +41,7 @@ public class Main extends Application {
 		primaryStage.setScene(mainSceneFactory.createComponent());
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH)));
 		primaryStage.show();
+		
 	}
 
 	private static final void initComponents() {
