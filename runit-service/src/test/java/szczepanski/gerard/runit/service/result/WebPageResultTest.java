@@ -3,7 +3,7 @@ package szczepanski.gerard.runit.service.result;
 import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runit.service.search.loader.WebAlias;
+import szczepanski.gerard.runit.service.search.loader.Alias;
 
 public class WebPageResultTest {
 
@@ -16,7 +16,7 @@ public class WebPageResultTest {
 		// Arrange
 		String alias = "google";
 		String fullWebAddress = "http://google.com";
-		WebAlias webAlias = new WebAlias(alias, fullWebAddress);
+		Alias webAlias = new Alias(alias, fullWebAddress);
 		
 		WebPageResult webPageResult = WebPageResult.fromWebAlias(webAlias);
 		
@@ -29,7 +29,7 @@ public class WebPageResultTest {
 		// Arrange
 		String alias = "google";
 		String invalidWebAddress = null;
-		WebAlias webAlias = new WebAlias(alias, invalidWebAddress);
+		Alias webAlias = new Alias(alias, invalidWebAddress);
 		
 		WebPageResult.fromWebAlias(webAlias);
 	}

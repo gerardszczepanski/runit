@@ -11,6 +11,7 @@ public class Settings {
 	
 	private List<String> rootDirectioresToScan;
 	private List<String> fileExtensions;
-	private List<WebAlias> webAliases;
+	private List<Alias> webAliases;
+	private List<Alias> dirAliases;
 	
 }

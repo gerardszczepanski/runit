@@ -4,19 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Represents alias o the web site to open
- * 
- * eg. alias -> fullAddress
- * google -> http://www.google.com
+ * Represents alias defined in Properties.
  * 
  * @author Gerard Szczepanski
  */
 
 @Getter
 @AllArgsConstructor
-public class WebAlias {
+public class Alias {
 	
-	private String alias;
-	private String fullAddress;
+	private final String name;
+	private final String value;
 	
 }

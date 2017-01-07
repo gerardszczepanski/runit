@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.service.search.util.DesktopFileRunner;
 
 /**
  * Represents File found by {@code SearchService}.
@@ -44,12 +45,7 @@ public class FileResult extends SearchResult {
 
 	@Override
 	public void run() {
-		Desktop desktop = Desktop.getDesktop();
-		try {
-			desktop.open(file);
-		} catch (IOException e) {
-			throw new RunitRuntimeException("File can not be executed.");
-		}
+		DesktopFileRunner.run(file);
 	}
 
 	/**

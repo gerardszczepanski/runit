@@ -21,10 +21,11 @@ public class PropertySettingsLoader implements SettingsLoader {
 	private static final String ROOT_DIRECTORIES_KEY = "root.directories";
 	private static final String FILE_EXTENSIONS_KEY = "file.extensions";
 	private static final String WEB_ALIASES_KEY = "web.aliases";
+	private static final String DIRECTORIES_ALIASES_KEY = "dir.aliases";
 
 	private final String propertiesPath;
 	private final PropertySpliterator<String> stringPropertySpliterator;
-	private final PropertySpliterator<WebAlias> webAliasPropertySpliterator;
+	private final PropertySpliterator<Alias> aliasPropertySpliterator;
 	
 	private Settings currentSettings;
 	private boolean isSettingsActual;
@@ -62,7 +63,8 @@ public class PropertySettingsLoader implements SettingsLoader {
 		return Settings.builder()
 					.rootDirectioresToScan(stringPropertySpliterator.fromPropertyString(properties.getProperty(ROOT_DIRECTORIES_KEY)))
 					.fileExtensions(stringPropertySpliterator.fromPropertyString(properties.getProperty(FILE_EXTENSIONS_KEY)))
-					.webAliases(webAliasPropertySpliterator.fromPropertyString(properties.getProperty(WEB_ALIASES_KEY)))
+					.webAliases(aliasPropertySpliterator.fromPropertyString(properties.getProperty(WEB_ALIASES_KEY)))
+					.dirAliases(aliasPropertySpliterator.fromPropertyString(properties.getProperty(DIRECTORIES_ALIASES_KEY)))
 					.build();
 	}
 

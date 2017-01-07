@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.search.loader.Settings;
-import szczepanski.gerard.runit.service.search.loader.WebAlias;
+import szczepanski.gerard.runit.service.search.loader.Alias;
 import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 
 public class WebAliasSearchAlgorithmTest {
@@ -28,9 +28,9 @@ public class WebAliasSearchAlgorithmTest {
 	public void findWebAliasSuccess() {
 		// Arrange
 		String searchTerm = "google"; 
-		List<WebAlias> webAliasesDefinedInSettings = new ArrayList<>();
-		webAliasesDefinedInSettings.add(new WebAlias("google", "http://google.com"));
-		webAliasesDefinedInSettings.add(new WebAlias("github", "http://github.com"));
+		List<Alias> webAliasesDefinedInSettings = new ArrayList<>();
+		webAliasesDefinedInSettings.add(new Alias("google", "http://google.com"));
+		webAliasesDefinedInSettings.add(new Alias("github", "http://github.com"));
 		
 		Settings settings = Settings.builder()
 				.webAliases(webAliasesDefinedInSettings)

@@ -8,14 +8,15 @@ import org.springframework.context.annotation.Configuration;
 
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.service.search.algorithm.SearchAlgorithm;
+import szczepanski.gerard.runit.service.search.algorithm.impl.DirectoryAliasSearchAlgorithm;
 import szczepanski.gerard.runit.service.search.algorithm.impl.FileSearchAlgorithm;
 import szczepanski.gerard.runit.service.search.algorithm.impl.WebAliasSearchAlgorithm;
+import szczepanski.gerard.runit.service.search.loader.Alias;
+import szczepanski.gerard.runit.service.search.loader.AliasPropertySpliterator;
 import szczepanski.gerard.runit.service.search.loader.PropertySettingsLoader;
 import szczepanski.gerard.runit.service.search.loader.PropertySpliterator;
 import szczepanski.gerard.runit.service.search.loader.SettingsLoader;
 import szczepanski.gerard.runit.service.search.loader.StringPropertySpliterator;
-import szczepanski.gerard.runit.service.search.loader.WebAlias;
-import szczepanski.gerard.runit.service.search.loader.WebAliasPropertySpliterator;
 import szczepanski.gerard.runit.service.service.Cache;
 import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runit.service.service.SearchTermMatcher;
@@ -64,8 +65,8 @@ public class DependenciesConfig {
 	}
 
 	@Bean
-	public PropertySpliterator<WebAlias> webAliasPropertySpliterator() {
-		return new WebAliasPropertySpliterator();
+	public PropertySpliterator<Alias> webAliasPropertySpliterator() {
+		return new AliasPropertySpliterator();
 	}
 
 	private List<SearchAlgorithm> searchAlgorithms() {
@@ -73,6 +74,7 @@ public class DependenciesConfig {
 
 		searchAlgrithms.add(new FileSearchAlgorithm(searchTermMatcher()));
 		searchAlgrithms.add(new WebAliasSearchAlgorithm(searchTermMatcher()));
+		searchAlgrithms.add(new DirectoryAliasSearchAlgorithm(searchTermMatcher()));
 
 		return searchAlgrithms;
 	}

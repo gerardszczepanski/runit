@@ -15,7 +15,7 @@ public class PropertySettingsLoaderTest {
 	@BeforeTest
 	public void beforeTest() {
 		PropertySpliterator<String> stringPropertySpliterator = Mockito.mock(PropertySpliterator.class);
-		PropertySpliterator<WebAlias> webAliasPropertySpliterator = Mockito.mock(PropertySpliterator.class);
+		PropertySpliterator<Alias> webAliasPropertySpliterator = Mockito.mock(PropertySpliterator.class);
 		settingsLoader = new PropertySettingsLoader(propertiesPath, stringPropertySpliterator,
 				webAliasPropertySpliterator);
 	}
