@@ -7,6 +7,7 @@ import java.util.List;
  * 
  * @author Gerard Szczepanski
  */
+@FunctionalInterface
 public interface PropertySpliterator<T> {
 	
 	String DELIMETER = ";";

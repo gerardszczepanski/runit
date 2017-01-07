@@ -13,15 +13,15 @@ public class ProgramExceptionHandler {
 	
 	public static void handleException(Throwable e) {
 		if (isRunitException(e)) {
-			handle(e);
+			handleProgramException(e);
 		}
 	}
 	
-	private static void handle(Throwable e) {
-		RunitRuntimeException runitException = (RunitRuntimeException) e;
-		
+	private static void handleProgramException(Throwable e) {
 		LOG.debug(String.format("Handle Exception: [%s]", e.getMessage()));
-		e.printStackTrace();
+		
+		RunitRuntimeException runitException = (RunitRuntimeException) e;
+		runitException.printStackTrace();
 		AlertDisplayer.showAlert(runitException.getExceptionCode(), runitException.getMessage());
 	}
 	
