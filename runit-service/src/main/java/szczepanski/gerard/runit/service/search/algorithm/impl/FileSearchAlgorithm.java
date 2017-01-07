@@ -16,6 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import lombok.RequiredArgsConstructor;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.FileResult;
 import szczepanski.gerard.runit.service.result.SearchResult;
@@ -55,8 +56,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		try {
 			findSuitableFiles(rootPath, searchTerm, fileExtensions, suitableFiles);
 		} catch (IOException e) {
-			throw new RunitRuntimeException(
-					String.format("Cannot read files from path %s. Maybe path is invaid?", rootPath));
+			throw new RunitRuntimeException(ExceptionCode.B_003, rootPath);
 		}
 
 		return suitableFiles;

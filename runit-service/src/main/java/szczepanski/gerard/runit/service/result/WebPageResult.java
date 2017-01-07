@@ -6,6 +6,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javafx.scene.image.Image;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
+import szczepanski.gerard.runit.common.exception.RunitBusinessException;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.search.loader.Alias;
 
@@ -20,7 +22,7 @@ public class WebPageResult extends SearchResult {
 
 	private static void isWebAliasValid(Alias alias) {
 		if (alias == null || alias.getName() == null || alias.getValue() == null) {
-			throw new RunitRuntimeException("SearchResult creation failure. WebAlias is broken");
+			throw new RunitBusinessException(ExceptionCode.B_001, new Object[] { alias.getName(), alias.getValue() });
 		}
 	}
 
@@ -35,7 +37,7 @@ public class WebPageResult extends SearchResult {
 		try {
 			return new URI(fullWebAddress);
 		} catch (URISyntaxException e) {
-			throw new RunitRuntimeException("URI can not be created from Web Address: " + webAddress);
+			throw new RunitBusinessException(ExceptionCode.B_002, new Object[] { webAddress });
 		}
 	}
 
@@ -45,7 +47,7 @@ public class WebPageResult extends SearchResult {
 		try {
 			desktop.browse(webAddress);
 		} catch (IOException e) {
-			throw new RunitRuntimeException("URI can not be browsed.");
+			throw new RunitRuntimeException(ExceptionCode.R_006, webAddress);
 		}
 	}
 

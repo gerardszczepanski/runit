@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.program.config.DependenciesConfig;
+import szczepanski.gerard.runit.program.util.ProgramExceptionHandler;
 import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
@@ -28,23 +29,27 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		Thread.setDefaultUncaughtExceptionHandler(Main::handleException);
 		MainSceneFactory mainSceneFactory = ctx.getBean(MainSceneFactory.class);
 
 		SwingUtilities.invokeLater(() -> {
 			ProgramTrayManager.installInSystemTray(primaryStage);
 			ProgramHotKeyListener.getInstance().registerProgramHotKey();
 		});
-		
+
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setTitle(ProgramConfig.PROGRAM_TITLE);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(mainSceneFactory.createComponent());
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH)));
 		primaryStage.show();
-		
 	}
 
-	private static final void initComponents() {
+	private static void handleException(Thread t, Throwable e) {
+		ProgramExceptionHandler.handleException(e);
+	}
+
+	private static void initComponents() {
 		LOG.debug("Loading Spring beans");
 		ctx = new AnnotationConfigApplicationContext(DependenciesConfig.class);
 	}

@@ -9,6 +9,7 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import lombok.RequiredArgsConstructor;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.service.Cache;
@@ -17,7 +18,7 @@ public class SimpleSearchCache implements Cache {
 	private static final Logger LOG = Logger.getLogger(SimpleSearchCache.class);
 
 	private final int cacheLimit;
-	private final int clearCacheHeadSize; 
+	private final int clearCacheHeadSize;
 	private final Queue<CachedSearchResults> cachedSearchResults;
 
 	public SimpleSearchCache(int cacheLimit, double cachePercentageCleaningSize) {
@@ -36,8 +37,7 @@ public class SimpleSearchCache implements Cache {
 
 	private void checkIfCacheContainsSearchTerm(String searchTerm) {
 		if (getFromCache(searchTerm).isPresent()) {
-			throw new RunitRuntimeException(
-					String.format("Not Allowed Cache operation! Trying to add searchTerm: [%s] results that actually are stored in Cache!", searchTerm));
+			throw new RunitRuntimeException(ExceptionCode.R_009, searchTerm);
 		}
 	}
 
@@ -50,13 +50,14 @@ public class SimpleSearchCache implements Cache {
 			}
 		}
 	}
-	
+
 	private boolean isCacheFull() {
 		return cacheLimit == cachedSearchResults.size();
 	}
 
 	private void addToCache(String searchTerm, List<SearchResult> searchResults) {
-		LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache.", searchResults.size(), searchTerm));
+		LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache.", searchResults.size(),
+				searchTerm));
 		CachedSearchResults newCachedSearchResults = new CachedSearchResults(searchTerm, searchResults);
 		cachedSearchResults.add(newCachedSearchResults);
 	}

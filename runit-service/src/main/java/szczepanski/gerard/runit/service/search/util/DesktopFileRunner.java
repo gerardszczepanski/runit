@@ -6,7 +6,8 @@ import java.io.IOException;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
+import szczepanski.gerard.runit.common.exception.RunitBusinessException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DesktopFileRunner {
@@ -16,7 +17,7 @@ public class DesktopFileRunner {
 		try {
 			desktop.open(file);
 		} catch (IOException e) {
-			throw new RunitRuntimeException("File can not be executed.");
+			throw new RunitBusinessException(ExceptionCode.B_004, e);
 		}
 	}
 	

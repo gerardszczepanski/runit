@@ -11,6 +11,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
 
@@ -57,7 +58,7 @@ public class ProgramHotKeyListener implements NativeKeyListener {
 		try {
 			GlobalScreen.registerNativeHook();
 		} catch (NativeHookException e) {
-			throw new RunitRuntimeException("Unable to register hot key listening.");
+			throw new RunitRuntimeException(ExceptionCode.R_001);
 		}
 	}
 

@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -35,7 +36,7 @@ public class ProgramTrayManager {
 			programStage = stage;
 			installStageAsTray();
 		} catch (java.awt.AWTException e) {
-			throw new RunitRuntimeException("Unable to install tray icon", e);
+			throw new RunitRuntimeException(ExceptionCode.R_002, e);
 		}
 	}
 
@@ -89,7 +90,7 @@ public class ProgramTrayManager {
 		try {
 			return ImageIO.read(in);
 		} catch (IOException e) {
-			throw new RunitRuntimeException("Unable to load TrayImage");
+			throw new RunitRuntimeException(ExceptionCode.R_003, e);
 		}
 	}
 

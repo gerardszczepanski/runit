@@ -1,9 +1,7 @@
 package szczepanski.gerard.runit.service.result;
 
-import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 
 import javax.swing.Icon;
@@ -14,6 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.search.util.DesktopFileRunner;
 
@@ -33,7 +32,7 @@ public class FileResult extends SearchResult {
 
 	private static void isFileValid(File file) {
 		if (file == null) {
-			throw new RunitRuntimeException("SearchResult creation failure. Input File is null");
+			throw new RunitRuntimeException(ExceptionCode.R_007);
 		}
 	}
 

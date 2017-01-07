@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.Setter;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.service.result.SearchResult;
 import szczepanski.gerard.runit.service.result.SearchResultRepresentation;
@@ -94,7 +95,7 @@ public class SearchAutocompleteSelect {
 
 	private void checkSearchService() {
 		if (searchService == null) {
-			throw new RunitRuntimeException("Set SearchService before use SearchAutocompleteSelect object!");
+			throw new RunitRuntimeException(ExceptionCode.R_004);
 		}
 	}
 

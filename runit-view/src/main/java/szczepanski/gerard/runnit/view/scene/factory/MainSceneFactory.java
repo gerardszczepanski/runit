@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
 public class MainSceneFactory extends FxmlComponentFactory<Scene> {
@@ -25,7 +26,7 @@ public class MainSceneFactory extends FxmlComponentFactory<Scene> {
 			rootLayout = (Pane) loader.load();
 			return new Scene(rootLayout);
 		} catch (IOException e) {
-			throw new RunitRuntimeException("Unable to load MainScene", e);
+			throw new RunitRuntimeException(ExceptionCode.R_005, e);
 		}
 	}
 

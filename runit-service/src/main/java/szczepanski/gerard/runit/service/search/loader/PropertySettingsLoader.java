@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import lombok.RequiredArgsConstructor;
+import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
 /**
@@ -55,7 +56,7 @@ public class PropertySettingsLoader implements SettingsLoader {
 			in.close();
 			return properties;
 		} catch (IOException e) {
-			throw new RunitRuntimeException(e);
+			throw new RunitRuntimeException(ExceptionCode.R_008, e);
 		}
 	}
 
