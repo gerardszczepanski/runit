@@ -69,8 +69,27 @@ public class SearchAutocompleteSelect {
 		displaySearchResults(searchResults);
 	}
 
+	private void triggerRun() {
+		if (isOnlyOneSearchResult()) {
+			markOnlyOneMatchSelected();
+		}
+		runSelected();
+	}
+
+	private boolean isOnlyOneSearchResult() {
+		return innerSelect.getItems().size() == 1;
+	}
+
+	private void markOnlyOneMatchSelected() {
+		innerSelect.getSelectionModel().select(0);
+	}
+
 	private void runSelected() {
 		SearchResult triggeredSearchResult = innerSelect.getSelectionModel().getSelectedItem();
+		runSearchResult(triggeredSearchResult);
+	}
+
+	private void runSearchResult(SearchResult triggeredSearchResult) {
 		if (triggeredSearchResult != null) {
 			ProgramTrayManager.hideProgramStage();
 			triggeredSearchResult.run();
@@ -83,14 +102,25 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void displaySearchResults(List<SearchResult> searchResults) {
-		innerSelect.hide();
-		innerSelect.getItems().clear(); 
-		innerSelect.getItems().clear(); //This is required to fix Javafx combobox issue -> List is not always cleared at the first time
+		clearSelectOptions();
 		innerSelect.getItems().addAll(searchResults);
 
 		if (!searchResults.isEmpty()) {
 			innerSelect.show();
 		}
+	}
+	
+	private void clear() {
+		clearSelectOptions();
+		innerSelect.getEditor().clear();
+	}
+	
+	private void clearSelectOptions() {
+		innerSelect.hide();
+		innerSelect.getItems().clear();
+		innerSelect.getItems().clear(); // This is required to fix Javafx
+										// combobox issue -> List is not always
+										// cleared at the first time
 	}
 
 	private void checkSearchService() {
@@ -110,7 +140,13 @@ public class SearchAutocompleteSelect {
 
 		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
-				runSelected();
+				triggerRun();
+			}
+		});
+		
+		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+			if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
+				clear();
 			}
 		});
 
@@ -124,7 +160,6 @@ public class SearchAutocompleteSelect {
 
 		pane.getChildren().add(innerSelect);
 	}
-
 
 	/**
 	 * Inner static class for SearchAutocompleteSelect.
@@ -191,8 +226,12 @@ public class SearchAutocompleteSelect {
 		public boolean isKeyAllowedForRun(KeyCode keyCode) {
 			return keyCode == KeyCode.ENTER;
 		}
+		
+		public boolean isKeyAllowedForClear(KeyCode keyCode) {
+			return keyCode == KeyCode.ESCAPE;
+		}
 	}
-	
+
 	private static class InnerSelectCallback implements Callback<ListView<SearchResult>, ListCell<SearchResult>> {
 		@Override
 		public ListCell<SearchResult> call(ListView<SearchResult> l) {
@@ -202,8 +241,7 @@ public class SearchAutocompleteSelect {
 					super.updateItem(item, empty);
 
 					if (!isEmpty()) {
-						SearchResultRepresentation searchResultRepresentation = item
-								.getSearchResultRepresentation();
+						SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
 						setGraphic(new ImageView(searchResultRepresentation.getImage()));
 						setText(searchResultRepresentation.getSearchresultTitle());
 					}
@@ -211,9 +249,9 @@ public class SearchAutocompleteSelect {
 			};
 		}
 	};
-	
+
 	private class InnerSelectStringConverter extends StringConverter<SearchResult> {
-		
+
 		@Override
 		public String toString(SearchResult object) {
 			return object == null ? null : object.toString();
@@ -223,9 +261,8 @@ public class SearchAutocompleteSelect {
 		public SearchResult fromString(String string) {
 			return innerSelect.getItems().stream()
 					.filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string))
-					.findFirst()
-					.orElse(null);
+					.findFirst().orElse(null);
 		}
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 * {
 	-fx-panel-button-color: #2E5266;
+	-fx-select-selection-color: #FF6A33;
 }
 
 .close-button{
@@ -22,3 +23,13 @@
 	-fx-background-image: url("../images/background.png"); 
 }
 
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background: -fx-select-selection-color;
+     -fx-background-color: -fx-select-selection-color;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+	-fx-background-color: -fx-select-selection-color;
+}
