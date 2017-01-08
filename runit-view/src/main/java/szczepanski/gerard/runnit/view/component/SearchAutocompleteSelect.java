@@ -102,19 +102,23 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void displaySearchResults(List<SearchResult> searchResults) {
-		clearSelectOptions();
+		innerSelect.hide();
+		innerSelect.getItems().clear();
+		innerSelect.getItems().clear(); // This code must be duplicated here
+										// (clearSelectOptions()). Otherwise it
+										// does not clear list every time.
 		innerSelect.getItems().addAll(searchResults);
 
 		if (!searchResults.isEmpty()) {
 			innerSelect.show();
 		}
 	}
-	
+
 	private void clear() {
 		clearSelectOptions();
 		innerSelect.getEditor().clear();
 	}
-	
+
 	private void clearSelectOptions() {
 		innerSelect.hide();
 		innerSelect.getItems().clear();
@@ -143,7 +147,7 @@ public class SearchAutocompleteSelect {
 				triggerRun();
 			}
 		});
-		
+
 		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
 				clear();
@@ -226,7 +230,7 @@ public class SearchAutocompleteSelect {
 		public boolean isKeyAllowedForRun(KeyCode keyCode) {
 			return keyCode == KeyCode.ENTER;
 		}
-		
+
 		public boolean isKeyAllowedForClear(KeyCode keyCode) {
 			return keyCode == KeyCode.ESCAPE;
 		}
