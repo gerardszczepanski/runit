@@ -6,19 +6,37 @@
 		<artifactId>runit-parent</artifactId>
 		<version>0.6</version>
 	</parent>
-	<artifactId>runit-view</artifactId>
+	<artifactId>runit-search-service</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>szczepanski.gerard</groupId>
-			<artifactId>runit-search-service</artifactId>
+			<artifactId>runit-common</artifactId>
 			<version>${program.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>szczepanski.gerard</groupId>
 			<artifactId>runit-settings-service</artifactId>
 			<version>${program.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.10</version>
 		</dependency>
 	</dependencies>
 </project>

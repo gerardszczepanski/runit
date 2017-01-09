@@ -18,8 +18,8 @@ import javafx.util.StringConverter;
 import lombok.Setter;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runit.service.result.SearchResult;
-import szczepanski.gerard.runit.service.result.SearchResultRepresentation;
+import szczepanski.gerard.runit.search.service.result.SearchResult;
+import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
 
