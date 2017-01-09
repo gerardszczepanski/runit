@@ -20,11 +20,15 @@ import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 import szczepanski.gerard.runit.settings.service.loader.impl.PropertySettingsLoader;
+import szczepanski.gerard.runit.settings.service.service.SettingsWriter;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.AliasPropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.StringPropertySpliterator;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
+import szczepanski.gerard.runnit.view.controller.SettingsSceneController;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
+import szczepanski.gerard.runnit.view.scene.factory.SettingsSceneFactory;
+import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
 
 @Configuration
 public class DependenciesConfig {
@@ -36,7 +40,27 @@ public class DependenciesConfig {
 
 	@Bean
 	public MainSceneController mainSceneController() {
-		return new MainSceneController(searchService());
+		return new MainSceneController(searchService(), settingsStagePresenter());
+	}
+	
+	@Bean 
+	public SettingsStagePresenter settingsStagePresenter() {
+		return new SettingsStagePresenter(settingsSceneFactory());
+	}
+	
+	@Bean
+	public SettingsSceneFactory settingsSceneFactory() {
+		return new SettingsSceneFactory(settingsSceneController());
+	}
+	
+	@Bean
+	public SettingsSceneController settingsSceneController() {
+		return new SettingsSceneController(settingsLoader(), settingsWriter());
+	}
+	
+	@Bean
+	public SettingsWriter settingsWriter() {
+		return null; //Temporary
 	}
 
 	@Bean

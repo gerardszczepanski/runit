@@ -10,6 +10,7 @@ import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runnit.view.component.Dimension;
 import szczepanski.gerard.runnit.view.component.Position;
 import szczepanski.gerard.runnit.view.component.SearchAutocompleteSelect;
+import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
 import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
 
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class MainSceneController {
 	private static final Logger LOG = Logger.getLogger(MainSceneController.class);
 	
 	private final SearchService searchService;
+	private final SettingsStagePresenter settingsStagePresenter;
 	private SearchAutocompleteSelect searchAutocompleteSelect;
 	
 	@FXML
@@ -35,6 +37,12 @@ public class MainSceneController {
 	public void handleCloseButton() {
 		LOG.debug("handleCloseButton");
 		ProgramTrayManager.hideProgramStage();
+	}
+	
+	@FXML
+	public void handleShowSettingsButton() {
+		LOG.debug("handleShowSettingsButton");
+		settingsStagePresenter.showSettingsStageInNewWindow();
 	}
 	
 }

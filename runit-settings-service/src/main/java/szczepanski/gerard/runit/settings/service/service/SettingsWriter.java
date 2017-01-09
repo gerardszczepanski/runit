@@ -10,4 +10,6 @@ public interface SettingsWriter {
 	
 	//TODO methods for save settings
 	
+	void restoreDefaultSettings();
+	
 }

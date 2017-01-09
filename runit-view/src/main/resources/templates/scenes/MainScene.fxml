@@ -6,5 +6,6 @@
 <Pane maxHeight="80.0" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" style="-fx-border-color: #FFFFFF;" styleClass="main-panel" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="closeButton" layoutX="378.0" layoutY="6.0" maxHeight="16.0" maxWidth="16.0" minHeight="16.0" minWidth="16.0" mnemonicParsing="false" onAction="#handleCloseButton" prefHeight="16.0" prefWidth="16.0" styleClass="close-button" stylesheets="@../../styles/style.css" textFill="WHITE" />
+      <Button layoutX="350.0" layoutY="6.0" maxHeight="25.0" maxWidth="16.0" minHeight="16.0" minWidth="16.0" mnemonicParsing="false" onAction="#handleShowSettingsButton" prefHeight="16.0" prefWidth="25.0" styleClass="settings-button" stylesheets="@../../styles/style.css" textFill="WHITE" />
    </children>
 </Pane>
