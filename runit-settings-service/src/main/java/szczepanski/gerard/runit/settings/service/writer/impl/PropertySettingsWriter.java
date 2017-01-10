@@ -44,10 +44,7 @@ public class PropertySettingsWriter implements SettingsWriter {
 	}
 
 	private void writeProperties(Properties properties) throws IOException, URISyntaxException {
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		URL url = loader.getResource(propertiesPath);
-		File file = new File(url.toURI());
-		FileOutputStream out = new FileOutputStream(file);
+		FileOutputStream out = new FileOutputStream(propertiesPath);
 		properties.store(out, "Update properties");
 		out.close();
 	}
