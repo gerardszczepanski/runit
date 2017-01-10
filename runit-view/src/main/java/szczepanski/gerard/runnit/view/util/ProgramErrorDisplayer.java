@@ -1,4 +1,4 @@
-package szczepanski.gerard.runnit.view.scene.util;
+package szczepanski.gerard.runnit.view.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AlertDisplayer {
+public class ProgramErrorDisplayer {
 	
 	private static final String TITLE = "Runit Error";
-	private static final Image ALERT_ICON = new Image(AlertDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
+	private static final Image ALERT_ICON = new Image(ProgramErrorDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
 	
-	public static void showAlert(String code, String message) {
+	public static void showError(String code, String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(TITLE);
 		alert.setGraphic(new ImageView(ALERT_ICON));

@@ -1,4 +1,4 @@
-package szczepanski.gerard.runnit.view.scene.util;
+package szczepanski.gerard.runnit.view.util;
 
 import java.awt.AWTException;
 import java.awt.Dimension;

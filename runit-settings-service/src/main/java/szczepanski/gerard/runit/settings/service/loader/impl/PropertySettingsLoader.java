@@ -12,6 +12,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 
 /**
@@ -23,14 +24,8 @@ import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator
 public class PropertySettingsLoader implements SettingsLoader {
 	private static final Logger LOG = Logger.getLogger(PropertySettingsLoader.class);
 
-	private static final String ROOT_DIRECTORIES_KEY = "root.directories";
-	private static final String FILE_EXTENSIONS_KEY = "file.extensions";
-	private static final String WEB_ALIASES_KEY = "web.aliases";
-	private static final String DIRECTORIES_ALIASES_KEY = "dir.aliases";
-
 	private final String propertiesPath;
-	private final PropertySpliterator<String> stringPropertySpliterator;
-	private final PropertySpliterator<Alias> aliasPropertySpliterator;
+	private final SettingsPropertiesMapper settingsPropertiesMapper;
 	
 	private Settings currentSettings;
 	private boolean isSettingsActual;
@@ -47,7 +42,7 @@ public class PropertySettingsLoader implements SettingsLoader {
 	
 	private void reloadSettings() {
 		Properties properties = loadProperties();
-		currentSettings = loadSettingsFromProperties(properties);
+		currentSettings = settingsPropertiesMapper.toSettings(properties);
 		isSettingsActual = true;
 	}
 
@@ -62,15 +57,6 @@ public class PropertySettingsLoader implements SettingsLoader {
 		} catch (IOException e) {
 			throw new RunitRuntimeException(ExceptionCode.R_008, e);
 		}
-	}
-
-	private Settings loadSettingsFromProperties(Properties properties) {
-		return Settings.builder()
-					.rootDirectioresToScan(stringPropertySpliterator.fromPropertyString(properties.getProperty(ROOT_DIRECTORIES_KEY)))
-					.fileExtensions(stringPropertySpliterator.fromPropertyString(properties.getProperty(FILE_EXTENSIONS_KEY)))
-					.webAliases(aliasPropertySpliterator.fromPropertyString(properties.getProperty(WEB_ALIASES_KEY)))
-					.dirAliases(aliasPropertySpliterator.fromPropertyString(properties.getProperty(DIRECTORIES_ALIASES_KEY)))
-					.build();
 	}
 
 	@Override

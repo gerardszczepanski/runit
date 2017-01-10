@@ -22,10 +22,14 @@ import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 import szczepanski.gerard.runit.settings.service.loader.impl.PropertySettingsLoader;
-import szczepanski.gerard.runit.settings.service.service.SettingsWriter;
+import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.AliasPropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.StringPropertySpliterator;
+import szczepanski.gerard.runit.settings.service.validator.Validator;
+import szczepanski.gerard.runit.settings.service.validator.impl.FileExtensionValidator;
+import szczepanski.gerard.runit.settings.service.validator.impl.RootPathValidator;
+import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
 import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
@@ -46,54 +50,66 @@ public class DependenciesConfig {
 	public MainSceneController mainSceneController() {
 		return new MainSceneController(searchService(), settingsStagePresenter());
 	}
-	
-	@Bean 
+
+	@Bean
 	public SettingsStagePresenter settingsStagePresenter() {
 		return new SettingsStagePresenter(settingsSceneFactory());
 	}
-	
+
 	@Bean
 	public SettingsSceneFactory settingsSceneFactory() {
 		return new SettingsSceneFactory(settingsTabFactories());
 	}
-	
-	@Bean 
+
+	@Bean
 	public Collection<FxmlComponentFactory<Tab>> settingsTabFactories() {
 		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>();
 		tabFactories.add(settingsGeneralTabFactory());
 		return tabFactories;
 	}
-	
+
 	@Bean
 	public SettingsGeneralTabFactory settingsGeneralTabFactory() {
 		return new SettingsGeneralTabFactory(settingsGeneralPaneTabController());
 	}
-	
+
 	@Bean
 	public SettingsGeneralPaneTabController settingsGeneralPaneTabController() {
-		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter());
+		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), rootPathValidator(),
+				fileExtensionValidator());
 	}
-	
+
 	@Bean
 	public SettingsWriter settingsWriter() {
-		return null; //Temporary
+		return null; // Temporary
+	}
+
+	@Bean
+	public Validator<String> rootPathValidator() {
+		return new RootPathValidator();
+	}
+
+	@Bean
+	public Validator<String> fileExtensionValidator() {
+		return new FileExtensionValidator();
 	}
 
 	@Bean
 	public SearchService searchService() {
-		return SearchServiceImpl.builder()
-								.searchAlgorithms(searchAlgorithms())
-								.settingsLoader(settingsLoader())
-								.cache(cache())
-								.build();
+		return SearchServiceImpl.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader())
+				.cache(cache()).build();
 	}
 
 	@Bean
 	public SettingsLoader settingsLoader() {
-		return new PropertySettingsLoader(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, stringPropertySpliterator(),
-				webAliasPropertySpliterator());
+		return new PropertySettingsLoader(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper());
 	}
-	
+
+	@Bean
+	public SettingsPropertiesMapper settingsPropertiesMapper() {
+		return new SettingsPropertiesMapper(stringPropertySpliterator(), webAliasPropertySpliterator());
+	}
+
 	@Bean
 	public Cache cache() {
 		return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
@@ -118,10 +134,10 @@ public class DependenciesConfig {
 
 		return searchAlgrithms;
 	}
-	
+
 	@Bean
 	public SearchTermMatcher searchTermMatcher() {
 		return new SimpleSearchTermMatcher();
 	}
-	
+
 }

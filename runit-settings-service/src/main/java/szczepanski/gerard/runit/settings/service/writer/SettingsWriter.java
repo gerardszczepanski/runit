@@ -1,4 +1,6 @@
-package szczepanski.gerard.runit.settings.service.service;
+package szczepanski.gerard.runit.settings.service.writer;
+
+import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
  * THis interface is responsible for Save Settings.
@@ -8,7 +10,7 @@ package szczepanski.gerard.runit.settings.service.service;
  */
 public interface SettingsWriter {
 	
-	//TODO methods for save settings
+	void updateSettings(Settings newSettings);
 	
 	void restoreDefaultSettings();
 	

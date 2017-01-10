@@ -18,7 +18,7 @@ import szczepanski.gerard.runit.program.util.ProgramExceptionHandler;
 import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runit.program.util.ProgramWindowMoveListener;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
-import szczepanski.gerard.runnit.view.scene.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
 
 public class Main extends Application {
 	private static final Logger LOG = Logger.getLogger(Main.class);

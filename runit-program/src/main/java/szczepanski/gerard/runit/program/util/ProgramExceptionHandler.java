@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runnit.view.scene.util.AlertDisplayer;
+import szczepanski.gerard.runnit.view.util.ProgramErrorDisplayer;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramExceptionHandler {
@@ -22,7 +22,7 @@ public class ProgramExceptionHandler {
 	
 	private static void handleProgramException(Throwable e) {
 		RunitRuntimeException runitException = (RunitRuntimeException) e;
-		AlertDisplayer.showAlert(runitException.getExceptionCode(), runitException.getMessage());
+		ProgramErrorDisplayer.showError(runitException.getExceptionCode(), runitException.getMessage());
 	}
 	
 	private static boolean isRunitException(Throwable e) {
