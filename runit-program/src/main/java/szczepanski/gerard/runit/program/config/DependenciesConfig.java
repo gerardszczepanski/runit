@@ -107,5 +107,5 @@ public class DependenciesConfig {
 	public SearchTermMatcher searchTermMatcher() {
 		return new SimpleSearchTermMatcher();
 	}
-
+	
 }

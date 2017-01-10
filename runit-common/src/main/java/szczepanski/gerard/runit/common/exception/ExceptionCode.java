@@ -25,6 +25,7 @@ public enum ExceptionCode {
 	R_007("R-007", "SearchResult creation failure. Input File is empty"),
 	R_008("R-008", "Can not read Settings"),
 	R_009("R-009", "Not allowed Cache operation! Trying to add searchTerm: [%s] results that actually are stored in Cache!"),
+	R_010("R-010", "App components are not ready to work"), 
 	
 	B_001("B-001", "SearchResult creation failure. Alias is broken: alias [%s], value [%s]"),
 	B_002("B-002", "URI can not be created from Web Address: %s. URI is broken."),

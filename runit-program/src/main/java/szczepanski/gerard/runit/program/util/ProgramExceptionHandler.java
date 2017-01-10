@@ -12,16 +12,16 @@ public class ProgramExceptionHandler {
 	private static final Logger LOG = Logger.getLogger(ProgramExceptionHandler.class);
 	
 	public static void handleException(Throwable e) {
+		LOG.debug(String.format("Handle Exception: [%s]", e.getMessage()));
+		e.printStackTrace();
+		
 		if (isRunitException(e)) {
 			handleProgramException(e);
-		}
+		} 
 	}
 	
 	private static void handleProgramException(Throwable e) {
-		LOG.debug(String.format("Handle Exception: [%s]", e.getMessage()));
-		
 		RunitRuntimeException runitException = (RunitRuntimeException) e;
-		runitException.printStackTrace();
 		AlertDisplayer.showAlert(runitException.getExceptionCode(), runitException.getMessage());
 	}
 	

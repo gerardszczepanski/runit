@@ -58,5 +58,5 @@ public class Main extends Application {
 		LOG.debug("Loading Spring beans");
 		ctx = new AnnotationConfigApplicationContext(DependenciesConfig.class);
 	}
-
+	
 }
