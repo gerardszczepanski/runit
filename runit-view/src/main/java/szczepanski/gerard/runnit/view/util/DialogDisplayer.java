@@ -3,6 +3,7 @@ package szczepanski.gerard.runnit.view.util;
 import java.util.Optional;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.control.TextInputDialog;
@@ -43,6 +44,7 @@ public class DialogDisplayer {
 		Alert validationDialogAlert = new Alert(AlertType.CONFIRMATION);
 		validationDialogAlert.setTitle("Confirmation");
 		validationDialogAlert.setHeaderText(message);
+		validationDialogAlert.getButtonTypes().remove(ButtonType.CANCEL);
 		
 		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(ICON);
