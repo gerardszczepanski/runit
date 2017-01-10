@@ -38,5 +38,16 @@ public class DialogDisplayer {
 
 		validationDialogAlert.showAndWait();
 	}
+	
+	public static void showConfirmationMessageDialog(String message) {
+		Alert validationDialogAlert = new Alert(AlertType.CONFIRMATION);
+		validationDialogAlert.setTitle("Confirmation");
+		validationDialogAlert.setHeaderText(message);
+		
+		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(ICON);
+
+		validationDialogAlert.showAndWait();
+	}
 
 }

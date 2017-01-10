@@ -115,9 +115,13 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 	@FXML
 	public void handleSaveGeneralTab() {
 		LOG.debug("handleSaveGeneralTab");
+		
 		Settings actualSettings = settingsLoader.loadSettings();
 		Settings newSettings = createNewSettings(actualSettings);
 		settingsWriter.updateSettings(newSettings);
+		
+		DialogDisplayer.showConfirmationMessageDialog("Settings are successfully saved!");
+		handleCancelButton();
 	}
 	
 	private Settings createNewSettings(Settings actualSettings) {

@@ -19,6 +19,9 @@ import szczepanski.gerard.runit.service.search.algorithm.impl.WebAliasSearchAlgo
 import szczepanski.gerard.runit.service.service.Cache;
 import szczepanski.gerard.runit.service.service.SearchService;
 import szczepanski.gerard.runit.service.service.SearchTermMatcher;
+import szczepanski.gerard.runit.settings.service.concator.PropertyConcator;
+import szczepanski.gerard.runit.settings.service.concator.impl.AliasPropertyConcator;
+import szczepanski.gerard.runit.settings.service.concator.impl.StringPropertyConcator;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 import szczepanski.gerard.runit.settings.service.loader.impl.PropertySettingsLoader;
@@ -30,6 +33,7 @@ import szczepanski.gerard.runit.settings.service.validator.Validator;
 import szczepanski.gerard.runit.settings.service.validator.impl.FileExtensionValidator;
 import szczepanski.gerard.runit.settings.service.validator.impl.RootPathValidator;
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
+import szczepanski.gerard.runit.settings.service.writer.impl.PropertySettingsWriter;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
 import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
@@ -81,7 +85,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsWriter settingsWriter() {
-		return null; // Temporary
+		return new PropertySettingsWriter(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper(), settingsLoader()); 
 	}
 
 	@Bean
@@ -107,7 +111,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsPropertiesMapper settingsPropertiesMapper() {
-		return new SettingsPropertiesMapper(stringPropertySpliterator(), webAliasPropertySpliterator());
+		return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(), stringPropertyConcator(), aliasPropertyConcator());
 	}
 
 	@Bean
@@ -121,8 +125,18 @@ public class DependenciesConfig {
 	}
 
 	@Bean
-	public PropertySpliterator<Alias> webAliasPropertySpliterator() {
+	public PropertySpliterator<Alias> aliasPropertySpliterator() {
 		return new AliasPropertySpliterator();
+	}
+	
+	@Bean
+	public PropertyConcator<String> stringPropertyConcator() {
+		return new StringPropertyConcator();
+	}
+
+	@Bean
+	public PropertyConcator<Alias> aliasPropertyConcator() {
+		return new AliasPropertyConcator();
 	}
 
 	private List<SearchAlgorithm> searchAlgorithms() {

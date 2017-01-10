@@ -1,5 +1,6 @@
 package szczepanski.gerard.runit.settings.service.writer;
 
+import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
@@ -10,7 +11,7 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
  */
 public interface SettingsWriter {
 	
-	void updateSettings(Settings newSettings);
+	void updateSettings(Settings newSettings) throws RunitRuntimeException;
 	
 	void restoreDefaultSettings();
 	
