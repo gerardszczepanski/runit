@@ -1,11 +1,13 @@
 package szczepanski.gerard.runit.program.config;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javafx.scene.control.Tab;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.service.impl.SearchServiceImpl;
@@ -25,10 +27,12 @@ import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator
 import szczepanski.gerard.runit.settings.service.spliterator.impl.AliasPropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.StringPropertySpliterator;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
-import szczepanski.gerard.runnit.view.controller.SettingsSceneController;
+import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
+import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
+import szczepanski.gerard.runnit.view.tab.factory.SettingsGeneralTabFactory;
 
 @Configuration
 public class DependenciesConfig {
@@ -50,12 +54,24 @@ public class DependenciesConfig {
 	
 	@Bean
 	public SettingsSceneFactory settingsSceneFactory() {
-		return new SettingsSceneFactory(settingsSceneController());
+		return new SettingsSceneFactory(settingsTabFactories());
+	}
+	
+	@Bean 
+	public Collection<FxmlComponentFactory<Tab>> settingsTabFactories() {
+		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>();
+		tabFactories.add(settingsGeneralTabFactory());
+		return tabFactories;
 	}
 	
 	@Bean
-	public SettingsSceneController settingsSceneController() {
-		return new SettingsSceneController(settingsLoader(), settingsWriter());
+	public SettingsGeneralTabFactory settingsGeneralTabFactory() {
+		return new SettingsGeneralTabFactory(settingsGeneralPaneTabController());
+	}
+	
+	@Bean
+	public SettingsGeneralPaneTabController settingsGeneralPaneTabController() {
+		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter());
 	}
 	
 	@Bean

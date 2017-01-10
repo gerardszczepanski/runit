@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 
 public class MainSceneFactory extends FxmlComponentFactory<Scene> {
 	private static final String PATH = "/templates/scenes/MainScene.fxml";

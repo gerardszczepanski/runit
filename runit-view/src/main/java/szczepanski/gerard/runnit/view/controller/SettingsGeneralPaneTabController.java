@@ -5,16 +5,18 @@ import org.apache.log4j.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 import szczepanski.gerard.runit.settings.service.service.SettingsWriter;
 
 
+@RequiredArgsConstructor
 public class SettingsGeneralPaneTabController {
 	private static final Logger LOG = Logger.getLogger(SettingsGeneralPaneTabController.class);
 	
-	private SettingsLoader settingsLoader; 
-	private SettingsWriter settingsWriter;
+	private final SettingsLoader settingsLoader; 
+	private final SettingsWriter settingsWriter;
 	
 	@FXML
 	private ListView<String> rootPathsListView;
@@ -25,9 +27,9 @@ public class SettingsGeneralPaneTabController {
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
-		//Settings settings = settingsLoader.loadSettings();
-		//updateRootPaths(settings);
-		//updateFileExtensions(settings);
+		Settings settings = settingsLoader.loadSettings();
+		updateRootPaths(settings);
+		updateFileExtensions(settings);
 	}
 	
 	private void updateRootPaths(Settings settings) {

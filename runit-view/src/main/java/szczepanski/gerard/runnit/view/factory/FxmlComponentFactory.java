@@ -1,4 +1,4 @@
-package szczepanski.gerard.runnit.view.scene.factory;
+package szczepanski.gerard.runnit.view.factory;
 
 import org.apache.log4j.Logger;
 
