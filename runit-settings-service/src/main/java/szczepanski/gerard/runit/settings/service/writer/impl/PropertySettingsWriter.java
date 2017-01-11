@@ -1,10 +1,8 @@
 package szczepanski.gerard.runit.settings.service.writer.impl;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
