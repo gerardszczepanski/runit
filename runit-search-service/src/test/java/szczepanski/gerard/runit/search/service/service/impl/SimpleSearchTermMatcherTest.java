@@ -42,7 +42,11 @@ public class SimpleSearchTermMatcherTest {
 	        	{ "go", "google" },
 	        	{ "goo", "google chrome" }, 
 	        	{ "googl", "google chrome two two" },
-	        	{ "google", "google" }
+	        	{ "google", "google" },
+	        	{ "google", "hello google" },
+	        	{ "google", "hello world google" },
+	        	{ "world", "hello world google" },
+	        	{ "hello", "hello world google" },
 	        };
 	    }
 	 
