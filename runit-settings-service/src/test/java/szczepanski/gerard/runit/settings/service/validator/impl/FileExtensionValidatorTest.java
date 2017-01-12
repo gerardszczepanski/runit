@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.settings.service.writer.impl;
+package szczepanski.gerard.runit.settings.service.validator.impl;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;

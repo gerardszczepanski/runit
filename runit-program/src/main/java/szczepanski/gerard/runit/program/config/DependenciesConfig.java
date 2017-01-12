@@ -32,15 +32,18 @@ import szczepanski.gerard.runit.settings.service.spliterator.impl.StringProperty
 import szczepanski.gerard.runit.settings.service.validator.Validator;
 import szczepanski.gerard.runit.settings.service.validator.impl.FileExtensionValidator;
 import szczepanski.gerard.runit.settings.service.validator.impl.RootPathValidator;
+import szczepanski.gerard.runit.settings.service.validator.impl.WebAliasValidator;
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runit.settings.service.writer.impl.PropertySettingsWriter;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
 import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
+import szczepanski.gerard.runnit.view.controller.SettingsWebPaneTabController;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsGeneralTabFactory;
+import szczepanski.gerard.runnit.view.tab.factory.SettingsWebTabFactory;
 
 @Configuration
 public class DependenciesConfig {
@@ -69,6 +72,7 @@ public class DependenciesConfig {
 	public Collection<FxmlComponentFactory<Tab>> settingsTabFactories() {
 		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>();
 		tabFactories.add(settingsGeneralTabFactory());
+		tabFactories.add(settingsWebTabFactory());
 		return tabFactories;
 	}
 
@@ -81,6 +85,16 @@ public class DependenciesConfig {
 	public SettingsGeneralPaneTabController settingsGeneralPaneTabController() {
 		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), rootPathValidator(),
 				fileExtensionValidator());
+	}
+	
+	@Bean
+	public SettingsWebTabFactory settingsWebTabFactory() {
+		return new SettingsWebTabFactory(settingsWebPaneTabController());
+	}
+	
+	@Bean
+	public SettingsWebPaneTabController settingsWebPaneTabController() {
+		return new SettingsWebPaneTabController(settingsLoader(), settingsWriter(), webAliasValidator());
 	}
 
 	@Bean
@@ -96,6 +110,11 @@ public class DependenciesConfig {
 	@Bean
 	public Validator<String> fileExtensionValidator() {
 		return new FileExtensionValidator();
+	}
+	
+	@Bean
+	public Validator<Alias> webAliasValidator() {
+		return new WebAliasValidator();
 	}
 
 	@Bean

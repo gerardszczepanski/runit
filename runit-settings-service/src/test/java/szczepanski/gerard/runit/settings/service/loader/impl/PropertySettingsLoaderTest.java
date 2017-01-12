@@ -24,7 +24,7 @@ public class PropertySettingsLoaderTest {
 		settingsLoader = new PropertySettingsLoader(propertiesPath, settingsPropertiesMapper);
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void loadPropertiesSuccess() {
 		//Arrange
 		Settings loadedSettings = Settings.builder().build();
