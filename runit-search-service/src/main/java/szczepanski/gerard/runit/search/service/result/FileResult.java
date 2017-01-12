@@ -18,6 +18,7 @@ import szczepanski.gerard.runit.search.service.util.DesktopFileRunner;
 
 /**
  * Represents File found by {@code SearchService}.
+ * 
  * @author Gerard Szczepanski
  *
  */
@@ -75,13 +76,12 @@ public class FileResult extends SearchResult {
 				java.awt.Image imageFromFile = ((ImageIcon) iconFromFile).getImage();
 				BufferedImage bufferedImageFromFile = (BufferedImage) imageFromFile;
 				Image imageForFileResult = SwingFXUtils.toFXImage(bufferedImageFromFile, null);
-				
+
 				return Optional.of(imageForFileResult);
 			} catch (ClassCastException e) {
 				return Optional.empty();
 			}
 		}
-
 	}
 
 }
