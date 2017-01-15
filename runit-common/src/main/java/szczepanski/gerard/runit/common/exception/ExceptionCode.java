@@ -23,7 +23,7 @@ public enum ExceptionCode {
 	R_005("R-005", "App graphics can not be loaded"),
 	R_006("R-006", "URI %s can not be browsed"),
 	R_007("R-007", "SearchResult creation failure. Input File is empty"),
-	R_008("R-008", "Can not read Settings"),
+	R_008("R-008", "Can not read Settings. Make sure that program folder contains settings file."),
 	R_009("R-009", "Not allowed Cache operation! Trying to add searchTerm: [%s] results that actually are stored in Cache!"),
 	R_010("R-010", "App components are not ready to work"),
 	R_011("R-011", "Can not save Settings"),

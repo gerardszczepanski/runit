@@ -15,8 +15,8 @@
       <Button layoutX="509.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="31.0" prefWidth="78.0" text="Cancel" />
       <TableView fx:id="webAliasTableView" layoutX="14.0" layoutY="49.0" prefHeight="227.0" prefWidth="573.0">
         <columns>
-          <TableColumn prefWidth="125.0" text="Alias" />
-          <TableColumn prefWidth="375.0" text="Page" />
+          <TableColumn fx:id="aliasColumn" prefWidth="196.0" text="Alias" />
+          <TableColumn fx:id="webAddressColumn" prefWidth="376.0" text="Web Address" />
         </columns>
       </TableView>
    </children>
