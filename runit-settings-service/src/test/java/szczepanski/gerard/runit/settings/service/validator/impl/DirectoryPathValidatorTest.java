@@ -6,15 +6,15 @@ import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.common.exception.RunitValidationException;
 import szczepanski.gerard.runit.settings.service.validator.Validator;
-import szczepanski.gerard.runit.settings.service.validator.impl.RootPathValidator;
+import szczepanski.gerard.runit.settings.service.validator.impl.DirectoryPathValidator;
 
-public class RootPathValidatorTest {
+public class DirectoryPathValidatorTest {
 
 	Validator<String> validator;
 
 	@BeforeTest
 	public void beforeTest() {
-		validator = new RootPathValidator();
+		validator = new DirectoryPathValidator();
 	}
 
 	@Test(dataProvider = "validRootPathProvider")

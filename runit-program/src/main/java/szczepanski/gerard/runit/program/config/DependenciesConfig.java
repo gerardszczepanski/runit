@@ -30,18 +30,21 @@ import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator
 import szczepanski.gerard.runit.settings.service.spliterator.impl.AliasPropertySpliterator;
 import szczepanski.gerard.runit.settings.service.spliterator.impl.StringPropertySpliterator;
 import szczepanski.gerard.runit.settings.service.validator.Validator;
+import szczepanski.gerard.runit.settings.service.validator.impl.DirectoryAliasValidator;
+import szczepanski.gerard.runit.settings.service.validator.impl.DirectoryPathValidator;
 import szczepanski.gerard.runit.settings.service.validator.impl.FileExtensionValidator;
-import szczepanski.gerard.runit.settings.service.validator.impl.RootPathValidator;
 import szczepanski.gerard.runit.settings.service.validator.impl.WebAliasValidator;
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runit.settings.service.writer.impl.PropertySettingsWriter;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
+import szczepanski.gerard.runnit.view.controller.SettingsDirectoriesPaneTabController;
 import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
 import szczepanski.gerard.runnit.view.controller.SettingsWebPaneTabController;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
+import szczepanski.gerard.runnit.view.tab.factory.SettingsDirTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsGeneralTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsWebTabFactory;
 
@@ -73,6 +76,7 @@ public class DependenciesConfig {
 		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>();
 		tabFactories.add(settingsGeneralTabFactory());
 		tabFactories.add(settingsWebTabFactory());
+		tabFactories.add(settingsDirTabFactory());
 		return tabFactories;
 	}
 
@@ -83,13 +87,23 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsGeneralPaneTabController settingsGeneralPaneTabController() {
-		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), rootPathValidator(),
+		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), directoryPathValidator(),
 				fileExtensionValidator());
 	}
 	
 	@Bean
 	public SettingsWebTabFactory settingsWebTabFactory() {
 		return new SettingsWebTabFactory(settingsWebPaneTabController());
+	}
+	
+	@Bean
+	public SettingsDirTabFactory settingsDirTabFactory() {
+		return new SettingsDirTabFactory(settingsDirPaneTabController());
+	}
+	
+	@Bean
+	public SettingsDirectoriesPaneTabController settingsDirPaneTabController() {
+		return new SettingsDirectoriesPaneTabController(settingsLoader(), settingsWriter(), directoryAliasValidator());
 	}
 	
 	@Bean
@@ -103,8 +117,8 @@ public class DependenciesConfig {
 	}
 
 	@Bean
-	public Validator<String> rootPathValidator() {
-		return new RootPathValidator();
+	public Validator<String> directoryPathValidator() {
+		return new DirectoryPathValidator();
 	}
 
 	@Bean
@@ -115,6 +129,11 @@ public class DependenciesConfig {
 	@Bean
 	public Validator<Alias> webAliasValidator() {
 		return new WebAliasValidator();
+	}
+	
+	@Bean
+	public Validator<Alias> directoryAliasValidator() {
+		return new DirectoryAliasValidator((DirectoryPathValidator) directoryPathValidator());
 	}
 
 	@Bean

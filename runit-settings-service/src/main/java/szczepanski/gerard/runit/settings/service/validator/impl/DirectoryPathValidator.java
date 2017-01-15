@@ -13,9 +13,9 @@ import szczepanski.gerard.runit.settings.service.validator.Validator;
  * @author Gerard Szczepanski
  *
  */
-public class RootPathValidator implements Validator<String> {
+public class DirectoryPathValidator implements Validator<String> {
 
-	private static final String FAILURE_MESSAGE = "Given root path is not valid!";
+	private static final String FAILURE_MESSAGE = "Given directory path is not valid!";
 	
 	@Override
 	public void validate(String obj) throws RunitValidationException {

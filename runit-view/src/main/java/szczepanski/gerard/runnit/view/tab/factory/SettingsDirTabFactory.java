@@ -9,20 +9,20 @@ import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 
-public class SettingsWebTabFactory extends FxmlComponentFactory<Tab>{
+public class SettingsDirTabFactory extends FxmlComponentFactory<Tab>{
 	
-	private static final String PATH = "/templates/panes/SettingsWebTabPane.fxml";
-	private static final String TAB_TITLE = "Web";
-	private final Object settingsWebTabController;
+	private static final String PATH = "/templates/panes/SettingsDirectoriesTabPane.fxml";
+	private static final String TAB_TITLE = "Directories";
+	private final Object settingsDirTabController;
 	
-	public SettingsWebTabFactory(Object settingsWebTabController) {
+	public SettingsDirTabFactory(Object settingsDirTabController) {
 		super(PATH);
-		this.settingsWebTabController = settingsWebTabController;
+		this.settingsDirTabController = settingsDirTabController;
 	}
 
 	@Override
 	protected Tab generateFxmlComponent(FXMLLoader loader) {
-		loader.setController(settingsWebTabController);
+		loader.setController(settingsDirTabController);
 		Pane tabContentPane;
 		try {
 			tabContentPane = (Pane) loader.load();
