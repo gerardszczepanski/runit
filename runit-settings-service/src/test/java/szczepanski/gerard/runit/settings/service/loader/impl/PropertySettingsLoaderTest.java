@@ -5,11 +5,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
-import szczepanski.gerard.runit.settings.service.loader.impl.PropertySettingsLoader;
 import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
-import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 
 public class PropertySettingsLoaderTest {
 
@@ -31,7 +28,7 @@ public class PropertySettingsLoaderTest {
 		Mockito.when(settingsPropertiesMapper.toSettings(Mockito.any())).thenReturn(loadedSettings);
 		
 		// Act
-		Settings settings = settingsLoader.loadSettings();
+		Settings settings = settingsLoader.getSettings();
 
 		// Assert
 		Assert.assertNotNull(settings);

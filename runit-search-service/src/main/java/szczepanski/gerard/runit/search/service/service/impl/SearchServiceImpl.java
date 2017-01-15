@@ -38,7 +38,7 @@ public class SearchServiceImpl implements SearchService {
 	
 	private List<SearchResult> triggerNewSearchFor(String searchTerm) {
 		LOG.debug("Fire search for searchTerm: " + searchTerm);
-		Settings settings = settingsLoader.loadSettings();
+		Settings settings = settingsLoader.getSettings();
 		List<SearchResult> searchResults = triggerSearchAlgorithms(searchTerm, settings);
 		cache.addSearchResultsToCache(searchTerm, searchResults);
 		return searchResults;

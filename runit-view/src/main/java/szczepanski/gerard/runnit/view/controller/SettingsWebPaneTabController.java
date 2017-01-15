@@ -38,7 +38,7 @@ public class SettingsWebPaneTabController extends AbstractController {
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
-		Settings settings = settingsLoader.loadSettings();
+		Settings settings = settingsLoader.getSettings();
 		updateWebAliases(settings);
 	}
 
@@ -89,7 +89,7 @@ public class SettingsWebPaneTabController extends AbstractController {
 	public void handleSaveGeneralTab() {
 		LOG.debug("handleSaveGeneralTab");
 		
-		Settings actualSettings = settingsLoader.loadSettings();
+		Settings actualSettings = settingsLoader.getSettings();
 		Settings newSettings = createNewSettings(actualSettings);
 		settingsWriter.updateSettings(newSettings);
 		

@@ -19,7 +19,6 @@ import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper
  * 
  * @author Gerard Szczepaanski
  */
-@RequiredArgsConstructor
 public class PropertySettingsLoader implements SettingsLoader {
 	private static final Logger LOG = Logger.getLogger(PropertySettingsLoader.class);
 
@@ -27,22 +26,23 @@ public class PropertySettingsLoader implements SettingsLoader {
 	private final SettingsPropertiesMapper settingsPropertiesMapper;
 	
 	private Settings currentSettings;
-	private boolean isSettingsActual;
+	
+	public PropertySettingsLoader(String propertiesPath, SettingsPropertiesMapper settingsPropertiesMapper) {
+		this.propertiesPath = propertiesPath;
+		this.settingsPropertiesMapper = settingsPropertiesMapper;
+		loadSettingsIntoMemory();
+	}
 
 	@Override
-	public Settings loadSettings() {
-		if (!isSettingsActual) {
-			LOG.debug("Loading settings from " + propertiesPath);
-			reloadSettings();
-		}
-		
+	public Settings getSettings() {
+		areSettingsLoaded();
 		return currentSettings;
 	}
 	
-	private void reloadSettings() {
-		Properties properties = loadProperties();
-		currentSettings = settingsPropertiesMapper.toSettings(properties);
-		isSettingsActual = true;
+	private void areSettingsLoaded() {
+		if (currentSettings == null) {
+			throw new RunitRuntimeException(ExceptionCode.R_012);
+		}
 	}
 
 	private Properties loadProperties() {
@@ -59,8 +59,10 @@ public class PropertySettingsLoader implements SettingsLoader {
 	}
 
 	@Override
-	public void markSettingsChanged() {
-		isSettingsActual = false;
+	public void loadSettingsIntoMemory() {
+		LOG.debug("Loading settings from " + propertiesPath);
+		Properties properties = loadProperties();
+		currentSettings = settingsPropertiesMapper.toSettings(properties);
 	}
 
 }

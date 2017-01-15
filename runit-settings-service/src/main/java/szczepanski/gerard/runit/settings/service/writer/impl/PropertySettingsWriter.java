@@ -28,7 +28,7 @@ public class PropertySettingsWriter implements SettingsWriter {
 		Properties properties = settingsPropertiesMapper.toProperties(newSettings);
 		try {
 			writeProperties(properties);
-			settingsLoader.markSettingsChanged();
+			settingsLoader.loadSettingsIntoMemory();
 			LOG.debug("Settings has been updated");
 		} catch (IOException | URISyntaxException e) {
 			throw new RunitRuntimeException(ExceptionCode.R_011, e);

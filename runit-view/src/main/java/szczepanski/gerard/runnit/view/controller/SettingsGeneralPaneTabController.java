@@ -33,7 +33,7 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
-		Settings settings = settingsLoader.loadSettings();
+		Settings settings = settingsLoader.getSettings();
 		updateRootPaths(settings);
 		updateFileExtensions(settings);
 	}
@@ -116,7 +116,7 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 	public void handleSaveGeneralTab() {
 		LOG.debug("handleSaveGeneralTab");
 		
-		Settings actualSettings = settingsLoader.loadSettings();
+		Settings actualSettings = settingsLoader.getSettings();
 		Settings newSettings = createNewSettings(actualSettings);
 		settingsWriter.updateSettings(newSettings);
 		
