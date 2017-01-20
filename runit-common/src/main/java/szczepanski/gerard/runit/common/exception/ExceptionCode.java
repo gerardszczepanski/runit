@@ -32,7 +32,10 @@ public enum ExceptionCode {
 	B_001("B-001", "SearchResult creation failure. Alias is broken: alias [%s], value [%s]"),
 	B_002("B-002", "URI can not be created from Web Address: %s. URI is broken."),
 	B_003("B-003", "Cannot read files from root path %s. Maybe path is invaid?"),
-	B_004("B-004", "This file can not be executed.");
+	B_004("B-004", "This file can not be executed."),
+	
+	
+	UNEXPECTED_ERROR("UNEXPECTED ERROR", "There was unexpected error. Probably your app is broken. To fix it, download latest stable version of Runit");
 	
 	private String exceptionCode;
 	private String exceptionTemplateMessage;
