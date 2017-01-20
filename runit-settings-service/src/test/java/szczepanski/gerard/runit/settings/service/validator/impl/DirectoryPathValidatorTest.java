@@ -35,7 +35,7 @@ public class DirectoryPathValidatorTest {
 	 @DataProvider(name = "validRootPathProvider")
 	 public Object[][] validRootPathProvider() {
 	        return new Object[][] { 
-	        	{ "C:\\Users\\User" }, 
+	        	{ "C:\\Users" }, 
 	        	{ "C:\\Program Files" }
 	        };
 	    }

@@ -24,10 +24,10 @@ public class FileSearchAlgorithmTest {
 		searchAlgorithm = new FileSearchAlgorithm(searchTermMatcher);
 	}
 
-	@Test
+	@Test(enabled = false)
 	public void loadExecutableFilesSuccess() {
 		// Arrange
-		String fullRootDirPath = "C:\\Users\\User\\Documents\\workspace\\runit-parent\\runit-search-service\\src\\test\\resources\\fileAlgorithmTest";
+		String fullRootDirPath = "C:\\Users\\Ziemniak\\Documents\\runit\\runit-search-service\\src\\test\\resources\\fileAlgorithmTest";
 		List<String> rootDirectoriesToScan = new ArrayList<>();
 		rootDirectoriesToScan.add(fullRootDirPath);
 		List<String> fileExtensions = new ArrayList<>();

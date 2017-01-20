@@ -7,7 +7,6 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
@@ -30,19 +29,18 @@ public class PropertySettingsLoader implements SettingsLoader {
 	public PropertySettingsLoader(String propertiesPath, SettingsPropertiesMapper settingsPropertiesMapper) {
 		this.propertiesPath = propertiesPath;
 		this.settingsPropertiesMapper = settingsPropertiesMapper;
-		loadSettingsIntoMemory();
 	}
 
 	@Override
 	public Settings getSettings() {
-		areSettingsLoaded();
+		if (!areSettingsLoaded()) {
+			loadSettingsIntoMemory();
+		}
 		return currentSettings;
 	}
 	
-	private void areSettingsLoaded() {
-		if (currentSettings == null) {
-			throw new RunitRuntimeException(ExceptionCode.R_012);
-		}
+	private boolean areSettingsLoaded() {
+		return currentSettings != null;
 	}
 
 	private Properties loadProperties() {
