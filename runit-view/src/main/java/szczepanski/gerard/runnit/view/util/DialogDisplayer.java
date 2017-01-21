@@ -33,6 +33,7 @@ public class DialogDisplayer {
 		Alert validationDialogAlert = new Alert(AlertType.WARNING);
 		validationDialogAlert.setTitle("Validation failure");
 		validationDialogAlert.setHeaderText(message);
+		validationDialogAlert.setGraphic(null);
 		
 		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(ICON);
@@ -44,6 +45,7 @@ public class DialogDisplayer {
 		Alert validationDialogAlert = new Alert(AlertType.CONFIRMATION);
 		validationDialogAlert.setTitle("Confirmation");
 		validationDialogAlert.setHeaderText(message);
+		validationDialogAlert.setGraphic(null);
 		validationDialogAlert.getButtonTypes().remove(ButtonType.CANCEL);
 		
 		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();

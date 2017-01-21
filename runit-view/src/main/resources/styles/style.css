@@ -19,6 +19,14 @@
     -fx-background-color: transparent;
 }
 
+.runit-info-button{
+	-fx-background-image: url("../images/icon/runit-small.png");
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+}
+
 .main-panel {
 	-fx-background-image: url("../images/background.png"); 
 }

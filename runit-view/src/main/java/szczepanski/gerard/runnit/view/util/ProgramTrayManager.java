@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramTrayManager {
@@ -95,12 +96,24 @@ public class ProgramTrayManager {
 	}
 
 	private static PopupMenu crateTrayPopupMenu(SystemTray tray, TrayIcon trayIcon) {
+		MenuItem aboutProgramItem = createAboutProgramItem();
 		MenuItem closeProgramItem = createExitProgramItem(tray, trayIcon);
 
 		PopupMenu popupMenu = new PopupMenu();
+		popupMenu.add(aboutProgramItem);
+		popupMenu.addSeparator();
 		popupMenu.add(closeProgramItem);
 
 		return popupMenu;
+	}
+	
+	private static MenuItem createAboutProgramItem() {
+		MenuItem exitProgramItem = new MenuItem("About");
+		exitProgramItem.addActionListener(event -> {
+			WebPageRunner.browsePage(ProgramConfig.PROGRAM_ABOUT_PAGE);
+		});
+
+		return exitProgramItem;
 	}
 
 	private static MenuItem createExitProgramItem(SystemTray tray, TrayIcon trayIcon) {

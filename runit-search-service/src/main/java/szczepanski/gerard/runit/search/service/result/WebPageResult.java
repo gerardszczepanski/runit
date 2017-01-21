@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitBusinessException;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 public class WebPageResult extends SearchResult {
@@ -43,12 +44,7 @@ public class WebPageResult extends SearchResult {
 
 	@Override
 	public void run() {
-		Desktop desktop = Desktop.getDesktop();
-		try {
-			desktop.browse(webAddress);
-		} catch (IOException e) {
-			throw new RunitRuntimeException(ExceptionCode.R_006, webAddress);
-		}
+		WebPageRunner.browsePage(webAddress);
 	}
 
 }
