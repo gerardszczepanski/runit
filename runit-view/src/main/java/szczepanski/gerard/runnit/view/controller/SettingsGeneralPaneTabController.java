@@ -99,7 +99,10 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 
 	private void removeSelectedItemFromListView(ListView<String> listView) {
 		int selectedIndex = listView.getSelectionModel().getSelectedIndex();
-		listView.getItems().remove(selectedIndex);
+		
+		if (isSelectedIndexValid(selectedIndex)) {
+			listView.getItems().remove(selectedIndex);
+		}
 	}
 
 	private void addNotDuplicatedToListView(ListView<String> listView, String object) {

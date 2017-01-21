@@ -82,7 +82,10 @@ public class SettingsWebPaneTabController extends AbstractController {
 	public void handleRemoveWebAlias() {
 		LOG.debug("handleRemoveWebAlias");
 		int selectedIndex = webAliasTableView.getSelectionModel().getSelectedIndex();
-		webAliasTableView.getItems().remove(selectedIndex);
+		
+		if (isSelectedIndexValid(selectedIndex)) {
+			webAliasTableView.getItems().remove(selectedIndex);
+		}
 	}
 
 	@FXML

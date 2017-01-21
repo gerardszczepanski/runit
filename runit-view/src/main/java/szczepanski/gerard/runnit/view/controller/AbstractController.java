@@ -19,5 +19,8 @@ public abstract class AbstractController {
 		DialogDisplayer.showValidationMessageDialog(e.getDisplayMessage());
 	}
 	
+	protected boolean isSelectedIndexValid(int index) {
+		return -1 < index;
+	}
 	
 }

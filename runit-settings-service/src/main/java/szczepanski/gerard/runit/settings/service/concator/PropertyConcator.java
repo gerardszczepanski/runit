@@ -2,11 +2,21 @@ package szczepanski.gerard.runit.settings.service.concator;
 
 import java.util.List;
 
-@FunctionalInterface
-public interface PropertyConcator<T> {
+public abstract class PropertyConcator<T> {
 	
-	String DELIMETER = ";";
+	protected static final String DELIMETER = ";";
+	protected static final String EMPTY_STRING = "";
 	
-	String toStringProperty(List<T> values);
+	/**
+	 * Template method which checks if values Colelction is empty. 
+	 */
+	public String toStringProperty(List<T> values) {
+		if (values.isEmpty()) {
+			return EMPTY_STRING;
+		}
+		
+		return convertToStringProperty(values);
+	}
 	
+	protected abstract String convertToStringProperty(List<T> values);
 }

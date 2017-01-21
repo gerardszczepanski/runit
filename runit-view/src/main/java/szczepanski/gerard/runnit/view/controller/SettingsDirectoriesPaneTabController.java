@@ -82,7 +82,10 @@ public class SettingsDirectoriesPaneTabController extends AbstractController {
 	public void handleRemoveDirAlias() {
 		LOG.debug("handleRemoveDirAlias");
 		int selectedIndex = dirAliasTableView.getSelectionModel().getSelectedIndex();
-		dirAliasTableView.getItems().remove(selectedIndex);
+		
+		if (isSelectedIndexValid(selectedIndex)) {
+			dirAliasTableView.getItems().remove(selectedIndex);
+		}
 	}
 
 	@FXML
