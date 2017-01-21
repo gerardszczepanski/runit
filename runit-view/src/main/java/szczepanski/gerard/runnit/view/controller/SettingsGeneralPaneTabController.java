@@ -33,6 +33,10 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
+		reloadTab();
+	}
+	
+	private void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
 		updateRootPaths(settings);
 		updateFileExtensions(settings);
@@ -132,12 +136,20 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 				.dirAliases(actualSettings.getDirAliases())
 				.build();
 	}
-
+	
 	@FXML
 	public void handleCancelButton() {
 		LOG.debug("handleCancelButton");
 		Stage settingsStage = getStage(rootPathsListView);
 		settingsStage.close();
+	}
+	
+	@FXML
+	public void handleLoadDefaultSettings() {
+		LOG.debug("handleLoadDefaultSettings");
+		settingsWriter.restoreDefaultSettings();
+		DialogDisplayer.showConfirmationMessageDialog("Default settings are successfully loaded and saved!");
+		reloadTab();
 	}
 
 }

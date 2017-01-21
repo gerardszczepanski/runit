@@ -24,6 +24,7 @@ import szczepanski.gerard.runit.settings.service.concator.impl.AliasPropertyConc
 import szczepanski.gerard.runit.settings.service.concator.impl.StringPropertyConcator;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.service.loader.impl.DefaultSettingsProvider;
 import szczepanski.gerard.runit.settings.service.loader.impl.PropertySettingsLoader;
 import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
@@ -90,22 +91,22 @@ public class DependenciesConfig {
 		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), directoryPathValidator(),
 				fileExtensionValidator());
 	}
-	
+
 	@Bean
 	public SettingsWebTabFactory settingsWebTabFactory() {
 		return new SettingsWebTabFactory(settingsWebPaneTabController());
 	}
-	
+
 	@Bean
 	public SettingsDirTabFactory settingsDirTabFactory() {
 		return new SettingsDirTabFactory(settingsDirPaneTabController());
 	}
-	
+
 	@Bean
 	public SettingsDirectoriesPaneTabController settingsDirPaneTabController() {
 		return new SettingsDirectoriesPaneTabController(settingsLoader(), settingsWriter(), directoryAliasValidator());
 	}
-	
+
 	@Bean
 	public SettingsWebPaneTabController settingsWebPaneTabController() {
 		return new SettingsWebPaneTabController(settingsLoader(), settingsWriter(), webAliasValidator());
@@ -113,7 +114,13 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsWriter settingsWriter() {
-		return new PropertySettingsWriter(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper(), settingsLoader()); 
+		return new PropertySettingsWriter(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper(),
+				settingsLoader(), defaultSettingsProvider());
+	}
+
+	@Bean
+	public DefaultSettingsProvider defaultSettingsProvider() {
+		return new DefaultSettingsProvider();
 	}
 
 	@Bean
@@ -125,12 +132,12 @@ public class DependenciesConfig {
 	public Validator<String> fileExtensionValidator() {
 		return new FileExtensionValidator();
 	}
-	
+
 	@Bean
 	public Validator<Alias> webAliasValidator() {
 		return new WebAliasValidator();
 	}
-	
+
 	@Bean
 	public Validator<Alias> directoryAliasValidator() {
 		return new DirectoryAliasValidator((DirectoryPathValidator) directoryPathValidator());
@@ -149,7 +156,8 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsPropertiesMapper settingsPropertiesMapper() {
-		return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(), stringPropertyConcator(), aliasPropertyConcator());
+		return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(),
+				stringPropertyConcator(), aliasPropertyConcator());
 	}
 
 	@Bean
@@ -166,7 +174,7 @@ public class DependenciesConfig {
 	public PropertySpliterator<Alias> aliasPropertySpliterator() {
 		return new AliasPropertySpliterator();
 	}
-	
+
 	@Bean
 	public PropertyConcator<String> stringPropertyConcator() {
 		return new StringPropertyConcator();

@@ -246,7 +246,8 @@ public class SearchAutocompleteSelect {
 
 					if (!isEmpty()) {
 						SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
-						setGraphic(new ImageView(searchResultRepresentation.getImage()));
+						ImageView imgView = new ImageView(searchResultRepresentation.getImage());
+						setGraphic(imgView);
 						setText(searchResultRepresentation.getSearchresultTitle());
 					}
 				}

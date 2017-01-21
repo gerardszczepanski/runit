@@ -12,21 +12,25 @@ public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
 
 	@Override
 	public List<Alias> fromPropertyString(String propertyString) {
+		if (isPropertyEmpty(propertyString)) {
+			return new ArrayList<>();
+		} 
+		
 		String[] splittedStrings = propertyString.split(DELIMETER);
-		return createWebAliases(splittedStrings);
+		return createAliases(splittedStrings);
 	}
 
-	private List<Alias> createWebAliases(String[] splittedStrings) {
-		List<Alias> webAliases = new ArrayList<>();
+	private List<Alias> createAliases(String[] splittedStrings) {
+		List<Alias> aliases = new ArrayList<>();
 		
 		for (String splittedString: splittedStrings) {
 			String[] splittedStringParts = splittedString.split(ALIAS_DELIMETER);
-			String alias = splittedStringParts[0];
-			String webAddress = splittedStringParts[1];
-			webAliases.add(new Alias(alias, webAddress));
+			String aliasName = splittedStringParts[0];
+			String aliasValue = splittedStringParts[1];
+			aliases.add(new Alias(aliasName, aliasValue));
 		}
 		
-		return webAliases;
+		return aliases;
 	}
 
 }

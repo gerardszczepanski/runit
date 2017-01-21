@@ -12,6 +12,7 @@ import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.service.loader.impl.DefaultSettingsProvider;
 import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 
@@ -22,6 +23,7 @@ public class PropertySettingsWriter implements SettingsWriter {
 	private final String propertiesPath;
 	private final SettingsPropertiesMapper settingsPropertiesMapper;
 	private final SettingsLoader settingsLoader;
+	private final DefaultSettingsProvider defaultSettingsProvider;
 	
 	@Override
 	public void updateSettings(Settings newSettings) {
@@ -38,7 +40,8 @@ public class PropertySettingsWriter implements SettingsWriter {
 	@Override
 	public void restoreDefaultSettings() {
 		LOG.debug("Restore default settings");
-		// TODO Auto-generated method stub
+		Settings defaultSettings = defaultSettingsProvider.loadDefaultSettings();
+		updateSettings(defaultSettings);
 	}
 
 	private void writeProperties(Properties properties) throws IOException, URISyntaxException {
