@@ -51,14 +51,28 @@ public class SettingsWebPaneTabController extends AbstractController {
 	@FXML
 	public void handleAddWebAlias() {
 		LOG.debug("handleAddWebAlias");
-		Alias newWebAlias = getNewAliasFromUserInput();
-		addWebAlias(newWebAlias);
+		Optional<Alias> optionalNewWebAlias = getNewAliasFromUserInput();
+		if(optionalNewWebAlias.isPresent()) {
+			addWebAlias(optionalNewWebAlias.get());	
+		}
 	}
 	
-	private Alias getNewAliasFromUserInput() {
+	/**
+	 *  TODO Gerard Szczepanski 22.01.2017 -> Ugly method, to future refactor
+	 */
+	private Optional<Alias> getNewAliasFromUserInput() {
 		Optional<String> optAliasName = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Name");
-		Optional<String> optAliasValue = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Address");
-		return new Alias(optAliasName.get(), optAliasValue.get());
+		Optional<String> optAliasValue = Optional.empty();
+		
+		if (optAliasName.isPresent()) {
+			optAliasValue = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Address");
+		}
+		
+		if (optAliasName.isPresent() && optAliasValue.isPresent()) {
+			return Optional.of(new Alias(optAliasName.get(), optAliasValue.get()));
+		}
+		
+		return Optional.empty();
 	}
 	
 	private void addWebAlias(Alias newWebAlias) {

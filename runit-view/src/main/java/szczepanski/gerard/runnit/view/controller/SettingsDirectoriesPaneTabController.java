@@ -51,14 +51,29 @@ public class SettingsDirectoriesPaneTabController extends AbstractController {
 	@FXML
 	public void handleAddDirAlias() {
 		LOG.debug("handleAddDirAlias");
-		Alias newDirAlias = getNewAliasFromUserInput();
-		addDirAlias(newDirAlias);
+		Optional<Alias> optionalNewDirAlias = getNewAliasFromUserInput();
+		
+		if (optionalNewDirAlias.isPresent()) {
+			addDirAlias(optionalNewDirAlias.get());
+		}
 	}
 	
-	private Alias getNewAliasFromUserInput() {
-		Optional<String> optAliasName = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Web Alias Name");
-		Optional<String> optAliasValue = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Directory path");
-		return new Alias(optAliasName.get(), optAliasValue.get());
+	/**
+	 *  TODO Gerard Szczepanski 22.01.2017 -> Ugly method, to future refactor
+	 */
+	private Optional<Alias> getNewAliasFromUserInput() {
+		Optional<String> optAliasName = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Directory Alias Name");
+		Optional<String> optAliasValue = Optional.empty();
+		
+		if (optAliasName.isPresent()) {
+			optAliasValue = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Directory path");
+		}
+		
+		if (optAliasName.isPresent() && optAliasValue.isPresent()) {
+			return Optional.of(new Alias(optAliasName.get(), optAliasValue.get()));
+		}
+		
+		return Optional.empty();
 	}
 	
 	private void addDirAlias(Alias newDirAlias) {
