@@ -18,6 +18,7 @@ import szczepanski.gerard.runit.program.util.ProgramExceptionHandler;
 import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runit.program.util.ProgramWindowMoveListener;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
+import szczepanski.gerard.runnit.view.util.ProgramSettingsManager;
 import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
 
 public class Main extends Application {
@@ -40,6 +41,7 @@ public class Main extends Application {
 			ProgramTrayManager.installInSystemTray(primaryStage);
 			ProgramHotKeyListener.getInstance().registerProgramHotKey();
 			ProgramWindowMoveListener.makeStageDraggable(primaryStage, (Pane) mainScene.getRoot());
+			loadSettingsOnProgramStart();
 		});
 		
 		primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -57,6 +59,12 @@ public class Main extends Application {
 	private static void initComponents() {
 		LOG.debug("Loading Spring beans");
 		ctx = new AnnotationConfigApplicationContext(DependenciesConfig.class);
+	}
+	
+	private static void loadSettingsOnProgramStart() {
+		LOG.debug("Initial Loading Settings");
+		ProgramSettingsManager programSettingsManager = ctx.getBean(ProgramSettingsManager.class);
+		programSettingsManager.loadSettings();
 	}
 	
 }

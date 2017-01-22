@@ -48,6 +48,7 @@ import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsDirTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsGeneralTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsWebTabFactory;
+import szczepanski.gerard.runnit.view.util.ProgramSettingsManager;
 
 @Configuration
 public class DependenciesConfig {
@@ -198,6 +199,11 @@ public class DependenciesConfig {
 	@Bean
 	public SearchTermMatcher searchTermMatcher() {
 		return new SimpleSearchTermMatcher();
+	}
+	
+	@Bean
+	public ProgramSettingsManager programSettingsManager() {
+		return new ProgramSettingsManager(settingsLoader(), settingsWriter());
 	}
 
 }
