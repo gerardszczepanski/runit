@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Ziemniak\Documents\runit\runit-program\target\runit-program-0.9.jar</jar>
-  <outfile>C:\Users\Ziemniak\Desktop\runit-exe\runit-0.9.1.exe</outfile>
+  <jar>C:\Users\Ziemniak\Documents\runit\runit-program\target\runit-program-0.9.2.jar</jar>
+  <outfile>C:\Users\Ziemniak\Desktop\runit-exe\runit-0.9.2.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>

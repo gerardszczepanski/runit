@@ -71,7 +71,6 @@ public class ProgramTrayManager {
 
 		trayIcon.addActionListener(event -> {
 			Platform.runLater(() -> {
-				LOG.debug("Show Program from Tray");
 				showProgramStage();
 			});
 		});
@@ -96,10 +95,12 @@ public class ProgramTrayManager {
 	}
 
 	private static PopupMenu crateTrayPopupMenu(SystemTray tray, TrayIcon trayIcon) {
+		MenuItem showProgramItem = createShowProgramItem();
 		MenuItem aboutProgramItem = createAboutProgramItem();
 		MenuItem closeProgramItem = createExitProgramItem(tray, trayIcon);
 
 		PopupMenu popupMenu = new PopupMenu();
+		popupMenu.add(showProgramItem);
 		popupMenu.add(aboutProgramItem);
 		popupMenu.addSeparator();
 		popupMenu.add(closeProgramItem);
@@ -107,13 +108,25 @@ public class ProgramTrayManager {
 		return popupMenu;
 	}
 	
+	private static MenuItem createShowProgramItem() {
+		MenuItem showProgramItem = new MenuItem("Show/Hide (Alt + Q)");
+		showProgramItem.addActionListener(event -> {
+			Platform.runLater(() -> {
+				showProgramStage();
+			});
+		});
+
+		return showProgramItem;
+	}
+
+	
 	private static MenuItem createAboutProgramItem() {
-		MenuItem exitProgramItem = new MenuItem("About");
-		exitProgramItem.addActionListener(event -> {
+		MenuItem aboutProgramItem = new MenuItem("About");
+		aboutProgramItem.addActionListener(event -> {
 			WebPageRunner.browsePage(ProgramConfig.PROGRAM_ABOUT_PAGE);
 		});
 
-		return exitProgramItem;
+		return aboutProgramItem;
 	}
 
 	private static MenuItem createExitProgramItem(SystemTray tray, TrayIcon trayIcon) {
@@ -129,6 +142,7 @@ public class ProgramTrayManager {
 	}
 
 	public static void showProgramStage() {
+		LOG.debug("Show Program from Tray");
 		isProgramMinimizedInTray = false;
 		programStage.show();
 		programStage.toFront();

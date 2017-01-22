@@ -102,11 +102,7 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void displaySearchResults(List<SearchResult> searchResults) {
-		innerSelect.hide();
-		innerSelect.getItems().clear();
-		innerSelect.getItems().clear(); // This code must be duplicated here
-										// (clearSelectOptions()). Otherwise it
-										// does not clear list every time.
+		clearSelectOptions();
 		innerSelect.getItems().addAll(searchResults);
 
 		if (!searchResults.isEmpty()) {
@@ -121,6 +117,8 @@ public class SearchAutocompleteSelect {
 
 	private void clearSelectOptions() {
 		innerSelect.hide();
+		innerSelect.getItems().clear();
+		innerSelect.getItems().clear();
 		innerSelect.getItems().clear();
 		innerSelect.getItems().clear(); // This is required to fix Javafx
 										// combobox issue -> List is not always
