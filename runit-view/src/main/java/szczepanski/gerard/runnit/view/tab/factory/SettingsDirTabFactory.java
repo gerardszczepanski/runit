@@ -12,7 +12,7 @@ import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 public class SettingsDirTabFactory extends FxmlComponentFactory<Tab>{
 	
 	private static final String PATH = "/templates/panes/SettingsDirectoriesTabPane.fxml";
-	private static final String TAB_TITLE = "Directories";
+	private static final String TAB_TITLE = "Directory aliases";
 	private final Object settingsDirTabController;
 	
 	public SettingsDirTabFactory(Object settingsDirTabController) {

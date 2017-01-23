@@ -19,7 +19,11 @@ public class DialogDisplayer {
 	private static final Image ICON = new Image(DialogDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
 	
 	public static Optional<String> showInputDialog(Window parent, String title) {
-		TextInputDialog inputDialog = new TextInputDialog("");
+		return showInputDialog(parent, title, "");
+	}
+	
+	public static Optional<String> showInputDialog(Window parent, String title, String initialText) {
+		TextInputDialog inputDialog = new TextInputDialog(initialText);
 		inputDialog.initOwner(parent);
 		inputDialog.setTitle(title);
 		inputDialog.setContentText(title);

@@ -7,6 +7,7 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
  * Represents search algorithm for one of the {@code SearchResult}. 
+ * 
  * @author Gerard Szczepanski
  */
 @FunctionalInterface

@@ -12,7 +12,7 @@ import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 public class SettingsWebTabFactory extends FxmlComponentFactory<Tab>{
 	
 	private static final String PATH = "/templates/panes/SettingsWebTabPane.fxml";
-	private static final String TAB_TITLE = "Web";
+	private static final String TAB_TITLE = "Web aliases";
 	private final Object settingsWebTabController;
 	
 	public SettingsWebTabFactory(Object settingsWebTabController) {

@@ -114,15 +114,16 @@ public class SearchAutocompleteSelect {
 		clearSelectOptions();
 		innerSelect.getEditor().clear();
 	}
-
+	
+	/**
+	 * Multiple clear lines are required (JavaFX issue, combobox is not always cleared at the first time).
+	 */
 	private void clearSelectOptions() {
 		innerSelect.hide();
 		innerSelect.getItems().clear();
 		innerSelect.getItems().clear();
 		innerSelect.getItems().clear();
-		innerSelect.getItems().clear(); // This is required to fix Javafx
-										// combobox issue -> List is not always
-										// cleared at the first time
+		innerSelect.getItems().clear(); 
 	}
 
 	private void checkSearchService() {
@@ -238,6 +239,9 @@ public class SearchAutocompleteSelect {
 		@Override
 		public ListCell<SearchResult> call(ListView<SearchResult> l) {
 			return new ListCell<SearchResult>() {
+				
+				private static final double PREFERED_ICON_SIZE = 16;
+				
 				@Override
 				protected void updateItem(SearchResult item, boolean empty) {
 					super.updateItem(item, empty);
@@ -245,6 +249,8 @@ public class SearchAutocompleteSelect {
 					if (!isEmpty()) {
 						SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
 						ImageView imgView = new ImageView(searchResultRepresentation.getImage());
+						imgView.setFitWidth(PREFERED_ICON_SIZE);
+						imgView.setFitHeight(PREFERED_ICON_SIZE);
 						setGraphic(imgView);
 						setText(searchResultRepresentation.getSearchresultTitle());
 					}

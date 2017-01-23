@@ -76,7 +76,7 @@ public class FileResult extends SearchResult {
 				java.awt.Image imageFromFile = ((ImageIcon) iconFromFile).getImage();
 				BufferedImage bufferedImageFromFile = (BufferedImage) imageFromFile;
 				Image imageForFileResult = SwingFXUtils.toFXImage(bufferedImageFromFile, null);
-
+				
 				return Optional.of(imageForFileResult);
 			} catch (ClassCastException e) {
 				return Optional.empty();

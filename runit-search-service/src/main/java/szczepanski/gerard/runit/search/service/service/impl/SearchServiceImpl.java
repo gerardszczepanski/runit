@@ -27,15 +27,15 @@ public class SearchServiceImpl implements SearchService {
 		if (isSearchTermEmpty(searchTerm)) {
 			return new ArrayList<>();
 		}
-		
+
 		Optional<List<SearchResult>> cachedSearchResults = cache.getFromCache(searchTerm);
 		if (cachedSearchResults.isPresent()) {
 			return cachedSearchResults.get();
 		}
-		
+
 		return triggerNewSearchFor(searchTerm);
 	}
-	
+
 	private List<SearchResult> triggerNewSearchFor(String searchTerm) {
 		LOG.debug("Fire search for searchTerm: " + searchTerm);
 		Settings settings = settingsLoader.getSettings();
@@ -43,19 +43,19 @@ public class SearchServiceImpl implements SearchService {
 		cache.addSearchResultsToCache(searchTerm, searchResults);
 		return searchResults;
 	}
-	
+
 	private boolean isSearchTermEmpty(String searchTerm) {
 		return "".equals(searchTerm);
 	}
 
 	private List<SearchResult> triggerSearchAlgorithms(String searchTerm, Settings settings) {
 		List<SearchResult> searchResults = new ArrayList<>();
-		
+
 		searchAlgorithms.forEach(a -> {
-				List<SearchResult> searchResultsFromAlgorithm = a.search(searchTerm, settings);
-				searchResults.addAll(searchResultsFromAlgorithm);
-				});
-		
+			List<SearchResult> searchResultsFromAlgorithm = a.search(searchTerm, settings);
+			searchResults.addAll(searchResultsFromAlgorithm);
+		});
+
 		return searchResults;
 	}
 

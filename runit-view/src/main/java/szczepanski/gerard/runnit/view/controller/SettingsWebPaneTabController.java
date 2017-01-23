@@ -65,7 +65,7 @@ public class SettingsWebPaneTabController extends AbstractController {
 		Optional<String> optAliasValue = Optional.empty();
 		
 		if (optAliasName.isPresent()) {
-			optAliasValue = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Address");
+			optAliasValue = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Address", "http://");
 		}
 		
 		if (optAliasName.isPresent() && optAliasValue.isPresent()) {
