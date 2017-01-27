@@ -16,7 +16,7 @@
       <Button layoutX="463.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleAddFileExtension" prefHeight="31.0" prefWidth="52.0" text="+" />
       <Button layoutX="522.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleRemoveFileExtension" prefHeight="31.0" prefWidth="52.0" text="-" />
       <Button layoutX="431.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleSaveTab" prefHeight="31.0" prefWidth="78.0" text="Save" />
-      <Button layoutX="509.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="31.0" prefWidth="78.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="509.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="31.0" prefWidth="78.0" text="Cancel" />
       <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#handleLoadDefaultSettings" prefHeight="31.0" prefWidth="189.0" text="Restore default settings" />
    </children>
 </Pane>

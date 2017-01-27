@@ -146,6 +146,7 @@ public class ProgramTrayManager {
 		isProgramMinimizedInTray = false;
 		programStage.show();
 		programStage.toFront();
+		setAlwaysOnTop(true);
 	}
 
 	public static void hideProgramStage() {
@@ -162,5 +163,9 @@ public class ProgramTrayManager {
 				hideProgramStage();
 			}
 		});
+	}
+	
+	public static void setAlwaysOnTop(boolean alwaysOnTop) {
+		programStage.setAlwaysOnTop(alwaysOnTop);
 	}
 }

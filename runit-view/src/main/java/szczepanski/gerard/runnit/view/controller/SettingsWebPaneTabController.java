@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitValidationException;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
@@ -19,7 +18,7 @@ import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
-public class SettingsWebPaneTabController extends AbstractController {
+public class SettingsWebPaneTabController extends AbstractSettingsController {
 	private static final Logger LOG = Logger.getLogger(SettingsWebPaneTabController.class);
 
 	private final SettingsLoader settingsLoader;
@@ -121,13 +120,6 @@ public class SettingsWebPaneTabController extends AbstractController {
 				.webAliases(webAliasTableView.getItems())
 				.dirAliases(actualSettings.getDirAliases())
 				.build();
-	}
-
-	@FXML
-	public void handleCancelButton() {
-		LOG.debug("handleCancelButton");
-		Stage settingsStage = getStage(webAliasTableView);
-		settingsStage.close();
 	}
 
 	private void configureTableView() {

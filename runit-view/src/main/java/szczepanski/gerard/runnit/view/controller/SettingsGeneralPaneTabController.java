@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.RunitValidationException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
@@ -16,7 +15,7 @@ import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
-public class SettingsGeneralPaneTabController extends AbstractController {
+public class SettingsGeneralPaneTabController extends AbstractSettingsController {
 	private static final Logger LOG = Logger.getLogger(SettingsGeneralPaneTabController.class);
 
 	private final SettingsLoader settingsLoader;
@@ -138,13 +137,6 @@ public class SettingsGeneralPaneTabController extends AbstractController {
 				.webAliases(actualSettings.getWebAliases())
 				.dirAliases(actualSettings.getDirAliases())
 				.build();
-	}
-	
-	@FXML
-	public void handleCancelButton() {
-		LOG.debug("handleCancelButton");
-		Stage settingsStage = getStage(rootPathsListView);
-		settingsStage.close();
 	}
 	
 	@FXML

@@ -6,6 +6,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
+import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
 
 @RequiredArgsConstructor
 public class SettingsStagePresenter {
@@ -34,6 +35,7 @@ public class SettingsStagePresenter {
 		settingsStage.setTitle(ProgramConfig.PROGRAM_SETTINGS_TITLE);
 		settingsStage.getIcons().add(new Image(SettingsStagePresenter.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH)));
 		
+		ProgramTrayManager.setAlwaysOnTop(false);
 		settingsStage.show();
 	}
 	

@@ -49,6 +49,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.setScene(mainScene);
 		primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH)));
+		primaryStage.setAlwaysOnTop(true);
 		primaryStage.show();
 	}
 

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import javafx.application.Platform;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -114,16 +115,17 @@ public class SearchAutocompleteSelect {
 		clearSelectOptions();
 		innerSelect.getEditor().clear();
 	}
-	
+
 	/**
-	 * Multiple clear lines are required (JavaFX issue, combobox is not always cleared at the first time).
+	 * Multiple clear lines are required (JavaFX issue, combobox is not always
+	 * cleared at the first time).
 	 */
 	private void clearSelectOptions() {
 		innerSelect.hide();
 		innerSelect.getItems().clear();
 		innerSelect.getItems().clear();
 		innerSelect.getItems().clear();
-		innerSelect.getItems().clear(); 
+		innerSelect.getItems().clear();
 	}
 
 	private void checkSearchService() {
@@ -161,6 +163,10 @@ public class SearchAutocompleteSelect {
 			}
 		});
 
+		Platform.runLater(() -> {
+			innerSelect.requestFocus();
+		});
+		
 		pane.getChildren().add(innerSelect);
 	}
 
@@ -239,9 +245,9 @@ public class SearchAutocompleteSelect {
 		@Override
 		public ListCell<SearchResult> call(ListView<SearchResult> l) {
 			return new ListCell<SearchResult>() {
-				
+
 				private static final double PREFERED_ICON_SIZE = 16;
-				
+
 				@Override
 				protected void updateItem(SearchResult item, boolean empty) {
 					super.updateItem(item, empty);
