@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -116,16 +117,9 @@ public class SearchAutocompleteSelect {
 		innerSelect.getEditor().clear();
 	}
 
-	/**
-	 * Multiple clear lines are required (JavaFX issue, combobox is not always
-	 * cleared at the first time).
-	 */
 	private void clearSelectOptions() {
 		innerSelect.hide();
-		innerSelect.getItems().clear();
-		innerSelect.getItems().clear();
-		innerSelect.getItems().clear();
-		innerSelect.getItems().clear();
+		innerSelect.setItems(FXCollections.observableArrayList());
 	}
 
 	private void checkSearchService() {
