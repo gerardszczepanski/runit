@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>szczepanski.gerard</groupId>
 		<artifactId>runit-parent</artifactId>
-		<version>0.9.2</version>
+		<version>0.9.6</version>
 	</parent>
 	<artifactId>runit-view</artifactId>
 
@@ -22,9 +22,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.reactivex.rxjava2</groupId>
+			<groupId>io.reactivex</groupId>
 			<artifactId>rxjava</artifactId>
-			<version>2.0.4</version>
+			<version>1.2.5</version>
 		</dependency>
 
 		<dependency>
