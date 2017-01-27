@@ -3,6 +3,7 @@ package szczepanski.gerard.runnit.view.component;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
@@ -18,6 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.Setter;
+import rx.observables.JavaFxObservable;
+import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
@@ -37,6 +40,8 @@ import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
  */
 public class SearchAutocompleteSelect {
 	private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
+	
+	private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
 	private final ComboBox<SearchResult> innerSelect;
 	private final SelectKeyFilter selectKeyFilter;
@@ -149,19 +154,25 @@ public class SearchAutocompleteSelect {
 			}
 		});
 
-		innerSelect.getEditor().addEventFilter(KeyEvent.KEY_RELEASED, e -> {
-			if (selectKeyFilter.isKeyAllowedForSearch(e.getCode())) {
-				LOG.debug("SEARCH START");
-				search();
-				LOG.debug("SEARCH FINISHED");
-			}
-		});
-
+		initSelectTypeDeyalSubscriber();
+		
 		Platform.runLater(() -> {
+			innerSelect.getEditor().requestFocus();
 			innerSelect.requestFocus();
 		});
-		
+
 		pane.getChildren().add(innerSelect);
+	}
+
+	private void initSelectTypeDeyalSubscriber() {
+		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED)
+			.filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
+			.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS)
+			.subscribe(e -> {
+				LOG.debug("SEARCH START");
+				Platform.runLater(() -> search());
+				LOG.debug("SEARCH FINISHED");
+			});
 	}
 
 	/**
