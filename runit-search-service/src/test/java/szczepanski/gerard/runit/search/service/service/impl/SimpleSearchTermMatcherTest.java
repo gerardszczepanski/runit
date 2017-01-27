@@ -47,6 +47,7 @@ public class SimpleSearchTermMatcherTest {
 	        	{ "google", "hello world google" },
 	        	{ "world", "hello world google" },
 	        	{ "hello", "hello world google" },
+	        	{ "control p", "Control Panel"}
 	        };
 	    }
 	 
