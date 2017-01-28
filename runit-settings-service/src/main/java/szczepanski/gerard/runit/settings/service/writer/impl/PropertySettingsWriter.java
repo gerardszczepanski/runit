@@ -49,5 +49,4 @@ public class PropertySettingsWriter implements SettingsWriter {
 		properties.store(out, "Update properties");
 		out.close();
 	}
-
 }

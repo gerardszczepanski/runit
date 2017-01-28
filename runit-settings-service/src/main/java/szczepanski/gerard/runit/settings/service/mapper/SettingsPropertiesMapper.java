@@ -2,7 +2,6 @@ package szczepanski.gerard.runit.settings.service.mapper;
 
 import java.util.Properties;
 
-import bsh.StringUtil;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.settings.service.concator.PropertyConcator;
 import szczepanski.gerard.runit.settings.service.loader.Alias;

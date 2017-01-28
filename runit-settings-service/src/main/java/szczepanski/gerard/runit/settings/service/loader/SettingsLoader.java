@@ -8,7 +8,6 @@ package szczepanski.gerard.runit.settings.service.loader;
  * and 'feeds' {@code SearchService} object with that Settings object at every 
  * search request.
  * 
- * 
  * @author Gerard Szczepanski
  *
  */
@@ -17,5 +16,4 @@ public interface SettingsLoader {
 	Settings getSettings();
 	
 	void loadSettingsIntoMemory();
-	
 }

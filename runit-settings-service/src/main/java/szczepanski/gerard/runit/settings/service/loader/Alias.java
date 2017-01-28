@@ -16,12 +16,10 @@ public class Alias {
 	private final String name;
 	private final String value;
 	
-	
 	@Override
 	public String toString() {
 		return String.format("[name->%s, value->%s]", name, value);
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -30,7 +28,6 @@ public class Alias {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {

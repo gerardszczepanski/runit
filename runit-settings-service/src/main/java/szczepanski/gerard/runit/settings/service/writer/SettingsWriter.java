@@ -4,7 +4,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
- * THis interface is responsible for Save Settings.
+ * This interface is responsible for Save Settings.
  * 
  * @author Gerard Szczepanski
  *
