@@ -3,7 +3,7 @@
   <parent>
     <groupId>szczepanski.gerard</groupId>
     <artifactId>runit-parent</artifactId>
-    <version>0.9.6</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>runit-common</artifactId>
 </project>
