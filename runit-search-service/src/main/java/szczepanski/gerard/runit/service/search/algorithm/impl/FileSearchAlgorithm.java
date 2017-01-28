@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
-import szczepanski.gerard.runit.search.service.result.FileResult;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
+import szczepanski.gerard.runit.search.service.result.impl.FileResult;
 import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 

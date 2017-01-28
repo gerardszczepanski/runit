@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.apache.log4j.Logger;
 
 import lombok.Builder;
+import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.service.service.Cache;
@@ -45,7 +46,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	private boolean isSearchTermEmpty(String searchTerm) {
-		return "".equals(searchTerm);
+		return StringUtils.EMPTY.equals(searchTerm);
 	}
 
 	private List<SearchResult> triggerSearchAlgorithms(String searchTerm, Settings settings) {

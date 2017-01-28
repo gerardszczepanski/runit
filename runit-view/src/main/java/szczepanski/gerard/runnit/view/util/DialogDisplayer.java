@@ -12,6 +12,7 @@ import javafx.stage.Window;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
+import szczepanski.gerard.runit.common.util.StringUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DialogDisplayer {
@@ -19,7 +20,7 @@ public class DialogDisplayer {
 	private static final Image ICON = new Image(DialogDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
 	
 	public static Optional<String> showInputDialog(Window parent, String title) {
-		return showInputDialog(parent, title, "");
+		return showInputDialog(parent, title, StringUtils.EMPTY);
 	}
 	
 	public static Optional<String> showInputDialog(Window parent, String title, String initialText) {

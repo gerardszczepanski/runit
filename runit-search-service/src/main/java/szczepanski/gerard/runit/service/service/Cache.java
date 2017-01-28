@@ -16,5 +16,4 @@ public interface Cache {
 	
 	Optional<List<SearchResult>> getFromCache(String searchTerm);
 	
-	
 }

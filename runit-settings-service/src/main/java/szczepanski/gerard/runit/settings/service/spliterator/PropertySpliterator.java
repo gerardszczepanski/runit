@@ -2,6 +2,8 @@ package szczepanski.gerard.runit.settings.service.spliterator;
 
 import java.util.List;
 
+import szczepanski.gerard.runit.common.util.StringUtils;
+
 /**
  * Splits property string into a List T values.
  * 
@@ -10,13 +12,12 @@ import java.util.List;
 @FunctionalInterface
 public interface PropertySpliterator<T> {
 	
-	String EMPTY_STRING = "";
 	String DELIMETER = ";";
 	
 	List<T> fromPropertyString(String propertyString);
 	
 	default boolean isPropertyEmpty(String propertyString) {
-		return EMPTY_STRING.equals(propertyString);
+		return StringUtils.EMPTY.equals(propertyString);
 	}
 	
 }

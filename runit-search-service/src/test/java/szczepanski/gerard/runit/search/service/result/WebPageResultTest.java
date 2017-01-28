@@ -3,7 +3,7 @@ package szczepanski.gerard.runit.search.service.result;
 import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runit.search.service.result.WebPageResult;
+import szczepanski.gerard.runit.search.service.result.impl.WebPageResult;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 public class WebPageResultTest {

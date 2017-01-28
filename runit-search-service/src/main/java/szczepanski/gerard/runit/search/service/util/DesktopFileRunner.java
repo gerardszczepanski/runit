@@ -14,6 +14,7 @@ public class DesktopFileRunner {
 	
 	public static void run(File file) {
 		Desktop desktop = Desktop.getDesktop();
+		
 		try {
 			desktop.open(file);
 		} catch (IOException e) {

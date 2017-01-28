@@ -1,10 +1,12 @@
-package szczepanski.gerard.runit.search.service.result;
+package szczepanski.gerard.runit.search.service.result.impl;
 
 import java.io.File;
 
 import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitBusinessException;
+import szczepanski.gerard.runit.search.service.result.SearchResult;
+import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.search.service.util.DesktopFileRunner;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
@@ -14,6 +16,10 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
  * @author Gerard Szczepanski
  */
 public class DirectoryResult extends SearchResult {
+
+	private static final String DIRECTORY_RESULT_DEFAULT_IMAGE_PATH = "/images/search-results/directoryResult.png";
+	private static final Image DIRECTORY_RESULT_IMAGE = new Image(
+			WebPageResult.class.getResourceAsStream(DIRECTORY_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final File directory;
 
@@ -30,9 +36,7 @@ public class DirectoryResult extends SearchResult {
 	}
 
 	private DirectoryResult(Alias alias) {
-		super(new SearchResultRepresentation(
-				new Image(DirectoryResult.class.getResourceAsStream("/images/search-results/directoryResult.png")),
-				alias.getName()));
+		super(new SearchResultRepresentation(DIRECTORY_RESULT_IMAGE, alias.getName()));
 		this.directory = new File(alias.getValue());
 	}
 

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.search.service.result.WebPageResult;
+import szczepanski.gerard.runit.search.service.result.impl.WebPageResult;
 import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;

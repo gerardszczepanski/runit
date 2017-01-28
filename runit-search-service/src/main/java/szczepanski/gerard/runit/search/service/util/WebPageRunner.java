@@ -14,6 +14,7 @@ public class WebPageRunner {
 	
 	public static void browsePage(URI webPage) {
 		Desktop desktop = Desktop.getDesktop();
+		
 		try {
 			desktop.browse(webPage);
 		} catch (IOException e) {

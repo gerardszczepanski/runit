@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.search.service.result;
+package szczepanski.gerard.runit.search.service.result.impl;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +14,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.result.SearchResult;
+import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.search.service.util.DesktopFileRunner;
 
 /**

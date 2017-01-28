@@ -1,18 +1,21 @@
-package szczepanski.gerard.runit.search.service.result;
+package szczepanski.gerard.runit.search.service.result.impl;
 
-import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import javafx.scene.image.Image;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitBusinessException;
-import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.result.SearchResult;
+import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 public class WebPageResult extends SearchResult {
+
+	private static final String WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH = "/images/search-results/webPageResult.png";
+	private static final Image WEB_PAGE_RESULT_IMAGE = new Image(
+			WebPageResult.class.getResourceAsStream(WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final URI webAddress;
 
@@ -28,9 +31,7 @@ public class WebPageResult extends SearchResult {
 	}
 
 	private WebPageResult(Alias webAlias) {
-		super(new SearchResultRepresentation(
-				new Image(WebPageResult.class.getResourceAsStream("/images/search-results/webPageResult.png")),
-				webAlias.getName()));
+		super(new SearchResultRepresentation(WEB_PAGE_RESULT_IMAGE, webAlias.getName()));
 		this.webAddress = createUriFromString(webAlias.getValue());
 	}
 
