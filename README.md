@@ -1,5 +1,3 @@
-![](http://i.imgur.com/r3ZbtuC.png)
-
 # runit
 <img src="https://github.com/gspansky/runit/blob/master/runit-view/src/main/resources/images/icon/icon.png" /> Windows tool for quick launch apps, directories and stored web sites. 
 
@@ -19,6 +17,12 @@ Windows system with installed JRE (minimum version 1.8.0_92).
 
 ## Web and directory aliases ##
 Web sites aliases, and directory aliases must be first defined in Settings.
+
+## Screenshots ##
+
+<p align="center">
+  <img src="http://i.imgur.com/YMP1KtT.png" />
+</p>
 
 ### Additional info ###
 * Runit icon (Sitting rabbit) made by <a href="http://www.freepik.com">Freepik</a> from www.flaticon.com
