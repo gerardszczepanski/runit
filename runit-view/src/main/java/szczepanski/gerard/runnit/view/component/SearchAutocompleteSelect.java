@@ -193,44 +193,7 @@ public class SearchAutocompleteSelect {
 		}
 
 		private void registerAllowedkKeys() {
-			allowedKeys.add(KeyCode.DIGIT0);
-			allowedKeys.add(KeyCode.DIGIT1);
-			allowedKeys.add(KeyCode.DIGIT2);
-			allowedKeys.add(KeyCode.DIGIT3);
-			allowedKeys.add(KeyCode.DIGIT4);
-			allowedKeys.add(KeyCode.DIGIT5);
-			allowedKeys.add(KeyCode.DIGIT6);
-			allowedKeys.add(KeyCode.DIGIT7);
-			allowedKeys.add(KeyCode.DIGIT8);
-			allowedKeys.add(KeyCode.DIGIT9);
-			allowedKeys.add(KeyCode.Q);
-			allowedKeys.add(KeyCode.W);
-			allowedKeys.add(KeyCode.E);
-			allowedKeys.add(KeyCode.R);
-			allowedKeys.add(KeyCode.T);
-			allowedKeys.add(KeyCode.Y);
-			allowedKeys.add(KeyCode.U);
-			allowedKeys.add(KeyCode.I);
-			allowedKeys.add(KeyCode.O);
-			allowedKeys.add(KeyCode.P);
-			allowedKeys.add(KeyCode.A);
-			allowedKeys.add(KeyCode.S);
-			allowedKeys.add(KeyCode.D);
-			allowedKeys.add(KeyCode.F);
-			allowedKeys.add(KeyCode.G);
-			allowedKeys.add(KeyCode.H);
-			allowedKeys.add(KeyCode.J);
-			allowedKeys.add(KeyCode.K);
-			allowedKeys.add(KeyCode.L);
-			allowedKeys.add(KeyCode.Z);
-			allowedKeys.add(KeyCode.X);
-			allowedKeys.add(KeyCode.C);
-			allowedKeys.add(KeyCode.V);
-			allowedKeys.add(KeyCode.B);
-			allowedKeys.add(KeyCode.N);
-			allowedKeys.add(KeyCode.M);
-			allowedKeys.add(KeyCode.SPACE);
-			allowedKeys.add(KeyCode.BACK_SPACE);
+			allowedKeys.addAll(AllowedTypedKeysProvider.getAllowedKeyCodes());
 		}
 
 		public boolean isKeyAllowedForSearch(KeyCode keyCode) {

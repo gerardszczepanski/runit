@@ -14,5 +14,4 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
 public interface SearchAlgorithm {
 	
 	List<SearchResult> search(String searchTerm, Settings settings);
-	 
 }
