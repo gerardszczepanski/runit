@@ -1,12 +1,14 @@
 package szczepanski.gerard.runnit.view.util;
 
+import java.io.File;
 import java.util.Optional;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lombok.AccessLevel;
@@ -32,6 +34,13 @@ public class DialogDisplayer {
 		inputDialog.setGraphic(null);
 		
 		return inputDialog.showAndWait();
+	}
+	
+	public static Optional<File> showDirectoryChooserDialog(Window parent, String title) {
+		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setTitle(title);
+		File file = directoryChooser.showDialog(parent);
+		return Optional.ofNullable(file);
 	}
 	
 	public static void showValidationMessageDialog(String message) {

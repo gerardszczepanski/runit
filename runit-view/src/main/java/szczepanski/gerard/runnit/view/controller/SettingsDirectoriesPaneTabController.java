@@ -1,5 +1,6 @@
 package szczepanski.gerard.runnit.view.controller;
 
+import java.io.File;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -62,14 +63,16 @@ public class SettingsDirectoriesPaneTabController extends AbstractSettingsContro
 	 */
 	private Optional<Alias> getNewAliasFromUserInput() {
 		Optional<String> optAliasName = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Directory Alias Name");
-		Optional<String> optAliasValue = Optional.empty();
+		Optional<File> optAliasValue = Optional.empty();
 		
 		if (optAliasName.isPresent()) {
-			optAliasValue = DialogDisplayer.showInputDialog(getStage(dirAliasTableView), "Directory path");
+			optAliasValue = DialogDisplayer.showDirectoryChooserDialog(getStage(dirAliasTableView), "Choose directory path");
 		}
 		
 		if (optAliasName.isPresent() && optAliasValue.isPresent()) {
-			return Optional.of(new Alias(optAliasName.get(), optAliasValue.get()));
+			String directoryAliasName = optAliasName.get();
+			String directoryAliasValue = optAliasValue.get().getPath();
+			return Optional.of(new Alias(directoryAliasName, directoryAliasValue));
 		}
 		
 		return Optional.empty();

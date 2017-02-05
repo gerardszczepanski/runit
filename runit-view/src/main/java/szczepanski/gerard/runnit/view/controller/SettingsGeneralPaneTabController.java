@@ -1,5 +1,6 @@
 package szczepanski.gerard.runnit.view.controller;
 
+import java.io.File;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
@@ -54,9 +55,9 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsController
 	@FXML
 	public void handleAddRootPath() {
 		LOG.debug("handleAddRootPath");
-		Optional<String> optRootPath = DialogDisplayer.showInputDialog(getStage(rootPathsListView), "Root path");
-		if (optRootPath.isPresent()) {
-			String addedRootPath = optRootPath.get();
+		Optional<File> optFile = DialogDisplayer.showDirectoryChooserDialog(getStage(rootPathsListView), "Choose root path to scan");
+		if (optFile.isPresent()) {
+			String addedRootPath = optFile.get().getPath();
 			addRootPath(addedRootPath);
 		}
 	}
