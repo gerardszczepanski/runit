@@ -7,15 +7,17 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runnit.view.controller.AbstractSettingsTabController;
+import szczepanski.gerard.runnit.view.controller.mediator.TabsMediator;
 import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 
 public class SettingsWebTabFactory extends FxmlComponentFactory<Tab>{
 	
 	private static final String PATH = "/templates/panes/SettingsWebTabPane.fxml";
 	private static final String TAB_TITLE = "Web aliases";
-	private final Object settingsWebTabController;
+	private final AbstractSettingsTabController settingsWebTabController;
 	
-	public SettingsWebTabFactory(Object settingsWebTabController) {
+	public SettingsWebTabFactory(AbstractSettingsTabController settingsWebTabController) {
 		super(PATH);
 		this.settingsWebTabController = settingsWebTabController;
 	}
@@ -23,6 +25,8 @@ public class SettingsWebTabFactory extends FxmlComponentFactory<Tab>{
 	@Override
 	protected Tab generateFxmlComponent(FXMLLoader loader) {
 		loader.setController(settingsWebTabController);
+		TabsMediator.registerController(settingsWebTabController);
+		
 		Pane tabContentPane;
 		try {
 			tabContentPane = (Pane) loader.load();

@@ -13,10 +13,11 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 import szczepanski.gerard.runit.settings.service.validator.Validator;
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
+import szczepanski.gerard.runnit.view.controller.mediator.TabsMediator;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
-public class SettingsGeneralPaneTabController extends AbstractSettingsController {
+public class SettingsGeneralPaneTabController extends AbstractSettingsTabController {
 	private static final Logger LOG = Logger.getLogger(SettingsGeneralPaneTabController.class);
 
 	private final SettingsLoader settingsLoader;
@@ -36,7 +37,8 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsController
 		reloadTab();
 	}
 	
-	private void reloadTab() {
+	@Override
+	public void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
 		updateRootPaths(settings);
 		updateFileExtensions(settings);
@@ -145,7 +147,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsController
 		LOG.debug("handleLoadDefaultSettings");
 		settingsWriter.restoreDefaultSettings();
 		DialogDisplayer.showConfirmationMessageDialog("Default settings are successfully loaded and saved!");
-		reloadTab();
+		TabsMediator.updateTabs();
 	}
 
 }

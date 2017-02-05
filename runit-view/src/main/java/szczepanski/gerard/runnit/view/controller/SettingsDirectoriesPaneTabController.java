@@ -19,7 +19,7 @@ import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
-public class SettingsDirectoriesPaneTabController extends AbstractSettingsController {
+public class SettingsDirectoriesPaneTabController extends AbstractSettingsTabController {
 	private static final Logger LOG = Logger.getLogger(SettingsDirectoriesPaneTabController.class);
 
 	private final SettingsLoader settingsLoader;
@@ -38,6 +38,11 @@ public class SettingsDirectoriesPaneTabController extends AbstractSettingsContro
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
+		reloadTab();
+	}
+	
+	@Override
+	public void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
 		updateDirAliases(settings);
 	}

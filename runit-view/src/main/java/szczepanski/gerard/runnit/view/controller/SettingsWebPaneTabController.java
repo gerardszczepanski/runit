@@ -18,7 +18,7 @@ import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
-public class SettingsWebPaneTabController extends AbstractSettingsController {
+public class SettingsWebPaneTabController extends AbstractSettingsTabController {
 	private static final Logger LOG = Logger.getLogger(SettingsWebPaneTabController.class);
 
 	private final SettingsLoader settingsLoader;
@@ -37,6 +37,11 @@ public class SettingsWebPaneTabController extends AbstractSettingsController {
 	@FXML
 	public void initialize() {
 		LOG.debug("Initialize");
+		reloadTab();
+	}
+	
+	@Override
+	public void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
 		updateWebAliases(settings);
 	}
