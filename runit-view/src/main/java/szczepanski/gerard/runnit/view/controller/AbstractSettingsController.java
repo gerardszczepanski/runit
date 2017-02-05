@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 public abstract class AbstractSettingsController extends AbstractController {
 	private static final Logger LOG = Logger.getLogger(AbstractSettingsController.class);

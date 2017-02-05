@@ -1,9 +1,8 @@
-package szczepanski.gerard.runnit.view.util;
+package szczepanski.gerard.runnit.view.tray;
 
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.Toolkit;
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramTrayManager {
@@ -47,7 +45,7 @@ public class ProgramTrayManager {
 
 		SystemTray tray = SystemTray.getSystemTray();
 		TrayIcon trayIcon = createTrayIcon(tray);
-		PopupMenu trayPopupMenu = crateTrayPopupMenu(tray, trayIcon);
+		PopupMenu trayPopupMenu = TrayPopupMenuFactory.crateTrayPopupMenu(tray, trayIcon);
 		trayIcon.setPopupMenu(trayPopupMenu);
 		tray.add(trayIcon);
 	}
@@ -92,53 +90,6 @@ public class ProgramTrayManager {
 		} catch (IOException e) {
 			throw new RunitRuntimeException(ExceptionCode.R_003, e);
 		}
-	}
-
-	private static PopupMenu crateTrayPopupMenu(SystemTray tray, TrayIcon trayIcon) {
-		MenuItem showProgramItem = createShowProgramItem();
-		MenuItem aboutProgramItem = createAboutProgramItem();
-		MenuItem closeProgramItem = createExitProgramItem(tray, trayIcon);
-
-		PopupMenu popupMenu = new PopupMenu();
-		popupMenu.add(showProgramItem);
-		popupMenu.add(aboutProgramItem);
-		popupMenu.addSeparator();
-		popupMenu.add(closeProgramItem);
-
-		return popupMenu;
-	}
-	
-	private static MenuItem createShowProgramItem() {
-		MenuItem showProgramItem = new MenuItem("Show/Hide (Alt + Q)");
-		showProgramItem.addActionListener(event -> {
-			Platform.runLater(() -> {
-				showProgramStage();
-			});
-		});
-
-		return showProgramItem;
-	}
-
-	
-	private static MenuItem createAboutProgramItem() {
-		MenuItem aboutProgramItem = new MenuItem("About");
-		aboutProgramItem.addActionListener(event -> {
-			WebPageRunner.browsePage(ProgramConfig.PROGRAM_ABOUT_PAGE);
-		});
-
-		return aboutProgramItem;
-	}
-
-	private static MenuItem createExitProgramItem(SystemTray tray, TrayIcon trayIcon) {
-		MenuItem exitProgramItem = new MenuItem("Exit");
-		exitProgramItem.addActionListener(event -> {
-			LOG.debug("Exit application");
-			Platform.exit();
-			tray.remove(trayIcon);
-			System.exit(0);
-		});
-
-		return exitProgramItem;
 	}
 
 	public static void showProgramStage() {

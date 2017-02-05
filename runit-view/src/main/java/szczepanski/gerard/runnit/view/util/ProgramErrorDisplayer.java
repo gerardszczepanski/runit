@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramErrorDisplayer {

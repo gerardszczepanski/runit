@@ -26,7 +26,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
-import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 /**
  * This is Autocomplete Select component responsible for handle typed text, and

@@ -13,7 +13,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 /**
  * TrayKeyListener is being installed on key type action in main scene to listen

@@ -11,7 +11,7 @@ import szczepanski.gerard.runnit.view.component.Dimension;
 import szczepanski.gerard.runnit.view.component.Position;
 import szczepanski.gerard.runnit.view.component.SearchAutocompleteSelect;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
-import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 @RequiredArgsConstructor
 public class MainSceneController {

@@ -40,9 +40,7 @@ public class DialogDisplayer {
 		validationDialogAlert.setHeaderText(message);
 		validationDialogAlert.setGraphic(null);
 		
-		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(ICON);
-
+		addProgramIconToAlert(validationDialogAlert);
 		validationDialogAlert.showAndWait();
 	}
 	
@@ -53,10 +51,13 @@ public class DialogDisplayer {
 		validationDialogAlert.setGraphic(null);
 		validationDialogAlert.getButtonTypes().remove(ButtonType.CANCEL);
 		
-		Stage stage = (Stage) validationDialogAlert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(ICON);
-
+		addProgramIconToAlert(validationDialogAlert);
 		validationDialogAlert.showAndWait();
+	}
+	
+	private static void addProgramIconToAlert(Alert alert) {
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(ICON);
 	}
 
 }

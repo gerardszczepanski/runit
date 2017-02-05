@@ -6,7 +6,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
-import szczepanski.gerard.runnit.view.util.ProgramTrayManager;
+import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 @RequiredArgsConstructor
 public class SettingsStagePresenter {
