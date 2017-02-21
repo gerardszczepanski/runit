@@ -1,5 +1,6 @@
 package szczepanski.gerard.runit.search.service.service.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
@@ -58,13 +59,12 @@ public class SimpleSearchCache implements Cache {
 	private void addToCache(String searchTerm, List<SearchResult> searchResults) {
 		LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache.", searchResults.size(),
 				searchTerm));
-		CachedSearchResults newCachedSearchResults = new CachedSearchResults(searchTerm, searchResults);
+		CachedSearchResults newCachedSearchResults = CachedSearchResults.of(searchTerm, searchResults);
 		cachedSearchResults.add(newCachedSearchResults);
 	}
 
 	@Override
 	public Optional<List<SearchResult>> getFromCache(String searchTerm) {
-		Optional<List<SearchResult>> optionalCachedSearchResults = Optional.empty();
 		Iterator<CachedSearchResults> iterator = cachedSearchResults.iterator();
 
 		while (iterator.hasNext()) {
@@ -72,24 +72,35 @@ public class SimpleSearchCache implements Cache {
 
 			if (cachedSearchResults.isSearchTermMatch(searchTerm)) {
 				LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm);
-				optionalCachedSearchResults = Optional.of(cachedSearchResults.searchResults);
-				break;
+				return Optional.of(cachedSearchResults.searchResults);
 			}
 		}
 
-		return optionalCachedSearchResults;
+		return Optional.empty();
 	}
-
-	@RequiredArgsConstructor
+	
+	@AllArgsConstructor
 	private static class CachedSearchResults {
-
+		private static final List<SearchResult> EMPTY_LIST = new ArrayList<>(0);
+		
 		private final String searchTerm;
 		private final List<SearchResult> searchResults;
-
+		
+		/**
+		 * Create CachedSearchResults object from searchTerm and SearchResult List. If list is empty, then
+		 * List pointer is changed to EMPTY LIST. 
+		 */
+		private static CachedSearchResults of(String searchTerm, List<SearchResult> searchResults) {
+			if (searchResults.isEmpty()) {
+				searchResults = EMPTY_LIST;
+			}
+			
+			return new CachedSearchResults(searchTerm, searchResults);
+		}
+		
 		public boolean isSearchTermMatch(String searchTerm) {
 			return this.searchTerm.equals(searchTerm);
 		}
-
 	}
 
 }

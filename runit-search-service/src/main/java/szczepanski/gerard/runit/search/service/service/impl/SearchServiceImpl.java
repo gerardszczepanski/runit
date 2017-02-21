@@ -18,7 +18,9 @@ import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 @Builder
 public class SearchServiceImpl implements SearchService {
 	private static final Logger LOG = Logger.getLogger(SearchServiceImpl.class);
-
+	
+	private static final List<SearchResult> EMPTY_SEARCH_RESULTS = new ArrayList<>(0); 
+	
 	private final List<SearchAlgorithm> searchAlgorithms;
 	private final SettingsLoader settingsLoader;
 	private final Cache cache;
@@ -26,7 +28,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public List<SearchResult> searchFor(String searchTerm) {
 		if (isSearchTermEmpty(searchTerm)) {
-			return new ArrayList<>();
+			return EMPTY_SEARCH_RESULTS;
 		}
 
 		Optional<List<SearchResult>> cachedSearchResults = cache.getFromCache(searchTerm);

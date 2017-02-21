@@ -71,7 +71,6 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void search() {
-		checkSearchService();
 		List<SearchResult> searchResults = fireSearch();
 		displaySearchResults(searchResults);
 	}
@@ -125,12 +124,6 @@ public class SearchAutocompleteSelect {
 	private void clearSelectOptions() {
 		innerSelect.hide();
 		innerSelect.setItems(FXCollections.observableArrayList());
-	}
-
-	private void checkSearchService() {
-		if (searchService == null) {
-			throw new RunitRuntimeException(ExceptionCode.R_004);
-		}
 	}
 
 	private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
