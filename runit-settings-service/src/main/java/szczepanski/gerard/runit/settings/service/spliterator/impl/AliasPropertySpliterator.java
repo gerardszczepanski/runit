@@ -7,13 +7,14 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 
 public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
+	private static final List<Alias> EMPTY_LIST = new ArrayList<>(0);
 
 	private static final String ALIAS_DELIMETER = "=";
 
 	@Override
 	public List<Alias> fromPropertyString(String propertyString) {
 		if (isPropertyEmpty(propertyString)) {
-			return new ArrayList<>();
+			return EMPTY_LIST;
 		} 
 		
 		String[] splittedStrings = propertyString.split(DELIMETER);

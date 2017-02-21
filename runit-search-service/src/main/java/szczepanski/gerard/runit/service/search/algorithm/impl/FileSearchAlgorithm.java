@@ -8,13 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
@@ -27,15 +27,15 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
 @RequiredArgsConstructor
 public class FileSearchAlgorithm implements SearchAlgorithm {
 	private static final Logger LOG = Logger.getLogger(FileSearchAlgorithm.class);
-	
+
 	private final SearchTermMatcher searchTermMatcher;
-	
+
 	@Override
 	public List<SearchResult> search(String searchTerm, Settings settings) {
-		List<SearchResult> searchResults = new ArrayList<>();
+		List<SearchResult> searchResults = new ObjectArrayList<>();
 		List<String> paths = settings.getRootDirectioresToScan();
 		List<String> fileExtensions = settings.getFileExtensions();
-		
+
 		LOG.debug("Searching started");
 		paths.forEach(p -> {
 			searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions));
@@ -45,13 +45,14 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return searchResults;
 	}
 
-	private List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {
+	private List<SearchResult> searchForRootPath(String rootPath, String searchTerm,
+			List<String> fileExtensions) {
 		List<File> filesFound = findFiles(rootPath, searchTerm, fileExtensions);
-		return filesFound.stream().map(f -> FileResult.fromFile(f)).collect(Collectors.toList());
+		return convertFromFilesToSearchResults(filesFound);
 	}
 
-	private List<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {
-		List<File> suitableFiles = new ArrayList<>();
+	private ObjectList<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {
+		ObjectList<File> suitableFiles = new ObjectArrayList<>();
 
 		try {
 			findSuitableFiles(rootPath, searchTerm, fileExtensions, suitableFiles);
@@ -62,26 +63,26 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return suitableFiles;
 	}
 
-	private void findSuitableFiles(String rootPath, String searchTerm, List<String> fileExtensions, List<File> suitableFiles) throws IOException {
+	private void findSuitableFiles(String rootPath, String searchTerm, List<String> fileExtensions,
+			List<File> suitableFiles) throws IOException {
 		Files.walkFileTree(Paths.get(rootPath), new FileVisitor<Path>() {
 
 			@Override
 			public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
 				return FileVisitResult.CONTINUE;
 			}
-			
-			// TODO Gerard Szczepanski 03.01.2017 to future refactor (IF conditions are very ugly)
+
+			// TODO Gerard Szczepanski 03.01.2017 to future refactor (IF
+			// conditions are very ugly)
 			@Override
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				
-				if (attrs.isRegularFile() 
-						&& Files.isExecutable(file)
-						&& isFileNameContainsSearchTerm(file, searchTerm)
+
+				if (attrs.isRegularFile() && Files.isExecutable(file) && isFileNameContainsSearchTerm(file, searchTerm)
 						&& hasFileAcceptableExtension(file, fileExtensions)) {
 					File suitableFile = file.toFile();
 					suitableFiles.add(suitableFile);
 				}
-				
+
 				return FileVisitResult.CONTINUE;
 			}
 
@@ -110,6 +111,12 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		String fileName = FilenameUtils.getName(fullFileName);
 		String baseFileName = FilenameUtils.getBaseName(fileName);
 		return searchTermMatcher.isMatch(searchTerm, baseFileName);
+	}
+
+	private List<SearchResult> convertFromFilesToSearchResults(List<File> filesFound) {
+		ObjectList<SearchResult> results = new ObjectArrayList<>(filesFound.size());
+		filesFound.forEach(f -> results.add(FileResult.fromFile(f)));
+		return results;
 	}
 
 }

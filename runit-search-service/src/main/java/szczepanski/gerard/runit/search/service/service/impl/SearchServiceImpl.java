@@ -18,7 +18,6 @@ import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 @Builder
 public class SearchServiceImpl implements SearchService {
 	private static final Logger LOG = Logger.getLogger(SearchServiceImpl.class);
-	
 	private static final List<SearchResult> EMPTY_SEARCH_RESULTS = new ArrayList<>(0); 
 	
 	private final List<SearchAlgorithm> searchAlgorithms;

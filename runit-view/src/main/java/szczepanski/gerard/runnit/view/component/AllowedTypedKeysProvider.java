@@ -1,8 +1,8 @@
 package szczepanski.gerard.runnit.view.component;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import javafx.scene.input.KeyCode;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class AllowedTypedKeysProvider {
 	
 	public static List<KeyCode> getAllowedKeyCodes() {
-		List<KeyCode> allowedKeyCodes= new ArrayList<>();
+		List<KeyCode> allowedKeyCodes= new ObjectArrayList<>();
 		
 		allowedKeyCodes.add(KeyCode.DIGIT0);
 		allowedKeyCodes.add(KeyCode.DIGIT1);

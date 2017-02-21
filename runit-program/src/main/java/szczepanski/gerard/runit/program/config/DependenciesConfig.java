@@ -75,7 +75,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public Collection<FxmlComponentFactory<Tab>> settingsTabFactories() {
-		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>();
+		List<FxmlComponentFactory<Tab>> tabFactories = new ArrayList<>(3);
 		tabFactories.add(settingsGeneralTabFactory());
 		tabFactories.add(settingsWebTabFactory());
 		tabFactories.add(settingsDirTabFactory());
@@ -187,7 +187,7 @@ public class DependenciesConfig {
 	}
 
 	private List<SearchAlgorithm> searchAlgorithms() {
-		List<SearchAlgorithm> searchAlgrithms = new ArrayList<>();
+		List<SearchAlgorithm> searchAlgrithms = new ArrayList<>(3);
 
 		searchAlgrithms.add(new FileSearchAlgorithm(searchTermMatcher()));
 		searchAlgrithms.add(new WebAliasSearchAlgorithm(searchTermMatcher()));

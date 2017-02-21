@@ -3,6 +3,7 @@ package szczepanski.gerard.runit.settings.service.loader.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 
@@ -13,6 +14,7 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
  *
  */
 public class DefaultSettingsProvider {
+	private static final List<Alias> EMPTY_LIST = new ArrayList<>(0);
 	
 	public Settings loadDefaultSettings() {
 		return Settings.builder()
@@ -24,21 +26,21 @@ public class DefaultSettingsProvider {
 	}
 	
 	private List<String> getDefaultRootPaths() {
-		List<String> rootPaths = new ArrayList<>();
+		List<String> rootPaths = new ObjectArrayList<>();
 		rootPaths.add(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu");
 		rootPaths.add("C:\\ProgramData\\Microsoft\\Windows\\Start Menu");
 		return rootPaths;
 	}
 	
 	private List<String> getDefaultExtensions() {
-		List<String> extensions = new ArrayList<>();
+		List<String> extensions = new ObjectArrayList<>();
 		extensions.add("lnk");
 		extensions.add("exe");
 		return extensions;
 	}
 	
 	private List<Alias> getDefaultWebAliases() {
-		List<Alias> webAliases = new ArrayList<>();
+		List<Alias> webAliases = new ObjectArrayList<>();
 		webAliases.add(new Alias("google", "http://google.com"));
 		webAliases.add(new Alias("gmail", "http://gmail.com"));
 		webAliases.add(new Alias("youtube", "http://youtube.com"));
@@ -49,6 +51,6 @@ public class DefaultSettingsProvider {
 	}
 	
 	private List<Alias> getDefaultDirAliases() {
-		return new ArrayList<>();
+		return EMPTY_LIST;
 	}
 }
