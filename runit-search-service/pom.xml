@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>szczepanski.gerard</groupId>
 		<artifactId>runit-parent</artifactId>
-		<version>1.1.0</version>
+		<version>1.2.0</version>
 	</parent>
 	<artifactId>runit-search-service</artifactId>
 
@@ -12,31 +12,43 @@
 		<dependency>
 			<groupId>szczepanski.gerard</groupId>
 			<artifactId>runit-common</artifactId>
-			<version>${program.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>szczepanski.gerard</groupId>
 			<artifactId>runit-settings-service</artifactId>
-			<version>${program.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>it.unimi.dsi</groupId>
+			<artifactId>fastutil</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.9.10</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
