@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.search.service.service.impl;
+package szczepanski.gerard.runit.search.service.cache.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 import lombok.AllArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.service.service.Cache;
 
 public class SimpleSearchCache implements Cache {
 	private static final Logger LOG = Logger.getLogger(SimpleSearchCache.class);
@@ -32,7 +32,7 @@ public class SimpleSearchCache implements Cache {
 	@Override
 	public void addSearchResultsToCache(String searchTerm, List<SearchResult> searchResults) {
 		checkIfCacheContainsSearchTerm(searchTerm);
-		removeOldestCacheValueIfCacheIsFull();
+		removeOldCacheValuesIfCacheIsFull();
 		addToCache(searchTerm, searchResults);
 	}
 
@@ -42,13 +42,15 @@ public class SimpleSearchCache implements Cache {
 		}
 	}
 
-	private void removeOldestCacheValueIfCacheIsFull() {
+	private void removeOldCacheValuesIfCacheIsFull() {
 		if (isCacheFull()) {
 			LOG.debug(String.format("Cache is full. Removing %s oldest cached values.", clearCacheHeadSize));
 			for (int i = 0; i < clearCacheHeadSize; i++) {
 				CachedSearchResults oldestCachedSearchResults = cachedSearchResults.peek();
 				cachedSearchResults.remove(oldestCachedSearchResults);
 			}
+			
+			System.gc(); // Hey Garbage Collector, would you like to clean old files?
 		}
 	}
 

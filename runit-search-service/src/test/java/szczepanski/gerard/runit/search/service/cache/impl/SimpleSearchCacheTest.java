@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.search.service.service.impl;
+package szczepanski.gerard.runit.search.service.cache.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
+import szczepanski.gerard.runit.search.service.cache.Cache;
+import szczepanski.gerard.runit.search.service.cache.impl.SimpleSearchCache;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchCache;
-import szczepanski.gerard.runit.service.service.Cache;
 
 public class SimpleSearchCacheTest {
 

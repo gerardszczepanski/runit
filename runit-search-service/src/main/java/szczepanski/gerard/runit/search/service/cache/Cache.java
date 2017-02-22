@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.service.service;
+package szczepanski.gerard.runit.search.service.cache;
 
 import java.util.List;
 import java.util.Optional;
