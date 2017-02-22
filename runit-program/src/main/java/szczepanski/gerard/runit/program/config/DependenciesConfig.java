@@ -11,6 +11,7 @@ import javafx.scene.control.Tab;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.cache.Cache;
+import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearchCache;
 import szczepanski.gerard.runit.search.service.cache.impl.SimpleSearchCache;
 import szczepanski.gerard.runit.search.service.service.impl.SearchServiceImpl;
 import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchTermMatcher;
@@ -163,7 +164,8 @@ public class DependenciesConfig {
 
 	@Bean
 	public Cache cache() {
-		return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
+		//return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
+		return new LexicalFrequencySearchCache(ProgramConfig.CACHE_LIMIT, 4);
 	}
 
 	@Bean

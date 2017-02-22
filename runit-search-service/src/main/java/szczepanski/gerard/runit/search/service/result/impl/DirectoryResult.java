@@ -45,4 +45,29 @@ public class DirectoryResult extends SearchResult {
 		DesktopFileRunner.run(directory);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 79;
+		int result = super.hashCode();
+		result = prime * result + ((directory == null) ? 0 : directory.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DirectoryResult other = (DirectoryResult) obj;
+		if (directory == null) {
+			if (other.directory != null)
+				return false;
+		} else if (!directory.equals(other.directory))
+			return false;
+		return true;
+	}
+
 }

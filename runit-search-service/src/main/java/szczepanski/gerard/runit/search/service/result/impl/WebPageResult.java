@@ -48,4 +48,29 @@ public class WebPageResult extends SearchResult {
 		WebPageRunner.browsePage(webAddress);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 47;
+		int result = super.hashCode();
+		result = prime * result + ((webAddress == null) ? 0 : webAddress.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WebPageResult other = (WebPageResult) obj;
+		if (webAddress == null) {
+			if (other.webAddress != null)
+				return false;
+		} else if (!webAddress.equals(other.webAddress))
+			return false;
+		return true;
+	}
+
 }

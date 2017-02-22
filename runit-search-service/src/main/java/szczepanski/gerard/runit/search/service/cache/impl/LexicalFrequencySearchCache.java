@@ -14,46 +14,86 @@ import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 
+/**
+ * Advanced, smart cache. //TODO update doc
+ * 
+ * @author Gerard Szczepanski
+ */
 public class LexicalFrequencySearchCache implements Cache {
 	private static final Logger LOG = Logger.getLogger(LexicalFrequencySearchCache.class);
 
 	protected final CacheContainer cacheContainer;
-	
+
 	public LexicalFrequencySearchCache(int size, int numberOfSlotsToRemoveWhenClear) {
 		LOG.debug("Instantizing Cache with size: " + size);
 		this.cacheContainer = new CacheContainer(size, numberOfSlotsToRemoveWhenClear);
 	}
-	
+
 	@Override
 	public void addSearchResultsToCache(String searchTerm, List<SearchResult> searchResults) {
 		boolean finished = false;
 		int searchResultsHash = searchResults.hashCode();
-		
+
 		for (int i = 0; i < cacheContainer.firstFreeSlot; i++) {
 			CachedSearchResultsBucket bucket = cacheContainer.buckets[i];
-			
+
 			if (bucket.searchTermTimeStamps.containsKey(searchTerm)) {
 				if (bucket.searchResultsHash == searchResultsHash) {
+					LOG.debug(String.format("SearchTerm [%s] for SearchResults [%s] added to existing [%d]th bucket",
+							searchResults.size(), searchTerm, i));
 					cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
 				} else {
+					LOG.debug(String.format(
+							"%s SearchResults for searchTerm [%s] added to cache. Split existing [%d]th bucket",
+							searchResults.size(), searchTerm, i));
 					cacheContainer.splitBucketForSearchTerm(i, searchTerm, searchResults);
 				}
 				finished = true;
 				break;
 			} else if (bucket.searchResultsHash == searchResultsHash) {
+				LOG.debug(String.format(
+						"[%s] SearchResults for searchTerm [%s] added to cache. Update existing [%d]th bucket",
+						searchResults.size(), searchTerm, i));
 				cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
 				finished = true;
 				break;
 			}
 		}
-		
+
 		if (!finished) {
+			LOG.debug(String.format("[%s] SearchResults for searchTerm [%s] added to cache as new bucket.",
+					searchResults.size(), searchTerm));
 			cacheContainer.addNewSearchResultsToBucket(searchTerm, searchResults);
 		}
 	}
 
 	@Override
 	public Optional<List<SearchResult>> getFromCache(String searchTerm) {
+		CachedSearchResultsBucket bucket = getBucketFromCache(searchTerm);
+
+		if (bucket == null) {
+			LOG.debug("Do not found SearchResults for searchTerm: " + searchTerm);
+			return Optional.empty();
+		}
+
+		boolean updateSearchTermResults = CacheRefreshAlgorithm
+				.shouldSerachResultsBeUpdatedForThatSearchTerm(searchTerm, bucket);
+		if (updateSearchTermResults) {
+			LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm
+					+ "but Cache will look for them again. Returning EMPTY");
+			return Optional.empty();
+		} else {
+			LOG.debug(String.format("Found cached SearchResults for searchTerm: [%s] in Bucket: %s", searchTerm, bucket));
+			return Optional.of(bucket.searchResults);
+		}
+	}
+
+	private CachedSearchResultsBucket getBucketFromCache(String searchTerm) {
+		for (int i = 0; i < cacheContainer.firstFreeSlot; i++) {
+			if (cacheContainer.buckets[i].searchTermTimeStamps.containsKey(searchTerm)) {
+				return cacheContainer.buckets[i];
+			}
+		}
 		return null;
 	}
 
@@ -121,7 +161,28 @@ public class LexicalFrequencySearchCache implements Cache {
 				for (int i = firstFreeSlot; i < buckets.length; i++) {
 					buckets[i] = null;
 				}
+				
+				LOG.debug(String.format("CLEAR CACHE: %d latest slots was removed", numberOfSlotsToRemoveWhenClear));
 			}
+		}
+	}
+
+	static class CacheRefreshAlgorithm {
+		private static final long SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 2;
+
+		private static boolean shouldSerachResultsBeUpdatedForThatSearchTerm(String searchTerm,
+				CachedSearchResultsBucket bucket) {
+			LexicalSearchTerm lexicalSearchTerm = bucket.searchTermTimeStamps.get(searchTerm);
+
+			if (resultWasSearchedLongTimeAgo(lexicalSearchTerm)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		private static boolean resultWasSearchedLongTimeAgo(LexicalSearchTerm lexicalSearchTerm) {
+			return System.currentTimeMillis() - lexicalSearchTerm.timeStamp >= SEARCH_TERM_VALID_DURATION_IN_MS;
 		}
 	}
 
@@ -181,6 +242,13 @@ public class LexicalFrequencySearchCache implements Cache {
 		private void updateBucketWeigth() {
 			bucketWeight = searchResults.size() * searchTermTimeStamps.size() * frequency;
 		}
+
+		@Override
+		public String toString() {
+			return "[W:" + bucketWeight + ", F:" + frequency
+					+ ", St:" + searchTermTimeStamps.size() + ", R:" + searchResults.size() + "]";
+		}
+		
 	}
 
 	static class LexicalSearchTerm {
