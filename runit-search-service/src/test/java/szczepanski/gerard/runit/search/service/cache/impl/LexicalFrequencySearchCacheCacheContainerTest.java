@@ -11,7 +11,7 @@ import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.impl.WebPageResult;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
-public class LexicalFrequencySearchCacheCacheContainer {
+public class LexicalFrequencySearchCacheCacheContainerTest {
 
 	@Test
 	public void testInitializeWithEmptyBucket() {

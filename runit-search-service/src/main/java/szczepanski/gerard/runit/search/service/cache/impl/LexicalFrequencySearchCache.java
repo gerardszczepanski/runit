@@ -17,9 +17,39 @@ import szczepanski.gerard.runit.search.service.result.SearchResult;
 public class LexicalFrequencySearchCache implements Cache {
 	private static final Logger LOG = Logger.getLogger(LexicalFrequencySearchCache.class);
 
+	protected final CacheContainer cacheContainer;
+	
+	public LexicalFrequencySearchCache(int size, int numberOfSlotsToRemoveWhenClear) {
+		LOG.debug("Instantizing Cache with size: " + size);
+		this.cacheContainer = new CacheContainer(size, numberOfSlotsToRemoveWhenClear);
+	}
+	
 	@Override
 	public void addSearchResultsToCache(String searchTerm, List<SearchResult> searchResults) {
-
+		boolean finished = false;
+		int searchResultsHash = searchResults.hashCode();
+		
+		for (int i = 0; i < cacheContainer.firstFreeSlot; i++) {
+			CachedSearchResultsBucket bucket = cacheContainer.buckets[i];
+			
+			if (bucket.searchTermTimeStamps.containsKey(searchTerm)) {
+				if (bucket.searchResultsHash == searchResultsHash) {
+					cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
+				} else {
+					cacheContainer.splitBucketForSearchTerm(i, searchTerm, searchResults);
+				}
+				finished = true;
+				break;
+			} else if (bucket.searchResultsHash == searchResultsHash) {
+				cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
+				finished = true;
+				break;
+			}
+		}
+		
+		if (!finished) {
+			cacheContainer.addNewSearchResultsToBucket(searchTerm, searchResults);
+		}
 	}
 
 	@Override
@@ -78,10 +108,6 @@ public class LexicalFrequencySearchCache implements Cache {
 					searchResults);
 			firstFreeSlot++;
 			sortBuckets();
-		}
-
-		protected CachedSearchResultsBucket getBucket(int bucketIndex) {
-			return buckets[bucketIndex];
 		}
 
 		private void sortBuckets() {
