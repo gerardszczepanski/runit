@@ -12,7 +12,6 @@ import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearchCache;
-import szczepanski.gerard.runit.search.service.cache.impl.SimpleSearchCache;
 import szczepanski.gerard.runit.search.service.service.impl.SearchServiceImpl;
 import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchTermMatcher;
 import szczepanski.gerard.runit.service.search.algorithm.impl.DirectoryAliasSearchAlgorithm;
@@ -90,8 +89,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsGeneralPaneTabController settingsGeneralPaneTabController() {
-		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), directoryPathValidator(),
-				fileExtensionValidator());
+		return new SettingsGeneralPaneTabController(settingsLoader(), settingsWriter(), directoryPathValidator(), fileExtensionValidator());
 	}
 
 	@Bean
@@ -116,8 +114,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsWriter settingsWriter() {
-		return new PropertySettingsWriter(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper(),
-				settingsLoader(), defaultSettingsProvider());
+		return new PropertySettingsWriter(ProgramConfig.PROPERTIES_CONFIG_FILE_PATH, settingsPropertiesMapper(), settingsLoader(), defaultSettingsProvider());
 	}
 
 	@Bean
@@ -147,8 +144,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SearchService searchService() {
-		return SearchServiceImpl.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader())
-				.cache(cache()).build();
+		return SearchServiceImpl.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader()).cache(cache()).build();
 	}
 
 	@Bean
@@ -158,13 +154,13 @@ public class DependenciesConfig {
 
 	@Bean
 	public SettingsPropertiesMapper settingsPropertiesMapper() {
-		return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(),
-				stringPropertyConcator(), aliasPropertyConcator());
+		return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(), stringPropertyConcator(), aliasPropertyConcator());
 	}
 
 	@Bean
 	public Cache cache() {
-		//return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
+		// return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT,
+		// ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
 		return new LexicalFrequencySearchCache(ProgramConfig.CACHE_LIMIT, 4);
 	}
 
@@ -202,7 +198,7 @@ public class DependenciesConfig {
 	public SearchTermMatcher searchTermMatcher() {
 		return new SimpleSearchTermMatcher();
 	}
-	
+
 	@Bean
 	public ProgramSettingsManager programSettingsManager() {
 		return new ProgramSettingsManager(settingsLoader(), settingsWriter());

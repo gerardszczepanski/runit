@@ -9,8 +9,8 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 public class WebPageResultTest {
 
 	/**
-	 * Trigger browser open. Enable this test only for run in isolation.
-	 * Disable for maven build cycle.
+	 * Trigger browser open. Enable this test only for run in isolation. Disable
+	 * for maven build cycle.
 	 */
 	@Test(enabled = false)
 	public void openPageInBrowserSuccess() {
@@ -18,20 +18,20 @@ public class WebPageResultTest {
 		String alias = "google";
 		String fullWebAddress = "http://google.com";
 		Alias webAlias = new Alias(alias, fullWebAddress);
-		
+
 		WebPageResult webPageResult = WebPageResult.fromWebAlias(webAlias);
-		
+
 		// Act
 		webPageResult.run();
 	}
-	
+
 	@Test(expectedExceptions = RunitRuntimeException.class)
 	public void ifWebAddressIfInvalidThrowException() {
 		// Arrange
 		String alias = "google";
 		String invalidWebAddress = null;
 		Alias webAlias = new Alias(alias, invalidWebAddress);
-		
+
 		WebPageResult.fromWebAlias(webAlias);
 	}
 

@@ -14,8 +14,7 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 public class WebPageResult extends SearchResult {
 
 	private static final String WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH = "/images/search-results/webPageResult.png";
-	private static final Image WEB_PAGE_RESULT_IMAGE = new Image(
-			WebPageResult.class.getResourceAsStream(WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH));
+	private static final Image WEB_PAGE_RESULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final URI webAddress;
 

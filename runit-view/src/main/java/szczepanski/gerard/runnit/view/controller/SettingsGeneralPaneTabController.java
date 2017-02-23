@@ -36,7 +36,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
 		LOG.debug("Initialize");
 		reloadTab();
 	}
-	
+
 	@Override
 	public void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
@@ -82,8 +82,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
 	@FXML
 	public void handleAddFileExtension() {
 		LOG.debug("handleAddFileExtension");
-		Optional<String> optFileExtension = DialogDisplayer.showInputDialog(getStage(rootPathsListView),
-				"File extension");
+		Optional<String> optFileExtension = DialogDisplayer.showInputDialog(getStage(rootPathsListView), "File extension");
 		if (optFileExtension.isPresent()) {
 			String addedFileExtension = optFileExtension.get().toLowerCase();
 			addFileExtension(addedFileExtension);
@@ -101,7 +100,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
 
 	private void removeSelectedItemFromListView(ListView<String> listView) {
 		int selectedIndex = listView.getSelectionModel().getSelectedIndex();
-		
+
 		if (isSelectedIndexValid(selectedIndex)) {
 			listView.getItems().remove(selectedIndex);
 		}
@@ -120,28 +119,24 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
 		LOG.debug("handleRemoveFileExtension");
 		removeSelectedItemFromListView(fileExtensonsListView);
 	}
-	
+
 	@FXML
 	public void handleSaveTab() {
 		LOG.debug("handleSaveTab");
-		
+
 		Settings actualSettings = settingsLoader.getSettings();
 		Settings newSettings = createNewSettings(actualSettings);
 		settingsWriter.updateSettings(newSettings);
-		
+
 		DialogDisplayer.showConfirmationMessageDialog("Settings are successfully saved!");
 		handleCancelButton();
 	}
-	
+
 	private Settings createNewSettings(Settings actualSettings) {
-		return Settings.builder()
-				.rootDirectioresToScan(rootPathsListView.getItems())
-				.fileExtensions(fileExtensonsListView.getItems())
-				.webAliases(actualSettings.getWebAliases())
-				.dirAliases(actualSettings.getDirAliases())
-				.build();
+		return Settings.builder().rootDirectioresToScan(rootPathsListView.getItems()).fileExtensions(fileExtensonsListView.getItems())
+				.webAliases(actualSettings.getWebAliases()).dirAliases(actualSettings.getDirAliases()).build();
 	}
-	
+
 	@FXML
 	public void handleLoadDefaultSettings() {
 		LOG.debug("handleLoadDefaultSettings");

@@ -12,10 +12,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Alias {
-	
+
 	private final String name;
 	private final String value;
-	
+
 	@Override
 	public String toString() {
 		return String.format("[name->%s, value->%s]", name, value);
@@ -45,5 +45,5 @@ public class Alias {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -45,8 +45,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return searchResults;
 	}
 
-	private List<SearchResult> searchForRootPath(String rootPath, String searchTerm,
-			List<String> fileExtensions) {
+	private List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {
 		List<File> filesFound = findFiles(rootPath, searchTerm, fileExtensions);
 		return convertFromFilesToSearchResults(filesFound);
 	}
@@ -63,8 +62,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return suitableFiles;
 	}
 
-	private void findSuitableFiles(String rootPath, String searchTerm, List<String> fileExtensions,
-			List<File> suitableFiles) throws IOException {
+	private void findSuitableFiles(String rootPath, String searchTerm, List<String> fileExtensions, List<File> suitableFiles) throws IOException {
 		Files.walkFileTree(Paths.get(rootPath), new FileVisitor<Path>() {
 
 			@Override

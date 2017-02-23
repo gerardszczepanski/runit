@@ -34,32 +34,18 @@ public class SimpleSearchTermMatcherTest {
 		// Assert
 		Assert.assertFalse(isMatch);
 	}
-	
-	 @DataProvider(name = "searchTermMatchDataProvider")
-	 public Object[][] searchTermMatchDataProvider() {
-	        return new Object[][] { 
-	        	{ "g", "google" }, 
-	        	{ "go", "google" },
-	        	{ "goo", "google chrome" }, 
-	        	{ "googl", "google chrome two two" },
-	        	{ "google", "google" },
-	        	{ "google", "hello google" },
-	        	{ "google", "hello world google" },
-	        	{ "world", "hello world google" },
-	        	{ "hello", "hello world google" },
-	        	{ "control p", "Control Panel"}
-	        };
-	    }
-	 
-	 @DataProvider(name = "searchTermDoNotMatchDataProvider")
-	 public Object[][] searchTermDoNotMatchDataProvider() {
-	        return new Object[][] { 
-	        	{ "g", "fgoogle" }, 
-	        	{ "go", "fgoogle" },
-	        	{ "goo", "fgoogle chrome" }, 
-	        	{ "googl", "fgoogle chrome two two" },
-	        	{ "google", "fgoogle" }
-	        };
-	    }
+
+	@DataProvider(name = "searchTermMatchDataProvider")
+	public Object[][] searchTermMatchDataProvider() {
+		return new Object[][] { { "g", "google" }, { "go", "google" }, { "goo", "google chrome" }, { "googl", "google chrome two two" }, { "google", "google" },
+				{ "google", "hello google" }, { "google", "hello world google" }, { "world", "hello world google" }, { "hello", "hello world google" },
+				{ "control p", "Control Panel" } };
+	}
+
+	@DataProvider(name = "searchTermDoNotMatchDataProvider")
+	public Object[][] searchTermDoNotMatchDataProvider() {
+		return new Object[][] { { "g", "fgoogle" }, { "go", "fgoogle" }, { "goo", "fgoogle chrome" }, { "googl", "fgoogle chrome two two" },
+				{ "google", "fgoogle" } };
+	}
 
 }

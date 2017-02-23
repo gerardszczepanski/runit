@@ -19,7 +19,7 @@ import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
  * TrayKeyListener is being installed on key type action in main scene to listen
  * for program tray show/hide shortcut.
  * 
- * Shortcut is: ALT + Q. 
+ * Shortcut is: ALT + Q.
  * 
  * I do not predict to make it changeable by user.
  * 

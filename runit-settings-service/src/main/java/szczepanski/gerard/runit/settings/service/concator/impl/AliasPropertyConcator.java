@@ -7,7 +7,7 @@ import szczepanski.gerard.runit.settings.service.concator.PropertyConcator;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 public class AliasPropertyConcator extends PropertyConcator<Alias> {
-	
+
 	private static final String ALIAS_DELIMETER = "=";
 
 	@Override

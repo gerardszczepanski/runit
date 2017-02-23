@@ -16,21 +16,21 @@ import szczepanski.gerard.runit.settings.service.validator.Validator;
 public class DirectoryPathValidator implements Validator<String> {
 
 	private static final String FAILURE_MESSAGE = "Given directory path is not valid!";
-	
+
 	@Override
 	public void validate(String obj) throws RunitValidationException {
 		File fileFromPath = tryToCreateFileFromPath(obj);
 		checkIfFileFromPathIsDirectory(fileFromPath);
 	}
-	
+
 	private File tryToCreateFileFromPath(String path) throws RunitValidationException {
 		try {
-			return new File(path);	
+			return new File(path);
 		} catch (InvalidPathException | NullPointerException e) {
 			throw new RunitValidationException(FAILURE_MESSAGE);
 		}
 	}
-	
+
 	private void checkIfFileFromPathIsDirectory(File fileFromPath) throws RunitValidationException {
 		if (!fileFromPath.isDirectory()) {
 			throw new RunitValidationException(FAILURE_MESSAGE);

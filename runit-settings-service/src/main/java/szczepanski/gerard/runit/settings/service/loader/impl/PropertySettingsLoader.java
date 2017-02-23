@@ -23,9 +23,9 @@ public class PropertySettingsLoader implements SettingsLoader {
 
 	private final String propertiesPath;
 	private final SettingsPropertiesMapper settingsPropertiesMapper;
-	
+
 	private Settings currentSettings;
-	
+
 	public PropertySettingsLoader(String propertiesPath, SettingsPropertiesMapper settingsPropertiesMapper) {
 		this.propertiesPath = propertiesPath;
 		this.settingsPropertiesMapper = settingsPropertiesMapper;
@@ -38,14 +38,14 @@ public class PropertySettingsLoader implements SettingsLoader {
 		}
 		return currentSettings;
 	}
-	
+
 	private boolean areSettingsLoaded() {
 		return currentSettings != null;
 	}
 
 	private Properties loadProperties() {
 		Properties properties = new Properties();
-		
+
 		try {
 			InputStream in = new FileInputStream(propertiesPath);
 			properties.load(in);

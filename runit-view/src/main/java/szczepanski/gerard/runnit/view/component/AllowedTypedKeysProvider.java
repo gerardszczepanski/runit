@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AllowedTypedKeysProvider {
-	
+
 	public static List<KeyCode> getAllowedKeyCodes() {
-		List<KeyCode> allowedKeyCodes= new ObjectArrayList<>();
-		
+		List<KeyCode> allowedKeyCodes = new ObjectArrayList<>();
+
 		allowedKeyCodes.add(KeyCode.DIGIT0);
 		allowedKeyCodes.add(KeyCode.DIGIT1);
 		allowedKeyCodes.add(KeyCode.DIGIT2);
@@ -51,8 +51,8 @@ public class AllowedTypedKeysProvider {
 		allowedKeyCodes.add(KeyCode.M);
 		allowedKeyCodes.add(KeyCode.SPACE);
 		allowedKeyCodes.add(KeyCode.BACK_SPACE);
-		
+
 		return allowedKeyCodes;
 	}
-	
+
 }

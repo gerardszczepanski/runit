@@ -39,7 +39,7 @@ public class SettingsWebPaneTabController extends AbstractSettingsTabController 
 		LOG.debug("Initialize");
 		reloadTab();
 	}
-	
+
 	@Override
 	public void reloadTab() {
 		Settings settings = settingsLoader.getSettings();
@@ -56,29 +56,29 @@ public class SettingsWebPaneTabController extends AbstractSettingsTabController 
 	public void handleAddWebAlias() {
 		LOG.debug("handleAddWebAlias");
 		Optional<Alias> optionalNewWebAlias = getNewAliasFromUserInput();
-		if(optionalNewWebAlias.isPresent()) {
-			addWebAlias(optionalNewWebAlias.get());	
+		if (optionalNewWebAlias.isPresent()) {
+			addWebAlias(optionalNewWebAlias.get());
 		}
 	}
-	
+
 	/**
-	 *  TODO Gerard Szczepanski 22.01.2017 -> Ugly method, to future refactor
+	 * TODO Gerard Szczepanski 22.01.2017 -> Ugly method, to future refactor
 	 */
 	private Optional<Alias> getNewAliasFromUserInput() {
 		Optional<String> optAliasName = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Name");
 		Optional<String> optAliasValue = Optional.empty();
-		
+
 		if (optAliasName.isPresent()) {
 			optAliasValue = DialogDisplayer.showInputDialog(getStage(webAliasTableView), "Web Alias Address", "http://");
 		}
-		
+
 		if (optAliasName.isPresent() && optAliasValue.isPresent()) {
 			return Optional.of(new Alias(optAliasName.get(), optAliasValue.get()));
 		}
-		
+
 		return Optional.empty();
 	}
-	
+
 	private void addWebAlias(Alias newWebAlias) {
 		try {
 			webAliasValidator.validate(newWebAlias);
@@ -87,7 +87,7 @@ public class SettingsWebPaneTabController extends AbstractSettingsTabController 
 			handleValidationException(e);
 		}
 	}
-	
+
 	private void addNotDuplicatedWebAliasToTableView(Alias newWebAlias) {
 		if (!webAliasTableView.getItems().contains(newWebAlias)) {
 			webAliasTableView.getItems().add(newWebAlias);
@@ -100,7 +100,7 @@ public class SettingsWebPaneTabController extends AbstractSettingsTabController 
 	public void handleRemoveWebAlias() {
 		LOG.debug("handleRemoveWebAlias");
 		int selectedIndex = webAliasTableView.getSelectionModel().getSelectedIndex();
-		
+
 		if (isSelectedIndexValid(selectedIndex)) {
 			webAliasTableView.getItems().remove(selectedIndex);
 		}
@@ -109,22 +109,18 @@ public class SettingsWebPaneTabController extends AbstractSettingsTabController 
 	@FXML
 	public void handleSaveTab() {
 		LOG.debug("handleSaveTab");
-		
+
 		Settings actualSettings = settingsLoader.getSettings();
 		Settings newSettings = createNewSettings(actualSettings);
 		settingsWriter.updateSettings(newSettings);
-		
+
 		DialogDisplayer.showConfirmationMessageDialog("Settings are successfully saved!");
 		handleCancelButton();
 	}
-	
+
 	private Settings createNewSettings(Settings actualSettings) {
-		return Settings.builder()
-				.rootDirectioresToScan(actualSettings.getRootDirectioresToScan())
-				.fileExtensions(actualSettings.getFileExtensions())
-				.webAliases(webAliasTableView.getItems())
-				.dirAliases(actualSettings.getDirAliases())
-				.build();
+		return Settings.builder().rootDirectioresToScan(actualSettings.getRootDirectioresToScan()).fileExtensions(actualSettings.getFileExtensions())
+				.webAliases(webAliasTableView.getItems()).dirAliases(actualSettings.getDirAliases()).build();
 	}
 
 	private void configureTableView() {

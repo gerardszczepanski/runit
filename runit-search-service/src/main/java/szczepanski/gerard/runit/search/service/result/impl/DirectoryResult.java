@@ -18,8 +18,7 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 public class DirectoryResult extends SearchResult {
 
 	private static final String DIRECTORY_RESULT_DEFAULT_IMAGE_PATH = "/images/search-results/directoryResult.png";
-	private static final Image DIRECTORY_RESULT_IMAGE = new Image(
-			WebPageResult.class.getResourceAsStream(DIRECTORY_RESULT_DEFAULT_IMAGE_PATH));
+	private static final Image DIRECTORY_RESULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DIRECTORY_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final File directory;
 
@@ -30,8 +29,7 @@ public class DirectoryResult extends SearchResult {
 
 	private static void isDirecotyrAliasValid(Alias directoryAlias) {
 		if (directoryAlias == null || directoryAlias.getName() == null || directoryAlias.getValue() == null) {
-			throw new RunitBusinessException(ExceptionCode.B_001,
-					new Object[] { directoryAlias.getName(), directoryAlias.getValue() });
+			throw new RunitBusinessException(ExceptionCode.B_001, new Object[] { directoryAlias.getName(), directoryAlias.getValue() });
 		}
 	}
 

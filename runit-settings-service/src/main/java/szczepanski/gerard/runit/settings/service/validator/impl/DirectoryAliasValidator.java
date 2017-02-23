@@ -6,9 +6,9 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 @RequiredArgsConstructor
 public class DirectoryAliasValidator extends AbstractAliasValidator {
-	
+
 	private final DirectoryPathValidator rootPathValidator;
-	
+
 	@Override
 	public void validate(Alias obj) throws RunitValidationException {
 		validateAliasName(obj.getName());

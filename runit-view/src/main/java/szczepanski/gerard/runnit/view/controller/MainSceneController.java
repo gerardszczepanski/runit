@@ -16,14 +16,14 @@ import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 @RequiredArgsConstructor
 public class MainSceneController {
 	private static final Logger LOG = Logger.getLogger(MainSceneController.class);
-	
+
 	private final SearchService searchService;
 	private final SettingsStagePresenter settingsStagePresenter;
 	private SearchAutocompleteSelect searchAutocompleteSelect;
-	
+
 	@FXML
 	private Button closeButton;
-	
+
 	@FXML
 	public void initialize() {
 		Pane currentPane = (Pane) closeButton.getParent();
@@ -32,17 +32,17 @@ public class MainSceneController {
 		searchAutocompleteSelect = SearchAutocompleteSelect.createSearchAutocompleteSelect(currentPane, dim, pos);
 		searchAutocompleteSelect.setSearchService(searchService);
 	}
-	
+
 	@FXML
 	public void handleCloseButton() {
 		LOG.debug("handleCloseButton");
 		ProgramTrayManager.hideProgramStage();
 	}
-	
+
 	@FXML
 	public void handleShowSettingsButton() {
 		LOG.debug("handleShowSettingsButton");
 		settingsStagePresenter.showSettingsStageInNewWindow();
 	}
-	
+
 }

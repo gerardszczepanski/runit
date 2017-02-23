@@ -32,19 +32,16 @@ public class FileSearchAlgorithmTest {
 		rootDirectoriesToScan.add(fullRootDirPath);
 		List<String> fileExtensions = new ArrayList<>();
 		fileExtensions.add("exe");
-		
+
 		String searchTerm = "runit";
-		Settings settings = Settings.builder()
-									.rootDirectioresToScan(rootDirectoriesToScan)
-									.fileExtensions(fileExtensions)
-									.build();
-		int numberOfExecutableFiles = 2; //From path and second level path
-		
+		Settings settings = Settings.builder().rootDirectioresToScan(rootDirectoriesToScan).fileExtensions(fileExtensions).build();
+		int numberOfExecutableFiles = 2; // From path and second level path
+
 		Mockito.when(searchTermMatcher.isMatch(searchTerm, "runit")).thenReturn(true);
-		
-		//	Act
+
+		// Act
 		List<SearchResult> searchResults = searchAlgorithm.search(searchTerm, settings);
-		
+
 		// Assert
 		Assert.assertEquals(searchResults.size(), numberOfExecutableFiles);
 	}

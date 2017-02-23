@@ -28,20 +28,18 @@ public class WebAliasSearchAlgorithmTest {
 	@Test
 	public void findWebAliasSuccess() {
 		// Arrange
-		String searchTerm = "google"; 
+		String searchTerm = "google";
 		List<Alias> webAliasesDefinedInSettings = new ArrayList<>();
 		webAliasesDefinedInSettings.add(new Alias("google", "http://google.com"));
 		webAliasesDefinedInSettings.add(new Alias("github", "http://github.com"));
-		
-		Settings settings = Settings.builder()
-				.webAliases(webAliasesDefinedInSettings)
-				.build();
-		
+
+		Settings settings = Settings.builder().webAliases(webAliasesDefinedInSettings).build();
+
 		Mockito.when(searchTermMatcher.isMatch(searchTerm, "google")).thenReturn(true);
-		
+
 		// Act
 		List<SearchResult> searchResults = searchAlgorithm.search(searchTerm, settings);
-		
+
 		// Assert
 		Assert.assertEquals(searchResults.size(), 1);
 	}

@@ -40,8 +40,7 @@ public class FileResult extends SearchResult {
 	}
 
 	private FileResult(File file) {
-		super(new SearchResultRepresentation(FileResultImageProvider.getImageFromFile(file),
-				FilenameUtils.getBaseName(file.getName())));
+		super(new SearchResultRepresentation(FileResultImageProvider.getImageFromFile(file), FilenameUtils.getBaseName(file.getName())));
 		this.file = file;
 	}
 
@@ -49,7 +48,7 @@ public class FileResult extends SearchResult {
 	public void run() {
 		DesktopFileRunner.run(file);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 53;
@@ -75,8 +74,6 @@ public class FileResult extends SearchResult {
 		return true;
 	}
 
-
-
 	/**
 	 * Helper, Utility class for FileResult.
 	 * 
@@ -87,8 +84,7 @@ public class FileResult extends SearchResult {
 	 */
 	private static class FileResultImageProvider {
 		private static final String DEFAULT_IMAGE_PATH = "/images/search-results/fileResult.png";
-		private static final Image DEFAULT_IMAGE = new Image(
-				WebPageResult.class.getResourceAsStream(DEFAULT_IMAGE_PATH));
+		private static final Image DEFAULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DEFAULT_IMAGE_PATH));
 
 		private static Image getImageFromFile(File file) {
 			Optional<Image> optionalFileImage = loadImageFromFile(file);
@@ -105,7 +101,7 @@ public class FileResult extends SearchResult {
 				java.awt.Image imageFromFile = ((ImageIcon) iconFromFile).getImage();
 				BufferedImage bufferedImageFromFile = (BufferedImage) imageFromFile;
 				Image imageForFileResult = SwingFXUtils.toFXImage(bufferedImageFromFile, null);
-				
+
 				return Optional.of(imageForFileResult);
 			} catch (ClassCastException e) {
 				return Optional.empty();

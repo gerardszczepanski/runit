@@ -49,8 +49,9 @@ public class SimpleSearchCache implements Cache {
 				CachedSearchResults oldestCachedSearchResults = cachedSearchResults.peek();
 				cachedSearchResults.remove(oldestCachedSearchResults);
 			}
-			
-			System.gc(); // Hey Garbage Collector, would you like to clean old files?
+
+			System.gc(); // Hey Garbage Collector, would you like to clean old
+							// files?
 		}
 	}
 
@@ -59,8 +60,7 @@ public class SimpleSearchCache implements Cache {
 	}
 
 	private void addToCache(String searchTerm, List<SearchResult> searchResults) {
-		LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache.", searchResults.size(),
-				searchTerm));
+		LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache.", searchResults.size(), searchTerm));
 		CachedSearchResults newCachedSearchResults = CachedSearchResults.of(searchTerm, searchResults);
 		cachedSearchResults.add(newCachedSearchResults);
 	}
@@ -80,26 +80,26 @@ public class SimpleSearchCache implements Cache {
 
 		return Optional.empty();
 	}
-	
+
 	@AllArgsConstructor
 	private static class CachedSearchResults {
 		private static final List<SearchResult> EMPTY_LIST = new ArrayList<>(0);
-		
+
 		private final String searchTerm;
 		private final List<SearchResult> searchResults;
-		
+
 		/**
-		 * Create CachedSearchResults object from searchTerm and SearchResult List. If list is empty, then
-		 * List pointer is changed to EMPTY LIST. 
+		 * Create CachedSearchResults object from searchTerm and SearchResult
+		 * List. If list is empty, then List pointer is changed to EMPTY LIST.
 		 */
 		private static CachedSearchResults of(String searchTerm, List<SearchResult> searchResults) {
 			if (searchResults.isEmpty()) {
 				searchResults = EMPTY_LIST;
 			}
-			
+
 			return new CachedSearchResults(searchTerm, searchResults);
 		}
-		
+
 		public boolean isSearchTermMatch(String searchTerm) {
 			return this.searchTerm.equals(searchTerm);
 		}

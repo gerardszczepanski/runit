@@ -21,8 +21,6 @@ import javafx.util.StringConverter;
 import lombok.Setter;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
-import szczepanski.gerard.runit.common.exception.ExceptionCode;
-import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
@@ -40,7 +38,7 @@ import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
  */
 public class SearchAutocompleteSelect {
 	private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
-	
+
 	private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
 	private final ComboBox<SearchResult> innerSelect;
@@ -59,8 +57,7 @@ public class SearchAutocompleteSelect {
 	 * @param position
 	 *            - position for SearchAutocompleteSelect object.
 	 */
-	public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion,
-			Position position) {
+	public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
 		return new SearchAutocompleteSelect(currentPane, dimenstion, position);
 	}
 
@@ -148,7 +145,7 @@ public class SearchAutocompleteSelect {
 		});
 
 		initSelectTypeDeyalSubscriber();
-		
+
 		Platform.runLater(() -> {
 			innerSelect.getEditor().requestFocus();
 			innerSelect.requestFocus();
@@ -158,14 +155,12 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void initSelectTypeDeyalSubscriber() {
-		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED)
-			.filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
-			.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS)
-			.subscribe(e -> {
-				LOG.debug("SEARCH START");
-				Platform.runLater(() -> search());
-				LOG.debug("SEARCH FINISHED");
-			});
+		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
+				.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
+					LOG.debug("SEARCH START");
+					Platform.runLater(() -> search());
+					LOG.debug("SEARCH FINISHED");
+				});
 	}
 
 	/**
@@ -235,9 +230,8 @@ public class SearchAutocompleteSelect {
 
 		@Override
 		public SearchResult fromString(String string) {
-			return innerSelect.getItems().stream()
-					.filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string))
-					.findFirst().orElse(null);
+			return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string)).findFirst()
+					.orElse(null);
 		}
 	}
 

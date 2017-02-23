@@ -24,7 +24,7 @@ public class PropertySettingsWriter implements SettingsWriter {
 	private final SettingsPropertiesMapper settingsPropertiesMapper;
 	private final SettingsLoader settingsLoader;
 	private final DefaultSettingsProvider defaultSettingsProvider;
-	
+
 	@Override
 	public void updateSettings(Settings newSettings) {
 		Properties properties = settingsPropertiesMapper.toProperties(newSettings);

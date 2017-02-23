@@ -39,21 +39,18 @@ public class LexicalFrequencySearchCache implements Cache {
 
 			if (bucket.searchTermTimeStamps.containsKey(searchTerm)) {
 				if (bucket.searchResultsHash == searchResultsHash) {
-					LOG.debug(String.format("SearchTerm [%s] for SearchResults [%s] added to existing [%d]th bucket",
-							searchResults.size(), searchTerm, i));
+					LOG.debug(String.format("SearchTerm [%s] for SearchResults [%s] added to existing [%d]th bucket", searchResults.size(), searchTerm, i));
 					cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
 				} else {
-					LOG.debug(String.format(
-							"%s SearchResults for searchTerm [%s] added to cache. Split existing [%d]th bucket",
-							searchResults.size(), searchTerm, i));
+					LOG.debug(String.format("%s SearchResults for searchTerm [%s] added to cache. Split existing [%d]th bucket", searchResults.size(),
+							searchTerm, i));
 					cacheContainer.splitBucketForSearchTerm(i, searchTerm, searchResults);
 				}
 				finished = true;
 				break;
 			} else if (bucket.searchResultsHash == searchResultsHash) {
-				LOG.debug(String.format(
-						"[%s] SearchResults for searchTerm [%s] added to cache. Update existing [%d]th bucket",
-						searchResults.size(), searchTerm, i));
+				LOG.debug(String.format("[%s] SearchResults for searchTerm [%s] added to cache. Update existing [%d]th bucket", searchResults.size(),
+						searchTerm, i));
 				cacheContainer.updateBucketWithSearchTerm(i, searchTerm);
 				finished = true;
 				break;
@@ -61,8 +58,7 @@ public class LexicalFrequencySearchCache implements Cache {
 		}
 
 		if (!finished) {
-			LOG.debug(String.format("[%s] SearchResults for searchTerm [%s] added to cache as new bucket.",
-					searchResults.size(), searchTerm));
+			LOG.debug(String.format("[%s] SearchResults for searchTerm [%s] added to cache as new bucket.", searchResults.size(), searchTerm));
 			cacheContainer.addNewSearchResultsToBucket(searchTerm, searchResults);
 		}
 	}
@@ -76,11 +72,9 @@ public class LexicalFrequencySearchCache implements Cache {
 			return Optional.empty();
 		}
 
-		boolean updateSearchTermResults = CacheRefreshAlgorithm
-				.shouldSerachResultsBeUpdatedForThatSearchTerm(searchTerm, bucket);
+		boolean updateSearchTermResults = CacheRefreshAlgorithm.shouldSerachResultsBeUpdatedForThatSearchTerm(searchTerm, bucket);
 		if (updateSearchTermResults) {
-			LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm
-					+ "but Cache will look for them again. Returning EMPTY");
+			LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm + "but Cache will look for them again. Returning EMPTY");
 			return Optional.empty();
 		} else {
 			LOG.debug(String.format("Found cached SearchResults for searchTerm: [%s] in Bucket: %s", searchTerm, bucket));
@@ -144,8 +138,7 @@ public class LexicalFrequencySearchCache implements Cache {
 
 		protected void splitBucketForSearchTerm(int bucketIndex, String searchTerm, List<SearchResult> searchResults) {
 			freeContainerSlotsIfItsFull();
-			buckets[firstFreeSlot] = buckets[bucketIndex].splitBucketForSearchTermAndNewSearchResults(searchTerm,
-					searchResults);
+			buckets[firstFreeSlot] = buckets[bucketIndex].splitBucketForSearchTermAndNewSearchResults(searchTerm, searchResults);
 			firstFreeSlot++;
 			sortBuckets();
 		}
@@ -161,17 +154,16 @@ public class LexicalFrequencySearchCache implements Cache {
 				for (int i = firstFreeSlot; i < buckets.length; i++) {
 					buckets[i] = null;
 				}
-				
+
 				LOG.debug(String.format("CLEAR CACHE: %d latest slots was removed", numberOfSlotsToRemoveWhenClear));
 			}
 		}
 	}
 
 	static class CacheRefreshAlgorithm {
-		private static final long SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 2;
+		private static final long SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
 
-		private static boolean shouldSerachResultsBeUpdatedForThatSearchTerm(String searchTerm,
-				CachedSearchResultsBucket bucket) {
+		private static boolean shouldSerachResultsBeUpdatedForThatSearchTerm(String searchTerm, CachedSearchResultsBucket bucket) {
 			LexicalSearchTerm lexicalSearchTerm = bucket.searchTermTimeStamps.get(searchTerm);
 
 			if (resultWasSearchedLongTimeAgo(lexicalSearchTerm)) {
@@ -203,8 +195,7 @@ public class LexicalFrequencySearchCache implements Cache {
 			updateBucketWeigth();
 		}
 
-		protected CachedSearchResultsBucket(String searchTerm, List<SearchResult> searchResults,
-				LexicalSearchTerm lexicalSearchTerm) {
+		protected CachedSearchResultsBucket(String searchTerm, List<SearchResult> searchResults, LexicalSearchTerm lexicalSearchTerm) {
 			this.searchResults = searchResults;
 			this.searchResultsHash = searchResults.hashCode();
 			this.searchTermTimeStamps.put(searchTerm, lexicalSearchTerm);
@@ -223,8 +214,7 @@ public class LexicalFrequencySearchCache implements Cache {
 			updateBucketWeigth();
 		}
 
-		protected CachedSearchResultsBucket splitBucketForSearchTermAndNewSearchResults(String searchTerm,
-				List<SearchResult> searchResults) {
+		protected CachedSearchResultsBucket splitBucketForSearchTermAndNewSearchResults(String searchTerm, List<SearchResult> searchResults) {
 			LexicalSearchTerm lexicalSearchTerm = searchTermTimeStamps.get(searchTerm);
 			frequency -= lexicalSearchTerm.frequency;
 			searchTermTimeStamps.remove(searchTerm);
@@ -233,8 +223,7 @@ public class LexicalFrequencySearchCache implements Cache {
 			return createBucketFromSplit(searchTerm, searchResults, lexicalSearchTerm);
 		}
 
-		private CachedSearchResultsBucket createBucketFromSplit(String searchTerm, List<SearchResult> searchResults,
-				LexicalSearchTerm lexicalSearchTerm) {
+		private CachedSearchResultsBucket createBucketFromSplit(String searchTerm, List<SearchResult> searchResults, LexicalSearchTerm lexicalSearchTerm) {
 			lexicalSearchTerm.update();
 			return new CachedSearchResultsBucket(searchTerm, searchResults, lexicalSearchTerm);
 		}
@@ -245,10 +234,9 @@ public class LexicalFrequencySearchCache implements Cache {
 
 		@Override
 		public String toString() {
-			return "[W:" + bucketWeight + ", F:" + frequency
-					+ ", St:" + searchTermTimeStamps.size() + ", R:" + searchResults.size() + "]";
+			return "[W:" + bucketWeight + ", F:" + frequency + ", St:" + searchTermTimeStamps.size() + ", R:" + searchResults.size() + "]";
 		}
-		
+
 	}
 
 	static class LexicalSearchTerm {

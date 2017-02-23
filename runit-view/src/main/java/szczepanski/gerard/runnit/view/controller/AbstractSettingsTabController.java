@@ -12,7 +12,7 @@ public abstract class AbstractSettingsTabController extends AbstractController {
 
 	@FXML
 	private Button cancelButton;
-	
+
 	@FXML
 	public void handleCancelButton() {
 		LOG.debug("handleCancelButton");
@@ -20,6 +20,6 @@ public abstract class AbstractSettingsTabController extends AbstractController {
 		ProgramTrayManager.setAlwaysOnTop(true);
 		settingsStage.close();
 	}
-	
+
 	public abstract void reloadTab();
 }
