@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.cache.Cache;
+import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 
 public class SimpleSearchCache implements Cache {
@@ -79,6 +80,11 @@ public class SimpleSearchCache implements Cache {
 		}
 
 		return Optional.empty();
+	}
+	
+	@Override
+	public void accept(CacheVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	@AllArgsConstructor

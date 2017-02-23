@@ -12,14 +12,63 @@ import it.unimi.dsi.fastutil.objects.AbstractObject2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
+import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 
 /**
- * Advanced, smart cache. //TODO update doc
+ * Advanced, smart, less memory cost, refreshing cache. 
+ * 
+ * This cache stores cached SearchResults in Buckets. 
+ * Each Bucket contains:
+ * -> SearchResults
+ * -> searchTerms that returned contained SearchResults
+ * -> weight of the bucket.
+ * 
+ * This Cache checks if SearchResults returned by some searchTerm is actually in Cache. If yes,
+ * then Cache updates existing Bucket with new searchTerm. So if searchTerms "runi" and "runit" returns the same
+ * SearchResults, they will be in the same Bucket (for SearchResult). So basic difference between {@code SimpleSearchCache} and this
+ * Cache is it allocates memory for SearchResults, not searchTerm. 
+ * 
+ * SearchTerm in Bucket also contains frequency of the typed searchTerm. Phrase "runit" may be typed 28 times, while "runi" may be typed only once.
+ * SearchTerm contains timestamp of last typed time. When searchTerm that is in Bucket is retyped again, frequency is increased for that searchTerm,
+ * and searchTerm gets new timestamp.
+ * 
+ * Weight of the Bucket is counted after every Bucket update or split. Weight of the bucket formula is 
+ * W = [frequencies of the searchTerms] x [number of searchTerms in Bucket] x [size of the SearchResults for Bucket]
+ * 
+ * Buckets are stored in special Container. After each Container operation, Buckets are sorted by their weight from the
+ * heavier Bucket to the lighter. When Container is full, then it removes X latest Buckets (with the smaller weights).
+ * 
+ * Container also have special 0 Weight bucket for empty SearchResults queries. This Bucket is always at the 0 position, 
+ * and it is not sorted.
+ * 
+ * This Cache assure, that most frequent, most heavier SarchResults are always at the first place, gives fast access for them.
+ * 
+ * This Cache is also smart. Cache can trick {@code SearchService}, which is intrested if there are SarchResults for given searchTerm, and
+ * tell SearchRervice, that it doesn't contain cached results even if it does. This happens when Cache algorithm finds, that
+ * stored SearchResults for given searchTerm may be outdated (for example timestamp is really old). 
+ * 
+ * If Cache finds that, it tells {@SearchService} that it doesnt found cached results, and let SearchService search for them again.
+ * After search (new/old) SearchReusults for stored searchTerm are returned to Cache. Then Cache check if given refreshed SearchResults
+ * for stored searchTerm are different from that stored. 
+ * -> If yes, then Cache will split Bucket with given searchTerm, creates new one for given searchTerm
+ * and new Results. Weight of the splitted Bucket will change.
+ * -> If no, then current searchTerm timestamp is updated in current Bucket. 
+ * 
+ * This mechanism lets Cache to refresh result for long term cached searchTerms.
+ * 
+ * In general, this Cache is lighter than {@code SimpleSearchCache}:
+ * -> Less memory usage (no queue, but simple array), 
+ * -> no duplicated cached records for the same SearchResults but different searchTerms,
+ * -> most valuable cached results are not cleaned from cache when Cache free memory,
+ * -> quicker access elements,
+ * -> smart algorithm for refreshing long term stored SearchResuts
  * 
  * @author Gerard Szczepanski
+ * @since Runit 1.2.0
  */
 public class LexicalFrequencySearchCache implements Cache {
+	
 	private static final Logger LOG = Logger.getLogger(LexicalFrequencySearchCache.class);
 
 	protected final CacheContainer cacheContainer;
@@ -89,6 +138,11 @@ public class LexicalFrequencySearchCache implements Cache {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void accept(CacheVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	static class CacheContainer {
@@ -236,7 +290,6 @@ public class LexicalFrequencySearchCache implements Cache {
 		public String toString() {
 			return "[W:" + bucketWeight + ", F:" + frequency + ", St:" + searchTermTimeStamps.size() + ", R:" + searchResults.size() + "]";
 		}
-
 	}
 
 	static class LexicalSearchTerm {
