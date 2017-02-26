@@ -17,6 +17,7 @@ public class ProgramConfig {
 	
 	public static final int CACHE_LIMIT = 10;
 	public static final double CACHE_CLEAR_PERCENTAGE_SIZE = 0.40;
+	public static final int CACHED_RESULTS_TO_CLEAR_SIZE = 4;
 	
 	public static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = 300;
 	
