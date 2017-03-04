@@ -5,7 +5,9 @@
 Runit is small, portable program, that increase your comfort of running apps, files, directories and web sites. 
 Runit allows you to quick search by term any file, defined web site or directory, and then quickly launch it.
 
-Download actual <a href="https://sourceforge.net/projects/gspansky-runit/">release</a>.
+### <a href="https://sourceforge.net/projects/gspansky-runit/">Download actual release</a>.
+
+### <a href="https://github.com/gspansky/runit/releases">Check all releases</a>.
 
 ## Requirements ##
 Windows system with installed JRE (minimum version 1.8.0_92).
