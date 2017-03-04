@@ -11,7 +11,7 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
  */
 public interface SettingsWriter {
 	
-	void updateSettings(Settings newSettings) throws RunitRuntimeException;
+	void updateSettings(Settings newSettings);
 	
 	void restoreDefaultSettings();
 	

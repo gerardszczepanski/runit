@@ -3,9 +3,12 @@ package szczepanski.gerard.runit.common.config;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramConfig {
 	
 	public static final String PROGRAM_TITLE = "Runit";

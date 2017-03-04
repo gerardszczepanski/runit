@@ -67,18 +67,13 @@ public class ProgramTrayManager {
 		Image trayImage = loadTrayImage(trayDim);
 		TrayIcon trayIcon = new TrayIcon(trayImage, ProgramConfig.PROGRAM_TITLE);
 
-		trayIcon.addActionListener(event -> {
-			Platform.runLater(() -> {
-				showProgramStage();
-			});
-		});
+		trayIcon.addActionListener(event -> Platform.runLater(ProgramTrayManager::showProgramStage));
 
 		return trayIcon;
 	}
 
 	private static Image loadTrayImage(Dimension trayDim) {
-		InputStream trayImageInputStream = ProgramTrayManager.class
-				.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH);
+		InputStream trayImageInputStream = ProgramTrayManager.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH);
 		Image trayImage = tryToLoadTrayImageFromInputStream(trayImageInputStream);
 		trayImage = trayImage.getScaledInstance(trayDim.width, trayDim.height, Image.SCALE_SMOOTH);
 		return trayImage;
@@ -115,7 +110,7 @@ public class ProgramTrayManager {
 			}
 		});
 	}
-	
+
 	public static void setAlwaysOnTop(boolean alwaysOnTop) {
 		programStage.setAlwaysOnTop(alwaysOnTop);
 	}

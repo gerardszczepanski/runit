@@ -21,6 +21,11 @@ public class DirectoryResult extends SearchResult {
 	private static final Image DIRECTORY_RESULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DIRECTORY_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final File directory;
+	
+	private DirectoryResult(Alias alias) {
+		super(new SearchResultRepresentation(DIRECTORY_RESULT_IMAGE, alias.getName()));
+		this.directory = new File(alias.getValue());
+	}
 
 	public static DirectoryResult fromDirectoryAlias(Alias directoryAlias) {
 		isDirecotyrAliasValid(directoryAlias);
@@ -31,11 +36,6 @@ public class DirectoryResult extends SearchResult {
 		if (directoryAlias == null || directoryAlias.getName() == null || directoryAlias.getValue() == null) {
 			throw new RunitBusinessException(ExceptionCode.B_001, new Object[] { directoryAlias.getName(), directoryAlias.getValue() });
 		}
-	}
-
-	private DirectoryResult(Alias alias) {
-		super(new SearchResultRepresentation(DIRECTORY_RESULT_IMAGE, alias.getName()));
-		this.directory = new File(alias.getValue());
 	}
 
 	@Override

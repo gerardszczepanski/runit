@@ -50,9 +50,6 @@ public class SimpleSearchCache implements Cache {
 				CachedSearchResults oldestCachedSearchResults = cachedSearchResults.peek();
 				cachedSearchResults.remove(oldestCachedSearchResults);
 			}
-
-			System.gc(); // Hey Garbage Collector, would you like to clean old
-							// files?
 		}
 	}
 
@@ -71,11 +68,11 @@ public class SimpleSearchCache implements Cache {
 		Iterator<CachedSearchResults> iterator = cachedSearchResults.iterator();
 
 		while (iterator.hasNext()) {
-			CachedSearchResults cachedSearchResults = iterator.next();
+			CachedSearchResults nextCachedResults = iterator.next();
 
-			if (cachedSearchResults.isSearchTermMatch(searchTerm)) {
+			if (nextCachedResults.isSearchTermMatch(searchTerm)) {
 				LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm);
-				return Optional.of(cachedSearchResults.searchResults);
+				return Optional.of(nextCachedResults.searchResults);
 			}
 		}
 

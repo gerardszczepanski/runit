@@ -19,7 +19,7 @@ public class ProgramExceptionHandler {
 		if (isRunitException(e)) {
 			handleRunitException(e);
 		} else {
-			handleAnotherException(e);
+			handleAnotherException();
 		}
 	}
 
@@ -28,8 +28,8 @@ public class ProgramExceptionHandler {
 		ProgramErrorDisplayer.showError(runitException.getExceptionCode(), runitException.getMessage());
 	}
 
-	private static void handleAnotherException(Throwable e) {
-		ProgramErrorDisplayer.showError(ExceptionCode.UNEXPECTED_ERROR.getExceptionCode(), ExceptionCode.UNEXPECTED_ERROR.getExceptionTemplateMessage());
+	private static void handleAnotherException() {
+		ProgramErrorDisplayer.showError(ExceptionCode.UNEXPECTED_ERROR.getCode(), ExceptionCode.UNEXPECTED_ERROR.getTemplateMessage());
 	}
 
 	private static boolean isRunitException(Throwable e) {

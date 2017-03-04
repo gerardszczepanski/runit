@@ -46,6 +46,12 @@ public class SearchAutocompleteSelect {
 
 	@Setter
 	private SearchService searchService;
+	
+	private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
+		this.innerSelect = new ComboBox<>();
+		this.selectKeyFilter = new SelectKeyFilter();
+		initInnerTextField(currentPane, dimenstion, position);
+	}
 
 	/**
 	 * Factory method for create SearchAutocomplete Select.
@@ -59,12 +65,6 @@ public class SearchAutocompleteSelect {
 	 */
 	public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
 		return new SearchAutocompleteSelect(currentPane, dimenstion, position);
-	}
-
-	private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-		this.innerSelect = new ComboBox<>();
-		this.selectKeyFilter = new SelectKeyFilter();
-		initInnerTextField(currentPane, dimenstion, position);
 	}
 
 	private void search() {
@@ -158,7 +158,7 @@ public class SearchAutocompleteSelect {
 		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
 				.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
 					LOG.debug("SEARCH START");
-					Platform.runLater(() -> search());
+					Platform.runLater(this::search);
 					LOG.debug("SEARCH FINISHED");
 				});
 	}

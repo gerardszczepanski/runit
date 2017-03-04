@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class RunitValidationException extends Throwable {
+public class RunitValidationException extends Exception {
 	private static final long serialVersionUID = -823464266764923693L;
 	
 	@Getter

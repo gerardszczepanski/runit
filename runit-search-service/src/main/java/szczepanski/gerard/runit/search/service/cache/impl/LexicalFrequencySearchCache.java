@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import it.unimi.dsi.fastutil.objects.AbstractObject2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
@@ -213,7 +215,8 @@ public class LexicalFrequencySearchCache implements Cache {
 			}
 		}
 	}
-
+	
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	static class CacheRefreshAlgorithm {
 		private static final long SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
 

@@ -159,8 +159,6 @@ public class DependenciesConfig {
 
 	@Bean
 	public Cache cache() {
-		// return new SimpleSearchCache(ProgramConfig.CACHE_LIMIT,
-		// ProgramConfig.CACHE_CLEAR_PERCENTAGE_SIZE);
 		return new LexicalFrequencySearchCache(ProgramConfig.CACHE_LIMIT, ProgramConfig.CACHED_RESULTS_TO_CLEAR_SIZE);
 	}
 

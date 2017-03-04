@@ -12,6 +12,8 @@ import org.apache.commons.io.FilenameUtils;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
@@ -27,6 +29,11 @@ import szczepanski.gerard.runit.search.service.util.DesktopFileRunner;
 public class FileResult extends SearchResult {
 
 	private final File file;
+	
+	private FileResult(File file) {
+		super(new SearchResultRepresentation(FileResultImageProvider.getImageFromFile(file), FilenameUtils.getBaseName(file.getName())));
+		this.file = file;
+	}
 
 	public static FileResult fromFile(File file) {
 		isFileValid(file);
@@ -37,11 +44,6 @@ public class FileResult extends SearchResult {
 		if (file == null) {
 			throw new RunitRuntimeException(ExceptionCode.R_007);
 		}
-	}
-
-	private FileResult(File file) {
-		super(new SearchResultRepresentation(FileResultImageProvider.getImageFromFile(file), FilenameUtils.getBaseName(file.getName())));
-		this.file = file;
 	}
 
 	@Override
@@ -82,6 +84,7 @@ public class FileResult extends SearchResult {
 	 * @author Gerard Szczepanski
 	 *
 	 */
+	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	private static class FileResultImageProvider {
 		private static final String DEFAULT_IMAGE_PATH = "/images/search-results/fileResult.png";
 		private static final Image DEFAULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DEFAULT_IMAGE_PATH));

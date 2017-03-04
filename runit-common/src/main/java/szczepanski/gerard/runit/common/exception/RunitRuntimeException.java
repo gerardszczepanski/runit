@@ -8,14 +8,14 @@ public class RunitRuntimeException extends RuntimeException {
 	@Getter
 	private final String exceptionCode;
 
-	public RunitRuntimeException(ExceptionCode code, Throwable cause, Object... msgArgs) {
-		super(resolveExceptionMessage(code.getExceptionTemplateMessage(), msgArgs), cause);
-		this.exceptionCode = code.getExceptionCode();
+	public RunitRuntimeException(ExceptionCode exceptionCode, Throwable cause, Object... msgArgs) {
+		super(resolveExceptionMessage(exceptionCode.getTemplateMessage(), msgArgs), cause);
+		this.exceptionCode = exceptionCode.getCode();
 	}
 
-	public RunitRuntimeException(ExceptionCode code, Object... msgArgs) {
-		super(resolveExceptionMessage(code.getExceptionTemplateMessage(), msgArgs));
-		this.exceptionCode = code.getExceptionCode();
+	public RunitRuntimeException(ExceptionCode exceptionCode, Object... msgArgs) {
+		super(resolveExceptionMessage(exceptionCode.getTemplateMessage(), msgArgs));
+		this.exceptionCode = exceptionCode.getCode();
 	}
 	
 	private static String resolveExceptionMessage(String messageTemplate, Object... msgArgs) {

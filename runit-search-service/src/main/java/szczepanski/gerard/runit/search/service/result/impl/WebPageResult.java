@@ -17,6 +17,11 @@ public class WebPageResult extends SearchResult {
 	private static final Image WEB_PAGE_RESULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(WEB_PAGE_RESULT_DEFAULT_IMAGE_PATH));
 
 	private final URI webAddress;
+	
+	private WebPageResult(Alias webAlias) {
+		super(new SearchResultRepresentation(WEB_PAGE_RESULT_IMAGE, webAlias.getName()));
+		this.webAddress = createUriFromString(webAlias.getValue());
+	}
 
 	public static WebPageResult fromWebAlias(Alias webAlias) {
 		isWebAliasValid(webAlias);
@@ -27,11 +32,6 @@ public class WebPageResult extends SearchResult {
 		if (alias == null || alias.getName() == null || alias.getValue() == null) {
 			throw new RunitBusinessException(ExceptionCode.B_001, new Object[] { alias.getName(), alias.getValue() });
 		}
-	}
-
-	private WebPageResult(Alias webAlias) {
-		super(new SearchResultRepresentation(WEB_PAGE_RESULT_IMAGE, webAlias.getName()));
-		this.webAddress = createUriFromString(webAlias.getValue());
 	}
 
 	private URI createUriFromString(String fullWebAddress) {

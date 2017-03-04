@@ -37,9 +37,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		List<String> fileExtensions = settings.getFileExtensions();
 
 		LOG.debug("Searching started");
-		paths.forEach(p -> {
-			searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions));
-		});
+		paths.forEach(p -> searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions)));
 		LOG.debug("Searching finished");
 
 		return searchResults;

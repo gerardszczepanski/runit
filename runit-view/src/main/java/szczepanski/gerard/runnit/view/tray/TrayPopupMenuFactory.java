@@ -16,7 +16,7 @@ import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrayPopupMenuFactory {
 	private static final Logger LOG = Logger.getLogger(TrayPopupMenuFactory.class);
-	
+
 	public static PopupMenu crateTrayPopupMenu(SystemTray tray, TrayIcon trayIcon) {
 		MenuItem showProgramItem = createShowProgramItem();
 		MenuItem aboutProgramItem = createAboutProgramItem();
@@ -30,19 +30,14 @@ public class TrayPopupMenuFactory {
 
 		return popupMenu;
 	}
-	
+
 	private static MenuItem createShowProgramItem() {
 		MenuItem showProgramItem = new MenuItem("Show/Hide (Alt + Q)");
-		showProgramItem.addActionListener(event -> {
-			Platform.runLater(() -> {
-				ProgramTrayManager.showProgramStage();
-			});
-		});
+		showProgramItem.addActionListener(event -> Platform.runLater(ProgramTrayManager::showProgramStage));
 
 		return showProgramItem;
 	}
 
-	
 	private static MenuItem createAboutProgramItem() {
 		MenuItem aboutProgramItem = new MenuItem("About");
 		aboutProgramItem.addActionListener(event -> {
@@ -63,5 +58,5 @@ public class TrayPopupMenuFactory {
 
 		return exitProgramItem;
 	}
-	
+
 }

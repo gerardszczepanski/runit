@@ -37,12 +37,12 @@ public enum ExceptionCode {
 	
 	UNEXPECTED_ERROR("UNEXPECTED ERROR", "There was unexpected error. Probably your app is broken. To fix it, download latest stable version of Runit");
 	
-	private String exceptionCode;
-	private String exceptionTemplateMessage;
+	private String code;
+	private String templateMessage;
 	
 	private ExceptionCode(String exceptionCode, String exceptionTemplateMessage) {
-		this.exceptionCode = exceptionCode;
-		this.exceptionTemplateMessage = exceptionTemplateMessage;
+		this.code = exceptionCode;
+		this.templateMessage = exceptionTemplateMessage;
 	}
 	
 }
