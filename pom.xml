@@ -111,6 +111,12 @@
 				<artifactId>rxjavafx</artifactId>
 				<version>1.0.0</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -153,6 +159,6 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.2</version>
 			</plugin>
-			</plugins>
+		</plugins>
 	</build>
 </project>

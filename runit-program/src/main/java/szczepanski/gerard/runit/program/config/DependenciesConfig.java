@@ -12,6 +12,7 @@ import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearchCache;
+import szczepanski.gerard.runit.search.service.service.impl.FuzzySearchTermMatcher;
 import szczepanski.gerard.runit.search.service.service.impl.SearchServiceImpl;
 import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchTermMatcher;
 import szczepanski.gerard.runit.service.search.algorithm.impl.DirectoryAliasSearchAlgorithm;
@@ -194,7 +195,7 @@ public class DependenciesConfig {
 
 	@Bean
 	public SearchTermMatcher searchTermMatcher() {
-		return new SimpleSearchTermMatcher();
+		return new FuzzySearchTermMatcher();
 	}
 
 	@Bean

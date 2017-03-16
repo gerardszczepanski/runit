@@ -15,7 +15,7 @@ import szczepanski.gerard.runit.service.service.SearchTermMatcher;
  */
 public class SimpleSearchTermMatcher implements SearchTermMatcher {
 
-	private static final String SPACE_REGEX = "\\s+";
+	public static final String SPACE_REGEX = "\\s+";
 
 	@Override
 	public boolean isMatch(String searchTerm, String searchResultName) {
