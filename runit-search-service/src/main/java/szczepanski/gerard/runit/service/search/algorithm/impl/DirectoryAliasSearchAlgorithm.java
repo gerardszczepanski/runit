@@ -2,8 +2,8 @@ package szczepanski.gerard.runit.service.search.algorithm.impl;
 
 import java.util.List;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.RequiredArgsConstructor;
+import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.impl.DirectoryResult;
@@ -23,7 +23,7 @@ public class DirectoryAliasSearchAlgorithm implements SearchAlgorithm {
 	}
 
 	private List<SearchResult> convertFromAliases(String searchTerm, List<Alias> aliases) {
-		List<SearchResult> searchResults = new ObjectArrayList<>();
+		List<SearchResult> searchResults = AdvancedCollectionFactory.list();
 
 		aliases.forEach(a -> {
 			if (isAliasContainsSearchTerm(a.getName(), searchTerm)) {

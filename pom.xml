@@ -18,6 +18,7 @@
 		<module>runit-settings-service</module>
 		<module>runit-view</module>
 		<module>runit-program</module>
+		<module>runit-advanced-collection-facade</module>
 	</modules>
 
 	<dependencyManagement>
@@ -43,6 +44,12 @@
 			<dependency>
 				<groupId>szczepanski.gerard</groupId>
 				<artifactId>runit-view</artifactId>
+				<version>${program.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>szczepanski.gerard</groupId>
+				<artifactId>runit-advanced-collection-facade</artifactId>
 				<version>${program.version}</version>
 			</dependency>
 

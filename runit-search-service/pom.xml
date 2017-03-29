@@ -18,10 +18,10 @@
 			<groupId>szczepanski.gerard</groupId>
 			<artifactId>runit-settings-service</artifactId>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>it.unimi.dsi</groupId>
-			<artifactId>fastutil</artifactId>
+			<groupId>szczepanski.gerard</groupId>
+			<artifactId>runit-advanced-collection-facade</artifactId>
 		</dependency>
 
 		<dependency>

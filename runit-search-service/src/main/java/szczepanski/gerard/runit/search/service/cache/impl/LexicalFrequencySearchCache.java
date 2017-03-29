@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
-import it.unimi.dsi.fastutil.objects.AbstractObject2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
@@ -240,7 +240,7 @@ public class LexicalFrequencySearchCache implements Cache {
 		protected int bucketWeight;
 
 		protected int frequency;
-		protected final AbstractObject2ObjectMap<String, LexicalSearchTerm> searchTermTimeStamps = new Object2ObjectOpenHashMap<>();
+		protected final Map<String, LexicalSearchTerm> searchTermTimeStamps = AdvancedCollectionFactory.map();
 		protected final List<SearchResult> searchResults;
 		protected final int searchResultsHash;
 

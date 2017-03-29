@@ -13,9 +13,8 @@ import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.RequiredArgsConstructor;
+import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
@@ -32,7 +31,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 
 	@Override
 	public List<SearchResult> search(String searchTerm, Settings settings) {
-		List<SearchResult> searchResults = new ObjectArrayList<>();
+		List<SearchResult> searchResults = AdvancedCollectionFactory.list();
 		List<String> paths = settings.getRootDirectioresToScan();
 		List<String> fileExtensions = settings.getFileExtensions();
 
@@ -48,8 +47,8 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 		return convertFromFilesToSearchResults(filesFound);
 	}
 
-	private ObjectList<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {
-		ObjectList<File> suitableFiles = new ObjectArrayList<>();
+	private List<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {
+		List<File> suitableFiles = AdvancedCollectionFactory.list();
 
 		try {
 			findSuitableFiles(rootPath, searchTerm, fileExtensions, suitableFiles);
@@ -110,7 +109,7 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 	}
 
 	private List<SearchResult> convertFromFilesToSearchResults(List<File> filesFound) {
-		ObjectList<SearchResult> results = new ObjectArrayList<>(filesFound.size());
+		List<SearchResult> results = AdvancedCollectionFactory.list(filesFound.size());
 		filesFound.forEach(f -> results.add(FileResult.fromFile(f)));
 		return results;
 	}
