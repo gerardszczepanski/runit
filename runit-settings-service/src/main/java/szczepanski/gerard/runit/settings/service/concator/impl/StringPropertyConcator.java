@@ -12,7 +12,7 @@ public class StringPropertyConcator extends PropertyConcator<String> {
 		String outputString = StringUtils.EMPTY;
 
 		for (String val : values) {
-			outputString = outputString + DELIMETER + val;
+			outputString = outputString + StringUtils.DELIMETER + val;
 		}
 
 		return outputString.substring(1);

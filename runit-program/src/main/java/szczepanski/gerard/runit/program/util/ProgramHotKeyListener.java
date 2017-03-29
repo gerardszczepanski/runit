@@ -64,9 +64,13 @@ public class ProgramHotKeyListener implements NativeKeyListener {
 
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent e) {
-		if (e.getKeyCode() == SECOND_HOT_KEY && ((e.getModifiers() & FIRST_HOT_KEY_MASK) != 0)) {
+		if (clientPressedShortcut(e)) {
 			ProgramTrayManager.triggerTrayAction();
 		}
+	}
+	
+	private boolean clientPressedShortcut(NativeKeyEvent e) {
+		return e.getKeyCode() == SECOND_HOT_KEY && ((e.getModifiers() & FIRST_HOT_KEY_MASK) != 0);
 	}
 
 	@Override

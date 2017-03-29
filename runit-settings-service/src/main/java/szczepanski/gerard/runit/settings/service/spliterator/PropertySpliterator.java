@@ -12,8 +12,6 @@ import szczepanski.gerard.runit.common.util.StringUtils;
 @FunctionalInterface
 public interface PropertySpliterator<T> {
 	
-	String DELIMETER = ";";
-	
 	List<T> fromPropertyString(String propertyString);
 	
 	default boolean isPropertyEmpty(String propertyString) {

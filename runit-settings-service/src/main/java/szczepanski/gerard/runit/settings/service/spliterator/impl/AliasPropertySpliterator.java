@@ -3,6 +3,7 @@ package szczepanski.gerard.runit.settings.service.spliterator.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.spliterator.PropertySpliterator;
 
@@ -17,7 +18,7 @@ public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
 			return EMPTY_LIST;
 		} 
 		
-		String[] splittedStrings = propertyString.split(DELIMETER);
+		String[] splittedStrings = propertyString.split(StringUtils.DELIMETER);
 		return createAliases(splittedStrings);
 	}
 
