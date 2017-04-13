@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>szczepanski.gerard</groupId>
 		<artifactId>runit-parent</artifactId>
-		<version>1.2.0</version>
+		<version>1.3.0-RC</version>
 	</parent>
 
 	<artifactId>runit-settings-service</artifactId>
