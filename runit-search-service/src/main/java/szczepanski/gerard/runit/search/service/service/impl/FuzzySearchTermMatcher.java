@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class FuzzySearchTermMatcher extends SimpleSearchTermMatcher {
 	
-	private static final int ACCEPTABLE_DISTANCE = 2;
+	private static final int ACCEPTABLE_DISTANCE = 1;
 	
 	@Override
 	public boolean isMatch(String searchTerm, String searchResultName) {

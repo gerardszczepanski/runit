@@ -136,6 +136,7 @@ public class SearchAutocompleteSelect {
 		innerSelect.setEditable(true);
 		innerSelect.setCellFactory(new InnerSelectCallback());
 		innerSelect.setConverter(new InnerSelectStringConverter());
+		innerSelect.setCache(false);
 
 		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
