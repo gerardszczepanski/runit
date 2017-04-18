@@ -21,7 +21,6 @@ import javafx.util.StringConverter;
 import lombok.Setter;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
-import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.service.service.SearchService;
@@ -117,8 +116,6 @@ public class SearchAutocompleteSelect {
 	private void clear() {
 		clearSelectOptions();
 		innerSelect.getEditor().clear();
-		innerSelect.getButtonCell().setText(StringUtils.EMPTY);
-		innerSelect.getButtonCell().setItem(null);
 	}
 
 	private void clearSelectOptions() {
