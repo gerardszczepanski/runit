@@ -1,4 +1,4 @@
-package szczepanski.gerard.runit.service.search.algorithm.impl;
+package szczepanski.gerard.runit.search.service.algorithm.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.impl.FileResult;
-import szczepanski.gerard.runit.service.service.SearchTermMatcher;
+import szczepanski.gerard.runit.search.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 @RequiredArgsConstructor
@@ -43,8 +43,8 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
 	}
 
 	private List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {
-		List<File> filesFound = findFiles(rootPath, searchTerm, fileExtensions);
-		return convertFromFilesToSearchResults(filesFound);
+		List<File> foundFiles = findFiles(rootPath, searchTerm, fileExtensions);
+		return convertFromFilesToSearchResults(foundFiles);
 	}
 
 	private List<File> findFiles(String rootPath, String searchTerm, List<String> fileExtensions) {

@@ -5,8 +5,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import szczepanski.gerard.runit.search.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchTermMatcher;
-import szczepanski.gerard.runit.service.service.SearchTermMatcher;
 
 public class SimpleSearchTermMatcherTest {
 

@@ -11,7 +11,7 @@ import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.service.service.SearchService;
+import szczepanski.gerard.runit.search.service.service.SearchService;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
 

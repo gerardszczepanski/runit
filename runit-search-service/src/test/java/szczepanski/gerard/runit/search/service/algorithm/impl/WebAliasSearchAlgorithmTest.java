@@ -8,9 +8,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import szczepanski.gerard.runit.search.service.algorithm.impl.WebAliasSearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.service.search.algorithm.impl.WebAliasSearchAlgorithm;
-import szczepanski.gerard.runit.service.service.SearchTermMatcher;
+import szczepanski.gerard.runit.search.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 

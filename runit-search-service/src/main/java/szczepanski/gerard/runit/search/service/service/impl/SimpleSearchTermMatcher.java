@@ -1,6 +1,6 @@
 package szczepanski.gerard.runit.search.service.service.impl;
 
-import szczepanski.gerard.runit.service.service.SearchTermMatcher;
+import szczepanski.gerard.runit.search.service.service.SearchTermMatcher;
 
 /**
  * Simple searchTerm matching algorithm. It checks, if splitted by space

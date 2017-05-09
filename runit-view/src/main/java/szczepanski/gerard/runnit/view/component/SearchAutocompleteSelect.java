@@ -23,7 +23,7 @@ import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
-import szczepanski.gerard.runit.service.service.SearchService;
+import szczepanski.gerard.runit.search.service.service.SearchService;
 import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
 /**
@@ -120,6 +120,7 @@ public class SearchAutocompleteSelect {
 
 	private void clearSelectOptions() {
 		innerSelect.hide();
+		innerSelect.getItems().clear();
 		innerSelect.setItems(FXCollections.observableArrayList());
 		innerSelect.setItems(FXCollections.observableArrayList());
 		innerSelect.setItems(FXCollections.observableArrayList());
