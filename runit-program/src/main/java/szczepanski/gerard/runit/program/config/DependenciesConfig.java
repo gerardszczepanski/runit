@@ -19,7 +19,6 @@ import szczepanski.gerard.runit.search.service.service.SearchService;
 import szczepanski.gerard.runit.search.service.service.SearchTermMatcher;
 import szczepanski.gerard.runit.search.service.service.impl.FuzzySearchTermMatcher;
 import szczepanski.gerard.runit.search.service.service.impl.SearchServiceImpl;
-import szczepanski.gerard.runit.search.service.service.impl.SimpleSearchTermMatcher;
 import szczepanski.gerard.runit.settings.service.concator.PropertyConcator;
 import szczepanski.gerard.runit.settings.service.concator.impl.AliasPropertyConcator;
 import szczepanski.gerard.runit.settings.service.concator.impl.StringPropertyConcator;
@@ -39,6 +38,7 @@ import szczepanski.gerard.runit.settings.service.validator.impl.WebAliasValidato
 import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
 import szczepanski.gerard.runit.settings.service.writer.impl.PropertySettingsWriter;
 import szczepanski.gerard.runnit.view.controller.MainSceneController;
+import szczepanski.gerard.runnit.view.controller.SettingsCachePaneTabController;
 import szczepanski.gerard.runnit.view.controller.SettingsDirectoriesPaneTabController;
 import szczepanski.gerard.runnit.view.controller.SettingsGeneralPaneTabController;
 import szczepanski.gerard.runnit.view.controller.SettingsWebPaneTabController;
@@ -46,6 +46,7 @@ import szczepanski.gerard.runnit.view.factory.FxmlComponentFactory;
 import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsSceneFactory;
 import szczepanski.gerard.runnit.view.scene.factory.SettingsStagePresenter;
+import szczepanski.gerard.runnit.view.tab.factory.SettingsCacheTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsDirTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsGeneralTabFactory;
 import szczepanski.gerard.runnit.view.tab.factory.SettingsWebTabFactory;
@@ -80,6 +81,7 @@ public class DependenciesConfig {
 		tabFactories.add(settingsGeneralTabFactory());
 		tabFactories.add(settingsWebTabFactory());
 		tabFactories.add(settingsDirTabFactory());
+		tabFactories.add(settingsCacheTabFactory());
 		return tabFactories;
 	}
 
@@ -102,6 +104,11 @@ public class DependenciesConfig {
 	public SettingsDirTabFactory settingsDirTabFactory() {
 		return new SettingsDirTabFactory(settingsDirPaneTabController());
 	}
+	
+	@Bean
+	public SettingsCacheTabFactory settingsCacheTabFactory() {
+		return new SettingsCacheTabFactory(settingsCachePaneTabController());
+	}
 
 	@Bean
 	public SettingsDirectoriesPaneTabController settingsDirPaneTabController() {
@@ -112,6 +119,12 @@ public class DependenciesConfig {
 	public SettingsWebPaneTabController settingsWebPaneTabController() {
 		return new SettingsWebPaneTabController(settingsLoader(), settingsWriter(), webAliasValidator());
 	}
+	
+	@Bean
+	public SettingsCachePaneTabController settingsCachePaneTabController() {
+		return new SettingsCachePaneTabController(cache());
+	}
+
 
 	@Bean
 	public SettingsWriter settingsWriter() {
