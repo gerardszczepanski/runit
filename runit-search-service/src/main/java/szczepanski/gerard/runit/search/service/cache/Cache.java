@@ -18,4 +18,6 @@ public interface Cache {
 	
 	void clear();
 	
+	void accept(CacheVisitor visitor);
+	
 }

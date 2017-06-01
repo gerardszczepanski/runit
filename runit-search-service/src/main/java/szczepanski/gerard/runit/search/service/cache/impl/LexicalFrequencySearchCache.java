@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
+import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 
 /**
@@ -149,6 +150,11 @@ public class LexicalFrequencySearchCache implements Cache {
 		}
 		
 		cacheContainer.initializeBucketForEmptySearchResults();
+	}
+	
+	@Override
+	public void accept(CacheVisitor visitor) {
+		visitor.visit(this);
 	}
 	
 	static class CacheContainer {

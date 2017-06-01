@@ -3,11 +3,11 @@ package szczepanski.gerard.runnit.view.controller;
 import org.apache.log4j.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import lombok.RequiredArgsConstructor;
 import szczepanski.gerard.runit.search.service.cache.Cache;
-import szczepanski.gerard.runit.settings.service.loader.Alias;
+import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
+import szczepanski.gerard.runit.search.service.cache.impl.CacheSearchTermsCountingVisitor;
 import szczepanski.gerard.runnit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor
@@ -17,24 +17,26 @@ public class SettingsCachePaneTabController extends AbstractSettingsTabControlle
 	private final Cache cache;
 
 	@FXML
-	private TableView<Alias> webAliasTableView;
+	private Label cachedSearchTermsLabel;
 
 	@FXML
-	private TableColumn<Alias, String> aliasColumn;
-
-	@FXML
-	private TableColumn<Alias, String> webAddressColumn;
+	public void initialize() {
+		reloadTab();
+	}
 
 	@FXML
 	public void handleClearCache() {
 		LOG.debug("Clear cache");
 		cache.clear();
+		reloadTab();
 		DialogDisplayer.showConfirmationMessageDialog("Cache has been cleared");
 	}
 
 	@Override
 	public void reloadTab() {
-		// Do nothing (ISP violation :< )
+		CacheVisitor<Integer> searchTermSizeVisitor = new CacheSearchTermsCountingVisitor();
+		searchTermSizeVisitor.visit(cache);
+		cachedSearchTermsLabel.setText(searchTermSizeVisitor.getResults().toString());
 	}
 
 }
