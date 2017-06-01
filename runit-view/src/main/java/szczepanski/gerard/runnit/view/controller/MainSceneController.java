@@ -28,7 +28,7 @@ public class MainSceneController {
 	public void initialize() {
 		Pane currentPane = (Pane) closeButton.getParent();
 		Dimension dim = new Dimension(330, 25);
-		Position pos = new Position(35, 25);
+		Position pos = new Position(30, 25);
 		searchAutocompleteSelect = SearchAutocompleteSelect.createSearchAutocompleteSelect(currentPane, dim, pos);
 		searchAutocompleteSelect.setSearchService(searchService);
 	}

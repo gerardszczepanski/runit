@@ -60,5 +60,4 @@ public class SearchServiceImpl implements SearchService {
 
 		return searchResults;
 	}
-
 }

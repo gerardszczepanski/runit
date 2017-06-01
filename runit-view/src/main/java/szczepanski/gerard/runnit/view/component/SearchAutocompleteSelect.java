@@ -8,8 +8,6 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
@@ -41,14 +39,14 @@ public class SearchAutocompleteSelect {
 
 	private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
-	private final ComboBox<SearchResult> innerSelect;
+	private final RunitComboBox<SearchResult> innerSelect;
 	private final SelectKeyFilter selectKeyFilter;
 
 	@Setter
 	private SearchService searchService;
 	
 	private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-		this.innerSelect = new ComboBox<>();
+		this.innerSelect = new RunitComboBox<>();
 		this.selectKeyFilter = new SelectKeyFilter();
 		initInnerTextField(currentPane, dimenstion, position);
 	}
@@ -57,7 +55,7 @@ public class SearchAutocompleteSelect {
 	 * Factory method for create SearchAutocomplete Select.
 	 * 
 	 * @param currentPane
-	 *            - pane for pin SearchAutocompleteSelect object after create.
+	 *            - pane for SearchAutocompleteSelect object after create.
 	 * @param dimenstion
 	 *            - dimension for SearchAutocompleteSelect object.
 	 * @param position
@@ -105,25 +103,16 @@ public class SearchAutocompleteSelect {
 	}
 
 	private void displaySearchResults(List<SearchResult> searchResults) {
-		clearSelectOptions();
-		innerSelect.getItems().addAll(searchResults);
+		innerSelect.applyNewOptions(searchResults);
 
 		if (!searchResults.isEmpty()) {
 			innerSelect.show();
 		}
 	}
 
-	private void clear() {
-		clearSelectOptions();
-		innerSelect.getEditor().clear();
-	}
-
-	private void clearSelectOptions() {
+	private void hideOptions() {
+		innerSelect.clear();
 		innerSelect.hide();
-		innerSelect.getItems().clear();
-		innerSelect.setItems(FXCollections.observableArrayList());
-		innerSelect.setItems(FXCollections.observableArrayList());
-		innerSelect.setItems(FXCollections.observableArrayList());
 	}
 
 	private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
@@ -135,6 +124,7 @@ public class SearchAutocompleteSelect {
 		innerSelect.setCellFactory(new InnerSelectCallback());
 		innerSelect.setConverter(new InnerSelectStringConverter());
 		innerSelect.setCache(false);
+		innerSelect.setVisibleRowCount(10);
 
 		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
@@ -144,11 +134,11 @@ public class SearchAutocompleteSelect {
 
 		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
 			if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
-				clear();
+				hideOptions();
 			}
 		});
 
-		initSelectTypeDeyalSubscriber();
+		initSelectTypeDelaySubscriber();
 
 		Platform.runLater(() -> {
 			innerSelect.getEditor().requestFocus();
@@ -158,7 +148,7 @@ public class SearchAutocompleteSelect {
 		pane.getChildren().add(innerSelect);
 	}
 
-	private void initSelectTypeDeyalSubscriber() {
+	private void initSelectTypeDelaySubscriber() {
 		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
 				.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
 					LOG.debug("SEARCH START");
