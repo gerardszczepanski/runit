@@ -26,7 +26,8 @@ import szczepanski.gerard.runit.search.service.cache.report.CachedSearchTermInfo
  */
 public class CacheReportVisitor implements CacheVisitor<CacheReport> {
 
-	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"); 
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+	private static final int MAX_PERCENT = 100;
 	
 	private CacheReport cacheReport;
 
@@ -63,12 +64,10 @@ public class CacheReportVisitor implements CacheVisitor<CacheReport> {
 					
 					cachedSearchTermInfoList.add(cachedSearchTermInfo);
 				}
-
 			}
 		}
 
-		countedSearchTerms--; // Size of empty String
-		int cacheOccupancy = (cacheContainer.firstFreeSlot * 100) / cacheContainer.size;
+		int cacheOccupancy = (cacheContainer.firstFreeSlot * MAX_PERCENT) / cacheContainer.size;
 		
 		this.cacheReport = CacheReport.builder()
 				.cachedSearchTerms(cachedSearchTermInfoList)

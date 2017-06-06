@@ -23,9 +23,9 @@
       </Label>
       <TableView fx:id="cacheTableView" layoutX="14.0" layoutY="49.0" prefHeight="227.0" prefWidth="573.0">
          <columns>
-            <TableColumn fx:id="searchTermColumn" prefWidth="173.0" text="Search term" />
-            <TableColumn fx:id="resultsFoundColumn" prefWidth="153.0" text="Results found" />
-            <TableColumn fx:id="cacheDateColumn" prefWidth="246.0" text="Cache date" />
+            <TableColumn fx:id="searchTermColumn" prefWidth="215.0" text="Search term" />
+            <TableColumn fx:id="resultsFoundColumn" prefWidth="111.0" text="Results found" />
+            <TableColumn fx:id="cacheDateColumn" prefWidth="246.0" text="Cached results date" />
          </columns>
       </TableView>
       <Label layoutX="24.0" layoutY="341.0" prefHeight="21.0" prefWidth="220.0" text="Cache occupancy:">
