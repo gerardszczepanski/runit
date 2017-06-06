@@ -3,7 +3,7 @@
 
 <img src="https://github.com/gspansky/runit/blob/master/runit-view/src/main/resources/images/icon/icon.png" /> Windows tool for quick launch apps, directories and stored web sites.
 ###
-<a href="https://sourceforge.net/projects/gspansky-runit/"><img src="http://i.imgur.com/mBWhC5e.png" /></a>
+<a href="https://sourceforge.net/projects/gspansky-runit/files/latest/download"><img src="http://i.imgur.com/mBWhC5e.png" /></a>
 
 ## About ##
 Runit is small, portable program, that increase your comfort of running apps, files, directories and web sites. 
@@ -18,7 +18,7 @@ Runit allows you to quick search by term any file, defined web site or directory
 * **Configurable** - User friendly settings interface allows you to configure Runit. You can set the program for your needs. 
 * **Free** - Runit is being developed from passion, thus it is completely free! 
 
-### <a href="https://sourceforge.net/projects/gspansky-runit/">Start to use Runit right now!</a> 
+### <a href="https://sourceforge.net/projects/gspansky-runit/files/latest/download">Start to use Runit right now!</a> 
 
 
 ## How to use ##
