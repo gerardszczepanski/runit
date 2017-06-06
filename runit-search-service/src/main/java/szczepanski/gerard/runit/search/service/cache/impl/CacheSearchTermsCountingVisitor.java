@@ -32,7 +32,7 @@ public class CacheSearchTermsCountingVisitor implements CacheVisitor<Integer> {
 			}
 		}
 		
-		results = countedSearchTerms - 1; // Size of empty String q
+		results = countedSearchTerms - 1; // Size of empty String 
 	}
 
 	@Override
