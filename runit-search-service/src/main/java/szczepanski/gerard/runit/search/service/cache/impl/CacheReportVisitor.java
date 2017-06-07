@@ -4,11 +4,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
 import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearchCache.CacheContainer;
@@ -40,11 +40,11 @@ public class CacheReportVisitor implements CacheVisitor<CacheReport> {
 
 	private void procesLexicalFrequencySearchCache(LexicalFrequencySearchCache cache) {
 		int countedSearchTerms = 0;
-		List<CachedSearchTermInfo> cachedSearchTermInfoList = new ArrayList<>();
-
 		CacheContainer cacheContainer = cache.cacheContainer;
+		int cacheLength = cacheContainer.buckets.length;
+		List<CachedSearchTermInfo> cachedSearchTermInfoList = AdvancedCollectionFactory.list(cacheLength);
 
-		for (int i = 0; i < cacheContainer.buckets.length; i++) {
+		for (int i = 0; i < cacheLength; i++) {
 			CachedSearchResultsBucket bucket = cacheContainer.buckets[i];
 			if (bucket != null) {
 				countedSearchTerms += bucket.searchTermTimeStamps.size();
