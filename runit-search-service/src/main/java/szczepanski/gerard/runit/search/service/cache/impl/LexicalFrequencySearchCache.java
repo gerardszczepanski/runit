@@ -228,7 +228,7 @@ public class LexicalFrequencySearchCache implements Cache {
 	
 	@NoArgsConstructor(access = AccessLevel.PRIVATE)
 	static class CacheRefreshAlgorithm {
-		private static final long SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
+		private static final int SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
 
 		private static boolean shouldSerachResultsBeUpdatedForThatSearchTerm(String searchTerm, CachedSearchResultsBucket bucket) {
 			LexicalSearchTerm lexicalSearchTerm = bucket.searchTermTimeStamps.get(searchTerm);

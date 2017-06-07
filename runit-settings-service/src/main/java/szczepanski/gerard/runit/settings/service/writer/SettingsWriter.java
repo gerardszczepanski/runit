@@ -1,6 +1,5 @@
 package szczepanski.gerard.runit.settings.service.writer;
 
-import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
