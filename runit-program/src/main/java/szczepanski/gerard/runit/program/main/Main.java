@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.program.config.DependenciesConfig;
+import szczepanski.gerard.runit.program.registry.WindowsStartupInjector;
 import szczepanski.gerard.runit.program.util.ProgramExceptionHandler;
 import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runit.program.util.ProgramWindowMoveListener;
@@ -42,6 +43,7 @@ public class Main extends Application {
 			ProgramHotKeyListener.getInstance().registerProgramHotKey();
 			ProgramWindowMoveListener.makeStageDraggable(primaryStage, (Pane) mainScene.getRoot());
 			loadSettingsOnProgramStart();
+			injectRunitToWindowsStartupRegistry();
 		});
 		
 		primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -66,6 +68,12 @@ public class Main extends Application {
 		LOG.debug("Initial Loading Settings");
 		ProgramSettingsManager programSettingsManager = ctx.getBean(ProgramSettingsManager.class);
 		programSettingsManager.loadSettings();
+	}
+	
+	private static void injectRunitToWindowsStartupRegistry() {
+		LOG.debug("Add Runit to Windows startup registry");
+		WindowsStartupInjector injector = new WindowsStartupInjector();
+		injector.addRunitToStartupPrograms();
 	}
 	
 }

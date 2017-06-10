@@ -28,6 +28,7 @@ public enum ExceptionCode {
 	R_010("R-010", "App components are not ready to work"),
 	R_011("R-011", "Can not save Settings"),
 	R_012("R-012", "Critical program error. Settings are not loaded yet!"),
+	R_013("R-013", "Runit can not be added to Windows registry"),
 	
 	B_001("B-001", "SearchResult creation failure. Alias is broken: alias [%s], value [%s]"),
 	B_002("B-002", "URI can not be created from Web Address: %s. URI is broken."),
