@@ -3,7 +3,7 @@ package szczepanski.gerard.runit.search.service.cache.impl;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
-import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
+import szczepanski.gerard.runit.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.CacheVisitor;

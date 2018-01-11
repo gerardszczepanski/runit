@@ -1,6 +1,6 @@
 package szczepanski.gerard.runit.search.service.cache.impl;
 
-import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
+import szczepanski.gerard.runit.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.search.service.cache.Cache;
 import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
 import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearchCache.CacheContainer;

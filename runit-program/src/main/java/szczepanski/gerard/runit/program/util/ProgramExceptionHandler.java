@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runnit.view.util.ProgramErrorDisplayer;
+import szczepanski.gerard.runit.view.util.ProgramErrorDisplayer;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramExceptionHandler {

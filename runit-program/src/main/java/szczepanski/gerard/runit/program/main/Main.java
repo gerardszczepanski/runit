@@ -15,9 +15,9 @@ import szczepanski.gerard.runit.program.registry.WindowsStartupInjector;
 import szczepanski.gerard.runit.program.util.ProgramExceptionHandler;
 import szczepanski.gerard.runit.program.util.ProgramHotKeyListener;
 import szczepanski.gerard.runit.program.util.ProgramWindowMoveListener;
-import szczepanski.gerard.runnit.view.scene.factory.MainSceneFactory;
-import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
-import szczepanski.gerard.runnit.view.util.ProgramSettingsManager;
+import szczepanski.gerard.runit.view.scene.factory.MainSceneFactory;
+import szczepanski.gerard.runit.view.tray.ProgramTrayManager;
+import szczepanski.gerard.runit.view.util.ProgramSettingsManager;
 
 import javax.swing.*;
 

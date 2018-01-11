@@ -8,7 +8,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
+import szczepanski.gerard.runit.view.tray.ProgramTrayManager;
 
 import java.util.logging.Level;
 import java.util.logging.LogManager;

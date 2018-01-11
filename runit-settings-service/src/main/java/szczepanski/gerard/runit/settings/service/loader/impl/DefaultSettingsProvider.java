@@ -1,6 +1,6 @@
 package szczepanski.gerard.runit.settings.service.loader.impl;
 
-import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
+import szczepanski.gerard.runit.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 

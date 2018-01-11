@@ -3,7 +3,7 @@ package szczepanski.gerard.runit.search.service.algorithm.impl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
-import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
+import szczepanski.gerard.runit.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;

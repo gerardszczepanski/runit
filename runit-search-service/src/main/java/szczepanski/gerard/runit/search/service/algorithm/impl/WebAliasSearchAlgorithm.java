@@ -1,7 +1,7 @@
 package szczepanski.gerard.runit.search.service.algorithm.impl;
 
 import lombok.RequiredArgsConstructor;
-import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
+import szczepanski.gerard.runit.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.impl.WebPageResult;
