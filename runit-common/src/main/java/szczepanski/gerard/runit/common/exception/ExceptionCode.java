@@ -41,7 +41,7 @@ public enum ExceptionCode {
     private String code;
     private String templateMessage;
 
-    private ExceptionCode(String exceptionCode, String exceptionTemplateMessage) {
+    ExceptionCode(String exceptionCode, String exceptionTemplateMessage) {
         this.code = exceptionCode;
         this.templateMessage = exceptionTemplateMessage;
     }

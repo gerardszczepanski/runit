@@ -4,6 +4,8 @@ import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * Representation object of SearchResult for display purposes.
  *
@@ -14,31 +16,19 @@ import lombok.Getter;
 public class SearchResultRepresentation {
 
     private final Image image;
-    private final String searchresultTitle;
+    private final String searchResultTitle;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchResultRepresentation that = (SearchResultRepresentation) o;
+        return Objects.equals(image, that.image) &&
+                Objects.equals(searchResultTitle, that.searchResultTitle);
+    }
 
     @Override
     public int hashCode() {
-        final int prime = 17;
-        int result = 1;
-        result = prime * result + ((searchresultTitle == null) ? 0 : searchresultTitle.hashCode());
-        return result;
+        return Objects.hash(image, searchResultTitle);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        SearchResultRepresentation other = (SearchResultRepresentation) obj;
-        if (searchresultTitle == null) {
-            if (other.searchresultTitle != null)
-                return false;
-        } else if (!searchresultTitle.equals(other.searchresultTitle))
-            return false;
-        return true;
-    }
-
 }

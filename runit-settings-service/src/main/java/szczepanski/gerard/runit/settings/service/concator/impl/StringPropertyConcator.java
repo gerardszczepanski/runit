@@ -14,7 +14,6 @@ public class StringPropertyConcator extends PropertyConcator<String> {
         for (String val : values) {
             outputString = outputString + StringUtils.DELIMETER + val;
         }
-
         return outputString.substring(1);
     }
 

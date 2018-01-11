@@ -202,7 +202,7 @@ public class SearchAutocompleteSelect {
                         imgView.setFitWidth(PREFERED_ICON_SIZE);
                         imgView.setFitHeight(PREFERED_ICON_SIZE);
                         setGraphic(imgView);
-                        setText(searchResultRepresentation.getSearchresultTitle());
+                        setText(searchResultRepresentation.getSearchResultTitle());
                     }
                 }
             };
@@ -220,7 +220,7 @@ public class SearchAutocompleteSelect {
 
         @Override
         public SearchResult fromString(String string) {
-            return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string)).findFirst()
+            return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchResultTitle().equals(string)).findFirst()
                     .orElse(null);
         }
     }

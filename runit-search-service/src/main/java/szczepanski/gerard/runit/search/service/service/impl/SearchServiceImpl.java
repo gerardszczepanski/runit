@@ -2,6 +2,7 @@ package szczepanski.gerard.runit.search.service.service.impl;
 
 import lombok.Builder;
 import org.apache.log4j.Logger;
+import szczepanski.gerard.advanced.collection.facade.AdvancedCollectionFactory;
 import szczepanski.gerard.runit.common.util.StringUtils;
 import szczepanski.gerard.runit.search.service.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.service.cache.Cache;
@@ -33,7 +34,6 @@ public class SearchServiceImpl implements SearchService {
         if (cachedSearchResults.isPresent()) {
             return cachedSearchResults.get();
         }
-
         return triggerNewSearchFor(searchTerm);
     }
 
@@ -50,13 +50,12 @@ public class SearchServiceImpl implements SearchService {
     }
 
     private List<SearchResult> triggerSearchAlgorithms(String searchTerm, Settings settings) {
-        List<SearchResult> searchResults = new ArrayList<>();
+        List<SearchResult> searchResults = AdvancedCollectionFactory.list();
 
         searchAlgorithms.forEach(a -> {
             List<SearchResult> searchResultsFromAlgorithm = a.search(searchTerm, settings);
             searchResults.addAll(searchResultsFromAlgorithm);
         });
-
         return searchResults;
     }
 }

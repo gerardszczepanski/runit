@@ -23,7 +23,6 @@ public class FuzzySearchTermMatcher extends SimpleSearchTermMatcher {
         if (isMatch) {
             return true;
         }
-
         return isFuzzyMatch(searchTerm, searchResultName);
     }
 
@@ -31,7 +30,6 @@ public class FuzzySearchTermMatcher extends SimpleSearchTermMatcher {
         if (searchTerm.length() > searchResultName.length() || searchTerm.length() <= ACCEPTABLE_DISTANCE) {
             return false;
         }
-
         return processFuzzyMatching(searchTerm, searchResultName);
     }
 
@@ -47,7 +45,6 @@ public class FuzzySearchTermMatcher extends SimpleSearchTermMatcher {
                 }
             }
         }
-
         return false;
     }
 

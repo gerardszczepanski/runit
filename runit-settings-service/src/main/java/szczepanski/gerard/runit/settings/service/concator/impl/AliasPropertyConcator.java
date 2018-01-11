@@ -17,7 +17,6 @@ public class AliasPropertyConcator extends PropertyConcator<Alias> {
         for (Alias alias : values) {
             outputString = outputString + StringUtils.DELIMETER + alias.getName() + ALIAS_DELIMETER + alias.getValue();
         }
-
         return outputString.substring(1);
     }
 

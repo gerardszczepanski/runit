@@ -9,6 +9,7 @@ import szczepanski.gerard.runit.search.service.util.DesktopFileRunner;
 import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * Represents directory defined with alias in Settings.
@@ -44,28 +45,16 @@ public class DirectoryResult extends SearchResult {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 79;
-        int result = super.hashCode();
-        result = prime * result + ((directory == null) ? 0 : directory.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DirectoryResult that = (DirectoryResult) o;
+        return Objects.equals(directory, that.directory);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        DirectoryResult other = (DirectoryResult) obj;
-        if (directory == null) {
-            if (other.directory != null)
-                return false;
-        } else if (!directory.equals(other.directory))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), directory);
     }
-
 }

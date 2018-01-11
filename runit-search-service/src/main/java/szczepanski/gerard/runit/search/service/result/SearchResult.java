@@ -2,6 +2,8 @@ package szczepanski.gerard.runit.search.service.result;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * Represents search result to run.
  * <p>
@@ -30,32 +32,19 @@ public abstract class SearchResult {
 
     @Override
     public String toString() {
-        return searchResultRepresentation.getSearchresultTitle();
+        return searchResultRepresentation.getSearchResultTitle();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchResult that = (SearchResult) o;
+        return Objects.equals(searchResultRepresentation, that.searchResultRepresentation);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((searchResultRepresentation == null) ? 0 : searchResultRepresentation.hashCode());
-        return result;
+        return Objects.hash(searchResultRepresentation);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        SearchResult other = (SearchResult) obj;
-        if (searchResultRepresentation == null) {
-            if (other.searchResultRepresentation != null)
-                return false;
-        } else if (!searchResultRepresentation.equals(other.searchResultRepresentation))
-            return false;
-        return true;
-    }
-
 }
