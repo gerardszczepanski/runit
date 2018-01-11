@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @Builder
 public class CachedSearchTermInfo {
-	
-	private final String searchTerm;
-	private final Integer results;
-	private final String cachedDate;
-	
+
+    private final String searchTerm;
+    private final Integer results;
+    private final String cachedDate;
+
 }

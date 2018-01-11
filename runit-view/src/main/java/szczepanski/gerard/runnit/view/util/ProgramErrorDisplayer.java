@@ -13,23 +13,23 @@ import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProgramErrorDisplayer {
 
-	private static final String TITLE = "Runit Error";
-	private static final Image ALERT_ICON = new Image(ProgramErrorDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
+    private static final String TITLE = "Runit Error";
+    private static final Image ALERT_ICON = new Image(ProgramErrorDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));
 
-	public static void showError(String code, String message) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle(TITLE);
-		alert.setGraphic(new ImageView(ALERT_ICON));
-		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-		stage.getIcons().add(ALERT_ICON);
+    public static void showError(String code, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(TITLE);
+        alert.setGraphic(new ImageView(ALERT_ICON));
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(ALERT_ICON);
 
-		alert.setHeaderText(code);
-		alert.setContentText(message);
+        alert.setHeaderText(code);
+        alert.setContentText(message);
 
-		alert.setOnShowing((e) -> ProgramTrayManager.setAlwaysOnTop(false));
-		alert.setOnHiding((e) -> ProgramTrayManager.setAlwaysOnTop(true));
+        alert.setOnShowing((e) -> ProgramTrayManager.setAlwaysOnTop(false));
+        alert.setOnHiding((e) -> ProgramTrayManager.setAlwaysOnTop(true));
 
-		alert.showAndWait();
-	}
+        alert.showAndWait();
+    }
 
 }

@@ -7,11 +7,11 @@ import szczepanski.gerard.runit.settings.service.validator.Validator;
 
 public abstract class AbstractAliasValidator implements Validator<Alias> {
 
-	private static final String FAILURE_ALIAS_NAME_MESSAGE = "Given alias name is not valid!";
+    private static final String FAILURE_ALIAS_NAME_MESSAGE = "Given alias name is not valid!";
 
-	protected void validateAliasName(String name) throws RunitValidationException {
-		if (name == null || name.equals(StringUtils.EMPTY)) {
-			throw new RunitValidationException(FAILURE_ALIAS_NAME_MESSAGE);
-		}
-	}
+    protected void validateAliasName(String name) throws RunitValidationException {
+        if (name == null || name.equals(StringUtils.EMPTY)) {
+            throw new RunitValidationException(FAILURE_ALIAS_NAME_MESSAGE);
+        }
+    }
 }

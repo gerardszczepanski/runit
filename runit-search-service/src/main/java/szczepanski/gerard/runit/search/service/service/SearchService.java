@@ -1,12 +1,12 @@
 package szczepanski.gerard.runit.search.service.service;
 
-import java.util.List;
-
 import szczepanski.gerard.runit.search.service.result.SearchResult;
+
+import java.util.List;
 
 @FunctionalInterface
 public interface SearchService {
-	
-	List<SearchResult> searchFor(String searchTerm);
-	
+
+    List<SearchResult> searchFor(String searchTerm);
+
 }

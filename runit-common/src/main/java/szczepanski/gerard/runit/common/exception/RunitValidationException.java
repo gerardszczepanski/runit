@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class RunitValidationException extends Exception {
-	private static final long serialVersionUID = -823464266764923693L;
-	
-	@Getter
-	private final String displayMessage;
-	
+    private static final long serialVersionUID = -823464266764923693L;
+
+    @Getter
+    private final String displayMessage;
+
 }

@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtils {
-	
-	public static final String EMPTY = "";
-	public static final String DELIMETER = ";";
-	
+
+    public static final String EMPTY = "";
+    public static final String DELIMETER = ";";
+
 }

@@ -4,6 +4,6 @@ import szczepanski.gerard.runit.common.exception.RunitValidationException;
 
 @FunctionalInterface
 public interface Validator<T> {
-	
-	void validate(T obj) throws RunitValidationException;
+
+    void validate(T obj) throws RunitValidationException;
 }

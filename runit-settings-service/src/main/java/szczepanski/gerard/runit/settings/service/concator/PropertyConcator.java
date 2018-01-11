@@ -1,21 +1,21 @@
 package szczepanski.gerard.runit.settings.service.concator;
 
-import java.util.List;
-
 import szczepanski.gerard.runit.common.util.StringUtils;
+
+import java.util.List;
 
 public abstract class PropertyConcator<T> {
 
-	/**
-	 * Template method which checks if values Collection is empty.
-	 */
-	public String toStringProperty(List<T> values) {
-		if (values.isEmpty()) {
-			return StringUtils.EMPTY;
-		}
+    /**
+     * Template method which checks if values Collection is empty.
+     */
+    public String toStringProperty(List<T> values) {
+        if (values.isEmpty()) {
+            return StringUtils.EMPTY;
+        }
 
-		return convertToStringProperty(values);
-	}
+        return convertToStringProperty(values);
+    }
 
-	protected abstract String convertToStringProperty(List<T> values);
+    protected abstract String convertToStringProperty(List<T> values);
 }

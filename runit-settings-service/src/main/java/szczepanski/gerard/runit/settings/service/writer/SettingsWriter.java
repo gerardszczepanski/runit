@@ -4,14 +4,13 @@ import szczepanski.gerard.runit.settings.service.loader.Settings;
 
 /**
  * This interface is responsible for Save Settings.
- * 
- * @author Gerard Szczepanski
  *
+ * @author Gerard Szczepanski
  */
 public interface SettingsWriter {
-	
-	void updateSettings(Settings newSettings);
-	
-	void restoreDefaultSettings();
-	
+
+    void updateSettings(Settings newSettings);
+
+    void restoreDefaultSettings();
+
 }

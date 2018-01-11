@@ -1,48 +1,48 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>szczepanski.gerard</groupId>
-		<artifactId>runit-parent</artifactId>
-		<version>1.4.0</version>
-	</parent>
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>szczepanski.gerard</groupId>
+        <artifactId>runit-parent</artifactId>
+        <version>1.4.0</version>
+    </parent>
 
-	<artifactId>runit-settings-service</artifactId>
-	<name>runit-settings-service</name>
-	<url>http://maven.apache.org</url>
+    <artifactId>runit-settings-service</artifactId>
+    <name>runit-settings-service</name>
+    <url>http://maven.apache.org</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>szczepanski.gerard</groupId>
-			<artifactId>runit-common</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>szczepanski.gerard</groupId>
-			<artifactId>runit-advanced-collection-facade</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>szczepanski.gerard</groupId>
+            <artifactId>runit-common</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>szczepanski.gerard</groupId>
+            <artifactId>runit-advanced-collection-facade</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

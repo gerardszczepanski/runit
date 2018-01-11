@@ -7,37 +7,38 @@ import szczepanski.gerard.runit.search.service.cache.impl.LexicalFrequencySearch
 
 /**
  * This visitor counts number of search terms currently stored in Cache.
+ *
  * @author Gerard Szczepanski
  * @since Runit 1.4.0
  */
 public class CacheSearchTermsCountingVisitor implements CacheVisitor<Integer> {
 
-	private int results = 0;
-	
-	@Override
-	public void visit(Cache cache) {
-		if (cache instanceof LexicalFrequencySearchCache) {
-			procesLexicalFrequencySearchCache((LexicalFrequencySearchCache) cache);
-		}
-	}
-	
-	private void procesLexicalFrequencySearchCache(LexicalFrequencySearchCache cache) {
-		int countedSearchTerms = 0;
-		CacheContainer cacheContainer = cache.cacheContainer;
-		
-		for (int i = 0; i < cacheContainer.buckets.length; i++) {
-			CachedSearchResultsBucket bucket = cacheContainer.buckets[i];
-			if (bucket != null) {
-				countedSearchTerms += bucket.searchTermTimeStamps.size();
-			}
-		}
-		
-		results = countedSearchTerms - 1; // Size of empty String 
-	}
+    private int results = 0;
 
-	@Override
-	public Integer getResults() {
-		return results;
-	}
-	
+    @Override
+    public void visit(Cache cache) {
+        if (cache instanceof LexicalFrequencySearchCache) {
+            procesLexicalFrequencySearchCache((LexicalFrequencySearchCache) cache);
+        }
+    }
+
+    private void procesLexicalFrequencySearchCache(LexicalFrequencySearchCache cache) {
+        int countedSearchTerms = 0;
+        CacheContainer cacheContainer = cache.cacheContainer;
+
+        for (int i = 0; i < cacheContainer.buckets.length; i++) {
+            CachedSearchResultsBucket bucket = cacheContainer.buckets[i];
+            if (bucket != null) {
+                countedSearchTerms += bucket.searchTermTimeStamps.size();
+            }
+        }
+
+        results = countedSearchTerms - 1; // Size of empty String
+    }
+
+    @Override
+    public Integer getResults() {
+        return results;
+    }
+
 }

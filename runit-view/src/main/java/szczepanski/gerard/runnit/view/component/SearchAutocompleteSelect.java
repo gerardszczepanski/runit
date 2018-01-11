@@ -1,12 +1,5 @@
 package szczepanski.gerard.runnit.view.component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.Logger;
-
 import javafx.application.Platform;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -17,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.Setter;
+import org.apache.log4j.Logger;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
@@ -24,209 +18,211 @@ import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation
 import szczepanski.gerard.runit.search.service.service.SearchService;
 import szczepanski.gerard.runnit.view.tray.ProgramTrayManager;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 /**
  * This is Autocomplete Select component responsible for handle typed text, and
  * display typed text results.
- * 
+ * <p>
  * This object requires {@code SearchService} type object, to fire search and
  * return result.
- * 
+ *
  * @author Gerard Szczepanski
- * 
  */
 public class SearchAutocompleteSelect {
-	private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
+    private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
 
-	private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
+    private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
-	private final RunitComboBox<SearchResult> innerSelect;
-	private final SelectKeyFilter selectKeyFilter;
+    private final RunitComboBox<SearchResult> innerSelect;
+    private final SelectKeyFilter selectKeyFilter;
 
-	@Setter
-	private SearchService searchService;
-	
-	private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-		this.innerSelect = new RunitComboBox<>();
-		this.selectKeyFilter = new SelectKeyFilter();
-		initInnerTextField(currentPane, dimenstion, position);
-	}
+    @Setter
+    private SearchService searchService;
 
-	/**
-	 * Factory method for create SearchAutocomplete Select.
-	 * 
-	 * @param currentPane
-	 *            - pane for SearchAutocompleteSelect object after create.
-	 * @param dimenstion
-	 *            - dimension for SearchAutocompleteSelect object.
-	 * @param position
-	 *            - position for SearchAutocompleteSelect object.
-	 */
-	public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-		return new SearchAutocompleteSelect(currentPane, dimenstion, position);
-	}
+    private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
+        this.innerSelect = new RunitComboBox<>();
+        this.selectKeyFilter = new SelectKeyFilter();
+        initInnerTextField(currentPane, dimenstion, position);
+    }
 
-	private void search() {
-		List<SearchResult> searchResults = fireSearch();
-		displaySearchResults(searchResults);
-	}
+    /**
+     * Factory method for create SearchAutocomplete Select.
+     *
+     * @param currentPane - pane for SearchAutocompleteSelect object after create.
+     * @param dimenstion  - dimension for SearchAutocompleteSelect object.
+     * @param position    - position for SearchAutocompleteSelect object.
+     */
+    public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
+        return new SearchAutocompleteSelect(currentPane, dimenstion, position);
+    }
 
-	private void triggerRun() {
-		if (isOnlyOneSearchResult()) {
-			markOnlyOneMatchSelected();
-		}
-		runSelected();
-	}
+    private void search() {
+        List<SearchResult> searchResults = fireSearch();
+        displaySearchResults(searchResults);
+    }
 
-	private boolean isOnlyOneSearchResult() {
-		return innerSelect.getItems().size() == 1;
-	}
+    private void triggerRun() {
+        if (isOnlyOneSearchResult()) {
+            markOnlyOneMatchSelected();
+        }
+        runSelected();
+    }
 
-	private void markOnlyOneMatchSelected() {
-		innerSelect.getSelectionModel().select(0);
-	}
+    private boolean isOnlyOneSearchResult() {
+        return innerSelect.getItems().size() == 1;
+    }
 
-	private void runSelected() {
-		SearchResult triggeredSearchResult = innerSelect.getSelectionModel().getSelectedItem();
-		runSearchResult(triggeredSearchResult);
-	}
+    private void markOnlyOneMatchSelected() {
+        innerSelect.getSelectionModel().select(0);
+    }
 
-	private void runSearchResult(SearchResult triggeredSearchResult) {
-		if (triggeredSearchResult != null) {
-			ProgramTrayManager.hideProgramStage();
-			triggeredSearchResult.run();
-		}
-	}
+    private void runSelected() {
+        SearchResult triggeredSearchResult = innerSelect.getSelectionModel().getSelectedItem();
+        runSearchResult(triggeredSearchResult);
+    }
 
-	private List<SearchResult> fireSearch() {
-		String searchTerm = innerSelect.getEditor().getText();
-		return searchService.searchFor(searchTerm);
-	}
+    private void runSearchResult(SearchResult triggeredSearchResult) {
+        if (triggeredSearchResult != null) {
+            ProgramTrayManager.hideProgramStage();
+            triggeredSearchResult.run();
+        }
+    }
 
-	private void displaySearchResults(List<SearchResult> searchResults) {
-		innerSelect.applyNewOptions(searchResults);
+    private List<SearchResult> fireSearch() {
+        String searchTerm = innerSelect.getEditor().getText();
+        return searchService.searchFor(searchTerm);
+    }
 
-		if (!searchResults.isEmpty()) {
-			innerSelect.show();
-		}
-	}
+    private void displaySearchResults(List<SearchResult> searchResults) {
+        innerSelect.applyNewOptions(searchResults);
 
-	private void hideOptions() {
-		innerSelect.clear();
-		innerSelect.hide();
-	}
+        if (!searchResults.isEmpty()) {
+            innerSelect.show();
+        }
+    }
 
-	private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
-		innerSelect.setPrefWidth(dimenstion.width);
-		innerSelect.setPrefHeight(dimenstion.height);
-		innerSelect.setLayoutX(position.x);
-		innerSelect.setLayoutY(position.y);
-		innerSelect.setEditable(true);
-		innerSelect.setCellFactory(new InnerSelectCallback());
-		innerSelect.setConverter(new InnerSelectStringConverter());
-		innerSelect.setCache(false);
-		innerSelect.setVisibleRowCount(10);
+    private void hideOptions() {
+        innerSelect.clear();
+        innerSelect.hide();
+    }
 
-		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-			if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
-				triggerRun();
-			}
-		});
+    private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
+        innerSelect.setPrefWidth(dimenstion.width);
+        innerSelect.setPrefHeight(dimenstion.height);
+        innerSelect.setLayoutX(position.x);
+        innerSelect.setLayoutY(position.y);
+        innerSelect.setEditable(true);
+        innerSelect.setCellFactory(new InnerSelectCallback());
+        innerSelect.setConverter(new InnerSelectStringConverter());
+        innerSelect.setCache(false);
+        innerSelect.setVisibleRowCount(10);
 
-		innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-			if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
-				hideOptions();
-			}
-		});
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
+                triggerRun();
+            }
+        });
 
-		initSelectTypeDelaySubscriber();
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
+                hideOptions();
+            }
+        });
 
-		Platform.runLater(() -> {
-			innerSelect.getEditor().requestFocus();
-			innerSelect.requestFocus();
-		});
+        initSelectTypeDelaySubscriber();
 
-		pane.getChildren().add(innerSelect);
-	}
+        Platform.runLater(() -> {
+            innerSelect.getEditor().requestFocus();
+            innerSelect.requestFocus();
+        });
 
-	private void initSelectTypeDelaySubscriber() {
-		JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
-				.debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
-					LOG.debug("SEARCH START");
-					Platform.runLater(this::search);
-					LOG.debug("SEARCH FINISHED");
-				});
-	}
+        pane.getChildren().add(innerSelect);
+    }
 
-	/**
-	 * Inner static class for SearchAutocompleteSelect.
-	 * 
-	 * This class is responsible for filter search sensitive keys.
-	 * 
-	 * @author Gerard Szczepanski
-	 *
-	 */
-	private static class SelectKeyFilter {
+    private void initSelectTypeDelaySubscriber() {
+        JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
+                .debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
+            LOG.debug("SEARCH START");
+            Platform.runLater(this::search);
+            LOG.debug("SEARCH FINISHED");
+        });
+    }
 
-		private final Set<KeyCode> allowedKeys;
+    /**
+     * Inner static class for SearchAutocompleteSelect.
+     * <p>
+     * This class is responsible for filter search sensitive keys.
+     *
+     * @author Gerard Szczepanski
+     */
+    private static class SelectKeyFilter {
 
-		private SelectKeyFilter() {
-			this.allowedKeys = new HashSet<>();
-			registerAllowedkKeys();
-		}
+        private final Set<KeyCode> allowedKeys;
 
-		private void registerAllowedkKeys() {
-			allowedKeys.addAll(AllowedTypedKeysProvider.getAllowedKeyCodes());
-		}
+        private SelectKeyFilter() {
+            this.allowedKeys = new HashSet<>();
+            registerAllowedkKeys();
+        }
 
-		public boolean isKeyAllowedForSearch(KeyCode keyCode) {
-			return allowedKeys.contains(keyCode);
-		}
+        private void registerAllowedkKeys() {
+            allowedKeys.addAll(AllowedTypedKeysProvider.getAllowedKeyCodes());
+        }
 
-		public boolean isKeyAllowedForRun(KeyCode keyCode) {
-			return keyCode == KeyCode.ENTER;
-		}
+        public boolean isKeyAllowedForSearch(KeyCode keyCode) {
+            return allowedKeys.contains(keyCode);
+        }
 
-		public boolean isKeyAllowedForClear(KeyCode keyCode) {
-			return keyCode == KeyCode.ESCAPE;
-		}
-	}
+        public boolean isKeyAllowedForRun(KeyCode keyCode) {
+            return keyCode == KeyCode.ENTER;
+        }
 
-	private static class InnerSelectCallback implements Callback<ListView<SearchResult>, ListCell<SearchResult>> {
-		@Override
-		public ListCell<SearchResult> call(ListView<SearchResult> l) {
-			return new ListCell<SearchResult>() {
+        public boolean isKeyAllowedForClear(KeyCode keyCode) {
+            return keyCode == KeyCode.ESCAPE;
+        }
+    }
 
-				private static final double PREFERED_ICON_SIZE = 16;
+    private static class InnerSelectCallback implements Callback<ListView<SearchResult>, ListCell<SearchResult>> {
+        @Override
+        public ListCell<SearchResult> call(ListView<SearchResult> l) {
+            return new ListCell<SearchResult>() {
 
-				@Override
-				protected void updateItem(SearchResult item, boolean empty) {
-					super.updateItem(item, empty);
+                private static final double PREFERED_ICON_SIZE = 16;
 
-					if (!isEmpty()) {
-						SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
-						ImageView imgView = new ImageView(searchResultRepresentation.getImage());
-						imgView.setFitWidth(PREFERED_ICON_SIZE);
-						imgView.setFitHeight(PREFERED_ICON_SIZE);
-						setGraphic(imgView);
-						setText(searchResultRepresentation.getSearchresultTitle());
-					}
-				}
-			};
-		}
-	};
+                @Override
+                protected void updateItem(SearchResult item, boolean empty) {
+                    super.updateItem(item, empty);
 
-	private class InnerSelectStringConverter extends StringConverter<SearchResult> {
+                    if (!isEmpty()) {
+                        SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
+                        ImageView imgView = new ImageView(searchResultRepresentation.getImage());
+                        imgView.setFitWidth(PREFERED_ICON_SIZE);
+                        imgView.setFitHeight(PREFERED_ICON_SIZE);
+                        setGraphic(imgView);
+                        setText(searchResultRepresentation.getSearchresultTitle());
+                    }
+                }
+            };
+        }
+    }
 
-		@Override
-		public String toString(SearchResult object) {
-			return object == null ? null : object.toString();
-		}
+    ;
 
-		@Override
-		public SearchResult fromString(String string) {
-			return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string)).findFirst()
-					.orElse(null);
-		}
-	}
+    private class InnerSelectStringConverter extends StringConverter<SearchResult> {
+
+        @Override
+        public String toString(SearchResult object) {
+            return object == null ? null : object.toString();
+        }
+
+        @Override
+        public SearchResult fromString(String string) {
+            return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchresultTitle().equals(string)).findFirst()
+                    .orElse(null);
+        }
+    }
 
 }
