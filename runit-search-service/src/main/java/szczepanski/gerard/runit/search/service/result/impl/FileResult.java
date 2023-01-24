@@ -1,6 +1,5 @@
 package szczepanski.gerard.runit.search.service.result.impl;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -75,12 +74,7 @@ public class FileResult extends SearchResult {
         private static final Image DEFAULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DEFAULT_IMAGE_PATH));
 
         private static Image getImageFromFile(File file) {
-            Optional<Image> optionalFileImage = loadImageFromFile(file);
-
-            if (optionalFileImage.isPresent()) {
-                return optionalFileImage.get();
-            }
-            return DEFAULT_IMAGE;
+            return loadImageFromFile(file).orElse(DEFAULT_IMAGE);
         }
 
         private static Optional<Image> loadImageFromFile(File file) {
@@ -96,5 +90,7 @@ public class FileResult extends SearchResult {
             }
         }
     }
+
+
 
 }

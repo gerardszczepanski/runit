@@ -29,7 +29,7 @@ public class SettingsGeneralTabFactory extends FxmlComponentFactory<Tab> {
 
         Pane tabContentPane;
         try {
-            tabContentPane = (Pane) loader.load();
+            tabContentPane = loader.load();
             Tab tab = new Tab(TAB_TITLE);
             tab.setContent(tabContentPane);
             return tab;

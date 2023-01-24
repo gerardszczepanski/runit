@@ -18,7 +18,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * This class instance generates {@code CacheReport} instance with informations
+ * This class instance generates {@code CacheReport} instance with information
  * of the Cache.
  *
  * @author Gerard Szczepanski

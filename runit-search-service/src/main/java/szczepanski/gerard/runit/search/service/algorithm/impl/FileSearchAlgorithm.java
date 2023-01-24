@@ -58,32 +58,31 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
         Files.walkFileTree(Paths.get(rootPath), new FileVisitor<Path>() {
 
             @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
                 return FileVisitResult.CONTINUE;
             }
 
             // TODO Gerard Szczepanski 03.01.2017 to future refactor (IF
             // conditions are very ugly)
             @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
 
                 if (attrs.isRegularFile() && Files.isExecutable(file) && isFileNameContainsSearchTerm(file, searchTerm)
                         && hasFileAcceptableExtension(file, fileExtensions)) {
                     File suitableFile = file.toFile();
                     suitableFiles.add(suitableFile);
                 }
-
                 return FileVisitResult.CONTINUE;
             }
 
             @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+            public FileVisitResult visitFileFailed(Path file, IOException exc) {
                 LOG.debug(String.format("Visit file %s FAILED. File visiting is being continued...", file));
                 return FileVisitResult.CONTINUE;
             }
 
             @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
                 return FileVisitResult.CONTINUE;
             }
 

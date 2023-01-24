@@ -66,12 +66,12 @@ public class ProgramTrayManager {
 
     private static Image loadTrayImage(Dimension trayDim) {
         InputStream trayImageInputStream = ProgramTrayManager.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH);
-        Image trayImage = tryToLoadTrayImageFromInputStream(trayImageInputStream);
+        Image trayImage = loadTrayImageFromInputStream(trayImageInputStream);
         trayImage = trayImage.getScaledInstance(trayDim.width, trayDim.height, Image.SCALE_SMOOTH);
         return trayImage;
     }
 
-    private static Image tryToLoadTrayImageFromInputStream(InputStream in) {
+    private static Image loadTrayImageFromInputStream(InputStream in) {
         try {
             return ImageIO.read(in);
         } catch (IOException e) {

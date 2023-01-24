@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents search result to run.
  * <p>
  * This class follows Command pattern, and represents any result returned by
- * {@code SearchAlgorithm}. Because SearchResult derivered class its only known
+ * {@code SearchAlgorithm}. Because SearchResult derived class its only known
  * by concrete SearchAlgorithm, this class follows OCP principle.
  * <p>
  * I can define any SearchAlgorithm implementation, and define any SearchResult

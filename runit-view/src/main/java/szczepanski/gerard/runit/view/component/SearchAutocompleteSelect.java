@@ -53,11 +53,11 @@ public class SearchAutocompleteSelect {
      * Factory method for create SearchAutocomplete Select.
      *
      * @param currentPane - pane for SearchAutocompleteSelect object after create.
-     * @param dimenstion  - dimension for SearchAutocompleteSelect object.
+     * @param dimension  - dimension for SearchAutocompleteSelect object.
      * @param position    - position for SearchAutocompleteSelect object.
      */
-    public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-        return new SearchAutocompleteSelect(currentPane, dimenstion, position);
+    public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimension, Position position) {
+        return new SearchAutocompleteSelect(currentPane, dimension, position);
     }
 
     private void search() {
@@ -165,10 +165,10 @@ public class SearchAutocompleteSelect {
 
         private SelectKeyFilter() {
             this.allowedKeys = new HashSet<>();
-            registerAllowedkKeys();
+            registerAllowedKeys();
         }
 
-        private void registerAllowedkKeys() {
+        private void registerAllowedKeys() {
             allowedKeys.addAll(AllowedTypedKeysProvider.getAllowedKeyCodes());
         }
 

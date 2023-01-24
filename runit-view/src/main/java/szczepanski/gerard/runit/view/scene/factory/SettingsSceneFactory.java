@@ -25,7 +25,7 @@ public class SettingsSceneFactory extends FxmlComponentFactory<Scene> {
     protected Scene generateFxmlComponent(FXMLLoader loader) {
         TabPane rootLayout;
         try {
-            rootLayout = (TabPane) loader.load();
+            rootLayout = loader.load();
             addTabsToTabPane(rootLayout);
             return new Scene(rootLayout);
         } catch (IOException e) {

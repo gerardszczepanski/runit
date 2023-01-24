@@ -1,16 +1,38 @@
-*.class
-*.classpath
-*.prefs
-*.jar
-*.lst
-*.project
-*.properties
+*.class 
+*.classpath 
+*.prefs 
+*.jar 
+*.lst 
+*.project 
 *.MF
-*/target
-*/test-output
-*.gif
-*.ods
-*.lck
-*.script
-*shaded.pom
-*dependency-reduced-pom.xml
+*./mvn
+*.mvn
+*target
+*/target 
+*/test-output 
+*/.settings 
+*/.idea
+*.settings 
+*.gif 
+*.ods 
+*.lck 
+*.script 
+*shaded.pom 
+*.iml
+
+# Mobile Tools for Java (J2ME) 
+.mtj.tmp/ 
+ 
+# Package Files # 
+*.jar 
+*.war 
+*.ear 
+ 
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml 
+hs_err_pid* 
+/bin/
+.idea/
+
+#REMOTE DB CONFIG
+*db-remote.properties
+

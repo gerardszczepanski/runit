@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 public class StringUtils {
 
     public static final String EMPTY = "";
-    public static final String DELIMETER = ";";
+    public static final String DELIMITER = ";";
 
 }

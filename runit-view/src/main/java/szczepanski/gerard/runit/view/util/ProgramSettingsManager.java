@@ -26,7 +26,6 @@ public class ProgramSettingsManager {
 
     public void loadSettings() {
         LOG.debug("Loading settings");
-
         try {
             Settings initialSettings = settingsLoader.getSettings();
             restoreSettingsIfNotDefined(initialSettings);

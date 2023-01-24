@@ -10,7 +10,7 @@ import java.util.List;
 public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
     private static final List<Alias> EMPTY_LIST = new ArrayList<>(0);
 
-    private static final String ALIAS_DELIMETER = "=";
+    private static final String ALIAS_DELIMITER = "=";
 
     @Override
     public List<Alias> fromPropertyString(String propertyString) {
@@ -18,7 +18,7 @@ public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
             return EMPTY_LIST;
         }
 
-        String[] splittedStrings = propertyString.split(StringUtils.DELIMETER);
+        String[] splittedStrings = propertyString.split(StringUtils.DELIMITER);
         return createAliases(splittedStrings);
     }
 
@@ -26,7 +26,7 @@ public class AliasPropertySpliterator implements PropertySpliterator<Alias> {
         List<Alias> aliases = new ArrayList<>();
 
         for (String splittedString : splittedStrings) {
-            String[] splittedStringParts = splittedString.split(ALIAS_DELIMETER);
+            String[] splittedStringParts = splittedString.split(ALIAS_DELIMITER);
             String aliasName = splittedStringParts[0];
             String aliasValue = splittedStringParts[1];
             aliases.add(new Alias(aliasName, aliasValue));

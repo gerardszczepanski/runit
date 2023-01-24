@@ -2,6 +2,7 @@ package szczepanski.gerard.runit.settings.service.loader;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Value;
 
 import java.util.Objects;
 
@@ -11,25 +12,16 @@ import java.util.Objects;
  * @author Gerard Szczepanski
  */
 
-@Getter
+@Value
 @AllArgsConstructor
 public class Alias {
 
-    private final String name;
-    private final String value;
+    String name;
+    String value;
 
     @Override
     public String toString() {
         return String.format("[name->%s, value->%s]", name, value);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Alias alias = (Alias) o;
-        return Objects.equals(name, alias.name) &&
-                Objects.equals(value, alias.value);
     }
 
     @Override

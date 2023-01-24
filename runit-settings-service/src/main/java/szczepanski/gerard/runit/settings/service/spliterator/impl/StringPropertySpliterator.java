@@ -16,8 +16,8 @@ public class StringPropertySpliterator implements PropertySpliterator<String> {
             return EMPTY_LIST;
         }
 
-        String[] splittedStrings = propertyString.split(StringUtils.DELIMETER);
-        return Arrays.asList(splittedStrings);
+        String[] splitStrings = propertyString.split(StringUtils.DELIMITER);
+        return Arrays.asList(splitStrings);
     }
 
 }

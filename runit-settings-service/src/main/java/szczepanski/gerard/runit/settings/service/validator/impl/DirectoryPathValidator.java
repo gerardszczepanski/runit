@@ -7,7 +7,7 @@ import java.io.File;
 import java.nio.file.InvalidPathException;
 
 /**
- * This object validates whether given String direcroty path is valid, or not.
+ * This object validates whether given String directory path is valid.
  * If no, then throw RunitValidationException.
  *
  * @author Gerard Szczepanski

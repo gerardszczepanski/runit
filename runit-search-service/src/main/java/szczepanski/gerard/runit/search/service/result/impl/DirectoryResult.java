@@ -29,11 +29,11 @@ public class DirectoryResult extends SearchResult {
     }
 
     public static DirectoryResult fromDirectoryAlias(Alias directoryAlias) {
-        isDirecotyrAliasValid(directoryAlias);
+        isDirectoryAliasValid(directoryAlias);
         return new DirectoryResult(directoryAlias);
     }
 
-    private static void isDirecotyrAliasValid(Alias directoryAlias) {
+    private static void isDirectoryAliasValid(Alias directoryAlias) {
         if (directoryAlias == null || directoryAlias.getName() == null || directoryAlias.getValue() == null) {
             throw new RunitBusinessException(ExceptionCode.B_001, new Object[]{directoryAlias.getName(), directoryAlias.getValue()});
         }

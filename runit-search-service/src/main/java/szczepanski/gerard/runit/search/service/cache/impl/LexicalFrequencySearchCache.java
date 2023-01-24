@@ -117,7 +117,7 @@ public class LexicalFrequencySearchCache implements Cache {
             return Optional.empty();
         }
 
-        boolean updateSearchTermResults = CacheRefreshAlgorithm.shouldSerachResultsBeUpdatedForThatSearchTerm(searchTerm, bucket);
+        boolean updateSearchTermResults = CacheRefreshAlgorithm.areSearchResultsEligibleToBeUpdatedForThatSearchTerm(searchTerm, bucket);
         if (updateSearchTermResults) {
             LOG.debug("Found cached SearchResults for searchTerm: " + searchTerm + "but Cache will look for them again. Returning EMPTY");
             return Optional.empty();
@@ -224,17 +224,12 @@ public class LexicalFrequencySearchCache implements Cache {
     static class CacheRefreshAlgorithm {
         private static final int SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
 
-        private static boolean shouldSerachResultsBeUpdatedForThatSearchTerm(String searchTerm, CachedSearchResultsBucket bucket) {
+        private static boolean areSearchResultsEligibleToBeUpdatedForThatSearchTerm(String searchTerm, CachedSearchResultsBucket bucket) {
             LexicalSearchTerm lexicalSearchTerm = bucket.searchTermTimeStamps.get(searchTerm);
-
-            if (resultWasSearchedLongTimeAgo(lexicalSearchTerm)) {
-                return true;
-            }
-
-            return false;
+            return wasResultSearchedLongTimeAgo(lexicalSearchTerm);
         }
 
-        private static boolean resultWasSearchedLongTimeAgo(LexicalSearchTerm lexicalSearchTerm) {
+        private static boolean wasResultSearchedLongTimeAgo(LexicalSearchTerm lexicalSearchTerm) {
             return System.currentTimeMillis() - lexicalSearchTerm.timeStamp >= SEARCH_TERM_VALID_DURATION_IN_MS;
         }
     }

@@ -30,7 +30,6 @@ public class WebAliasSearchAlgorithm implements SearchAlgorithm {
                 searchResults.add(WebPageResult.fromWebAlias(a));
             }
         });
-
         return searchResults;
     }
 

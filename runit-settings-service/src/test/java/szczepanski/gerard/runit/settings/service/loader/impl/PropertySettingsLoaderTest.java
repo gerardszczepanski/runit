@@ -7,6 +7,9 @@ import org.testng.annotations.Test;
 import szczepanski.gerard.runit.settings.service.loader.Settings;
 import szczepanski.gerard.runit.settings.service.mapper.SettingsPropertiesMapper;
 
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.*;
+
 public class PropertySettingsLoaderTest {
 
     String propertiesPath = "testSettings.properties";
@@ -16,7 +19,7 @@ public class PropertySettingsLoaderTest {
 
     @BeforeTest
     public void beforeTest() {
-        settingsPropertiesMapper = Mockito.mock(SettingsPropertiesMapper.class);
+        settingsPropertiesMapper = mock(SettingsPropertiesMapper.class);
         settingsLoader = new PropertySettingsLoader(propertiesPath, settingsPropertiesMapper);
     }
 
@@ -24,14 +27,14 @@ public class PropertySettingsLoaderTest {
     public void loadPropertiesSuccess() {
         //Arrange
         Settings loadedSettings = Settings.builder().build();
-        Mockito.when(settingsPropertiesMapper.toSettings(Mockito.any())).thenReturn(loadedSettings);
+        when(settingsPropertiesMapper.toSettings(any())).thenReturn(loadedSettings);
 
         // Act
         Settings settings = settingsLoader.getSettings();
 
         // Assert
-        Assert.assertNotNull(settings);
-        Mockito.verify(settingsPropertiesMapper).toSettings(Mockito.any());
+        assertNotNull(settings);
+        verify(settingsPropertiesMapper).toSettings(any());
     }
 
 }

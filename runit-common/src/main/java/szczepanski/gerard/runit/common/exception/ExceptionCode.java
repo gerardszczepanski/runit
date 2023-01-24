@@ -6,7 +6,7 @@ import lombok.Getter;
  * This enum represents all RunitExceptions that can occur in Application.
  * Each exception registered here is being displayed for user.
  * <p>
- * For error raporting.
+ * For error reporting.
  * <p>
  * R_XXX -> for {@code RunitRuntimeExceptions}
  * B_XXX -> for {@code RunitBusinessExceptions}

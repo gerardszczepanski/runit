@@ -12,9 +12,9 @@ import java.util.Map;
  * Facade for advanced Collections (not from standard Java API).
  * <p>
  * I've created this Factory in case of change advanced collections lib. This class
- * helps me to centralize creational process for collections that are not from standard Java API.
+ * helps me to centralize creation process for collections that are not from standard Java API.
  * <p>
- * Eventual lib change will be easy.
+ * Possible lib change will be easy in the future.
  *
  * @author Gerard Szczepanski
  */

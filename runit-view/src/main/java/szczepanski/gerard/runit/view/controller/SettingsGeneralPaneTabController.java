@@ -57,10 +57,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
     public void handleAddRootPath() {
         LOG.debug("handleAddRootPath");
         Optional<File> optFile = DialogDisplayer.showDirectoryChooserDialog(getStage(rootPathsListView), "Choose root path to scan");
-        if (optFile.isPresent()) {
-            String addedRootPath = optFile.get().getPath();
-            addRootPath(addedRootPath);
-        }
+        optFile.map(File::getPath).ifPresent(this::addRootPath);
     }
 
     private void addRootPath(String rootPath) {
@@ -82,10 +79,7 @@ public class SettingsGeneralPaneTabController extends AbstractSettingsTabControl
     public void handleAddFileExtension() {
         LOG.debug("handleAddFileExtension");
         Optional<String> optFileExtension = DialogDisplayer.showInputDialog(getStage(rootPathsListView), "File extension");
-        if (optFileExtension.isPresent()) {
-            String addedFileExtension = optFileExtension.get().toLowerCase();
-            addFileExtension(addedFileExtension);
-        }
+        optFileExtension.map(String::toLowerCase).ifPresent(this::addFileExtension);
     }
 
     private void addFileExtension(String fileExtension) {

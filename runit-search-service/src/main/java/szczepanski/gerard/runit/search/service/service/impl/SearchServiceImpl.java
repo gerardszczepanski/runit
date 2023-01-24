@@ -31,10 +31,7 @@ public class SearchServiceImpl implements SearchService {
         }
 
         Optional<List<SearchResult>> cachedSearchResults = cache.getFromCache(searchTerm);
-        if (cachedSearchResults.isPresent()) {
-            return cachedSearchResults.get();
-        }
-        return triggerNewSearchFor(searchTerm);
+        return cachedSearchResults.orElseGet(() -> triggerNewSearchFor(searchTerm));
     }
 
     private List<SearchResult> triggerNewSearchFor(String searchTerm) {

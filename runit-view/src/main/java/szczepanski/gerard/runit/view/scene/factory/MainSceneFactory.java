@@ -24,7 +24,7 @@ public class MainSceneFactory extends FxmlComponentFactory<Scene> {
         loader.setController(mainSceneController);
         Pane rootLayout;
         try {
-            rootLayout = (Pane) loader.load();
+            rootLayout = loader.load();
             return new Scene(rootLayout);
         } catch (IOException e) {
             throw new RunitRuntimeException(ExceptionCode.R_005, e);

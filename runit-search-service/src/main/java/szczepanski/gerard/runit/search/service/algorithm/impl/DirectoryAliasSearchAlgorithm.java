@@ -30,7 +30,6 @@ public class DirectoryAliasSearchAlgorithm implements SearchAlgorithm {
                 searchResults.add(DirectoryResult.fromDirectoryAlias(a));
             }
         });
-
         return searchResults;
     }
 

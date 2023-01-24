@@ -53,7 +53,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Thread.setDefaultUncaughtExceptionHandler(Main::handleException);
         MainSceneFactory mainSceneFactory = ctx.getBean(MainSceneFactory.class);
         Scene mainScene = mainSceneFactory.createComponent();

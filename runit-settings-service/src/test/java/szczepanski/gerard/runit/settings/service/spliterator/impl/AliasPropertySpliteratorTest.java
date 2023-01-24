@@ -7,6 +7,8 @@ import szczepanski.gerard.runit.settings.service.loader.Alias;
 
 import java.util.List;
 
+import static org.testng.Assert.*;
+
 public class AliasPropertySpliteratorTest {
 
     AliasPropertySpliterator spliterator;
@@ -25,10 +27,10 @@ public class AliasPropertySpliteratorTest {
         List<Alias> webAliases = spliterator.fromPropertyString(stringFromProperties);
 
         // Assert
-        Assert.assertEquals(webAliases.get(0).getName(), "google");
-        Assert.assertEquals(webAliases.get(0).getValue(), "http://google.com");
-        Assert.assertEquals(webAliases.get(1).getName(), "starwars");
-        Assert.assertEquals(webAliases.get(1).getValue(), "http://starwars.com");
+        assertEquals(webAliases.get(0).getName(), "google");
+        assertEquals(webAliases.get(0).getValue(), "http://google.com");
+        assertEquals(webAliases.get(1).getName(), "starwars");
+        assertEquals(webAliases.get(1).getValue(), "http://starwars.com");
     }
 
 }

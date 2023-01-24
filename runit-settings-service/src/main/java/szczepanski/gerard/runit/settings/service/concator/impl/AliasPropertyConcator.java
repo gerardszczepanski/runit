@@ -8,14 +8,14 @@ import java.util.List;
 
 public class AliasPropertyConcator extends PropertyConcator<Alias> {
 
-    private static final String ALIAS_DELIMETER = "=";
+    private static final String ALIAS_DELIMITER = "=";
 
     @Override
     protected String convertToStringProperty(List<Alias> values) {
         String outputString = StringUtils.EMPTY;
 
         for (Alias alias : values) {
-            outputString = outputString + StringUtils.DELIMETER + alias.getName() + ALIAS_DELIMETER + alias.getValue();
+            outputString = outputString + StringUtils.DELIMITER + alias.getName() + ALIAS_DELIMITER + alias.getValue();
         }
         return outputString.substring(1);
     }

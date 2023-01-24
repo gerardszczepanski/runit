@@ -55,11 +55,8 @@ public class SettingsDirectoriesPaneTabController extends AbstractSettingsTabCon
     @FXML
     public void handleAddDirAlias() {
         LOG.debug("handleAddDirAlias");
-        Optional<Alias> optionalNewDirAlias = getNewAliasFromUserInput();
-
-        if (optionalNewDirAlias.isPresent()) {
-            addDirAlias(optionalNewDirAlias.get());
-        }
+        getNewAliasFromUserInput()
+                .ifPresent(this::addDirAlias);
     }
 
     /**
