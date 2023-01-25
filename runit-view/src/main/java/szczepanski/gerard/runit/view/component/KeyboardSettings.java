@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AllowedTypedKeysProvider {
+public class KeyboardSettings {
 
     public static List<KeyCode> getAllowedKeyCodes() {
         List<KeyCode> allowedKeyCodes = new ObjectArrayList<>();
@@ -51,6 +51,16 @@ public class AllowedTypedKeysProvider {
         allowedKeyCodes.add(KeyCode.M);
         allowedKeyCodes.add(KeyCode.SPACE);
         allowedKeyCodes.add(KeyCode.BACK_SPACE);
+
+        return allowedKeyCodes;
+    }
+
+    public static List<KeyCode> getKeycodesIneligibleForOptionsClear() {
+        List<KeyCode> allowedKeyCodes = new ObjectArrayList<>();
+
+        allowedKeyCodes.add(KeyCode.ENTER);
+        allowedKeyCodes.add(KeyCode.UP);
+        allowedKeyCodes.add(KeyCode.DOWN);
 
         return allowedKeyCodes;
     }

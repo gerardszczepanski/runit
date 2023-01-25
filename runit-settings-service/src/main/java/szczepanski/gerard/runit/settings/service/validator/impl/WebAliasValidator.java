@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class WebAliasValidator extends AbstractAliasValidator {
 
-    private static final String FAILURE_ALIAS_VALUE_MESSAGE = "Given web address is not valid URL address!";
+    private static final String FAILURE_ALIAS_VALUE_MESSAGE = "Im sorry, but web address that you've provided is not a valid URL address. Please try again.";
 
     @Override
     public void validate(Alias obj) throws RunitValidationException {

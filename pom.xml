@@ -139,7 +139,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Create exacutable jar -->
+            <!-- Create executable jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

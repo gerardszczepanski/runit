@@ -10,7 +10,11 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.Setter;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+
+import lombok.Value;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.service.result.SearchResult;
@@ -37,16 +41,18 @@ public class SearchAutocompleteSelect {
 
     private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
-    private final RunitComboBox<SearchResult> innerSelect;
+    private RunitComboBox<SearchResult> innerSelect;
+    private final SearchAutocompleteSelectProperties properties;
     private final SelectKeyFilter selectKeyFilter;
 
     @Setter
     private SearchService searchService;
 
-    private SearchAutocompleteSelect(Pane currentPane, Dimension dimenstion, Position position) {
-        this.innerSelect = new RunitComboBox<>();
+    private SearchAutocompleteSelect(SearchAutocompleteSelectProperties properties) {
+        this.properties = properties;
         this.selectKeyFilter = new SelectKeyFilter();
-        initInnerTextField(currentPane, dimenstion, position);
+        this.innerSelect = new RunitComboBox<>();
+        initializeRunitComboBox();
     }
 
     /**
@@ -57,7 +63,16 @@ public class SearchAutocompleteSelect {
      * @param position    - position for SearchAutocompleteSelect object.
      */
     public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimension, Position position) {
-        return new SearchAutocompleteSelect(currentPane, dimension, position);
+        final SearchAutocompleteSelectProperties properties = new SearchAutocompleteSelectProperties(currentPane, dimension, position);
+        return new SearchAutocompleteSelect(properties);
+    }
+
+    private void triggerSearchAction() {
+        if (StringUtils.isNotEmpty(innerSelect.text())) {
+            LOG.debug("--SEARCH START");
+            search();
+            LOG.debug("--SEARCH FINISHED");
+        }
     }
 
     private void search() {
@@ -93,7 +108,7 @@ public class SearchAutocompleteSelect {
     }
 
     private List<SearchResult> fireSearch() {
-        String searchTerm = innerSelect.getEditor().getText();
+        String searchTerm = innerSelect.text();
         return searchService.searchFor(searchTerm);
     }
 
@@ -105,20 +120,26 @@ public class SearchAutocompleteSelect {
         }
     }
 
-    private void hideOptions() {
-        innerSelect.clear();
+    private void hideWithEditorAndOptionsClear() {
+        innerSelect.clearEditorAndOptions();
         innerSelect.hide();
     }
 
-    private void initInnerTextField(Pane pane, Dimension dimenstion, Position position) {
-        innerSelect.setPrefWidth(dimenstion.width);
-        innerSelect.setPrefHeight(dimenstion.height);
-        innerSelect.setLayoutX(position.x);
-        innerSelect.setLayoutY(position.y);
+    private void hideWithOptionsClear() {
+        innerSelect.clearCurrentOptions();
+        innerSelect.hide();
+    }
+
+    private void initializeRunitComboBox() {
+        innerSelect.setPrefWidth(properties.dimension.width);
+        innerSelect.setPrefHeight(properties.dimension.height);
+        innerSelect.setLayoutX(properties.position.x);
+        innerSelect.setLayoutY(properties.position.y);
         innerSelect.setEditable(true);
         innerSelect.setCellFactory(new InnerSelectCallback());
         innerSelect.setConverter(new InnerSelectStringConverter());
         innerSelect.setCache(false);
+        innerSelect.setMouseTransparent(true);
         innerSelect.setVisibleRowCount(10);
 
         innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
@@ -128,8 +149,20 @@ public class SearchAutocompleteSelect {
         });
 
         innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-            if (selectKeyFilter.isKeyAllowedForClear(e.getCode())) {
-                hideOptions();
+            if (selectKeyFilter.isKeyAllowedForTotalClear(e.getCode())) {
+                hideWithEditorAndOptionsClear();
+            }
+        });
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
+                hideWithOptionsClear();
+            }
+        });
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
+                hideWithOptionsClear();
             }
         });
 
@@ -140,15 +173,13 @@ public class SearchAutocompleteSelect {
             innerSelect.requestFocus();
         });
 
-        pane.getChildren().add(innerSelect);
+        properties.pane.getChildren().add(innerSelect);
     }
 
     private void initSelectTypeDelaySubscriber() {
         JavaFxObservable.eventsOf(innerSelect, KeyEvent.KEY_RELEASED).filter(e -> selectKeyFilter.isKeyAllowedForSearch(e.getCode()))
                 .debounce(DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS, TimeUnit.MILLISECONDS).subscribe(e -> {
-            LOG.debug("SEARCH START");
-            Platform.runLater(this::search);
-            LOG.debug("SEARCH FINISHED");
+            Platform.runLater(this::triggerSearchAction);
         });
     }
 
@@ -162,14 +193,20 @@ public class SearchAutocompleteSelect {
     private static class SelectKeyFilter {
 
         private final Set<KeyCode> allowedKeys;
+        private final Set<KeyCode> keysIneligibleForOptionsClear;
 
         private SelectKeyFilter() {
             this.allowedKeys = new HashSet<>();
+            this.keysIneligibleForOptionsClear = new HashSet<>();
             registerAllowedKeys();
+            registerKeysIneligibleForOptionsClear();
         }
 
         private void registerAllowedKeys() {
-            allowedKeys.addAll(AllowedTypedKeysProvider.getAllowedKeyCodes());
+            allowedKeys.addAll(KeyboardSettings.getAllowedKeyCodes());
+        }
+        private void registerKeysIneligibleForOptionsClear() {
+            keysIneligibleForOptionsClear.addAll(KeyboardSettings.getKeycodesIneligibleForOptionsClear());
         }
 
         public boolean isKeyAllowedForSearch(KeyCode keyCode) {
@@ -180,8 +217,12 @@ public class SearchAutocompleteSelect {
             return keyCode == KeyCode.ENTER;
         }
 
-        public boolean isKeyAllowedForClear(KeyCode keyCode) {
+        public boolean isKeyAllowedForTotalClear(KeyCode keyCode) {
             return keyCode == KeyCode.ESCAPE;
+        }
+
+        public boolean isKeyAllowedForOptionsClear(KeyCode keyCode) {
+            return !keysIneligibleForOptionsClear.contains(keyCode);
         }
     }
 
@@ -190,17 +231,22 @@ public class SearchAutocompleteSelect {
         public ListCell<SearchResult> call(ListView<SearchResult> l) {
             return new ListCell<SearchResult>() {
 
-                private static final double PREFERED_ICON_SIZE = 16;
+                private static final double ICON_SIZE = 16;
 
                 @Override
                 protected void updateItem(SearchResult item, boolean empty) {
                     super.updateItem(item, empty);
 
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    }
+
                     if (!isEmpty()) {
                         SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
                         ImageView imgView = new ImageView(searchResultRepresentation.getImage());
-                        imgView.setFitWidth(PREFERED_ICON_SIZE);
-                        imgView.setFitHeight(PREFERED_ICON_SIZE);
+                        imgView.setFitWidth(ICON_SIZE);
+                        imgView.setFitHeight(ICON_SIZE);
                         setGraphic(imgView);
                         setText(searchResultRepresentation.getSearchResultTitle());
                     }
@@ -208,8 +254,6 @@ public class SearchAutocompleteSelect {
             };
         }
     }
-
-    ;
 
     private class InnerSelectStringConverter extends StringConverter<SearchResult> {
 
@@ -223,6 +267,15 @@ public class SearchAutocompleteSelect {
             return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchResultTitle().equals(string)).findFirst()
                     .orElse(null);
         }
+    }
+
+    @Value
+    private static class SearchAutocompleteSelectProperties {
+
+        Pane pane;
+        Dimension dimension;
+        Position position;
+
     }
 
 }

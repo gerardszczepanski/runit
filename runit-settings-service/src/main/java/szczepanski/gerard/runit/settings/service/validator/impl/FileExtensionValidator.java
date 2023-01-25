@@ -6,7 +6,7 @@ import szczepanski.gerard.runit.settings.service.validator.Validator;
 
 public class FileExtensionValidator implements Validator<String> {
 
-    private static final String FAILURE_MESSAGE = "Given file extension is not valid!";
+    private static final String FAILURE_MESSAGE = "Im sorry, but file extension that you've provided is not valid. Please try again.";
     private static final String ONLY_LETTERS_PATTERN = "[A-Za-z]*";
 
     @Override

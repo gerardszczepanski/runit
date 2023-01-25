@@ -14,7 +14,7 @@ import java.nio.file.InvalidPathException;
  */
 public class DirectoryPathValidator implements Validator<String> {
 
-    private static final String FAILURE_MESSAGE = "Given directory path is not valid!";
+    private static final String FAILURE_MESSAGE = "Im sorry, but the directory that you've provided is not valid. Please try again.";
 
     @Override
     public void validate(String obj) throws RunitValidationException {
