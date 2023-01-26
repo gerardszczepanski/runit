@@ -14,11 +14,11 @@
 
     <modules>
         <module>runit-common</module>
-        <module>runit-search-service</module>
-        <module>runit-settings-service</module>
+        <module>runit-search</module>
+        <module>runit-settings</module>
         <module>runit-view</module>
         <module>runit-program</module>
-        <module>runit-advanced-collection-facade</module>
+        <module>runit-collection</module>
     </modules>
 
     <dependencyManagement>
@@ -31,13 +31,13 @@
 
             <dependency>
                 <groupId>szczepanski.gerard</groupId>
-                <artifactId>runit-settings-service</artifactId>
+                <artifactId>runit-settings</artifactId>
                 <version>${program.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>szczepanski.gerard</groupId>
-                <artifactId>runit-search-service</artifactId>
+                <artifactId>runit-search</artifactId>
                 <version>${program.version}</version>
             </dependency>
 
@@ -49,7 +49,7 @@
 
             <dependency>
                 <groupId>szczepanski.gerard</groupId>
-                <artifactId>runit-advanced-collection-facade</artifactId>
+                <artifactId>runit-collection</artifactId>
                 <version>${program.version}</version>
             </dependency>
 
