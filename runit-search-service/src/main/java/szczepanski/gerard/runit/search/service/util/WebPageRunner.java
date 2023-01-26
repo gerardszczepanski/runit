@@ -9,7 +9,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class WebPageRunner {
 
     public static void browsePage(URI webPage) {

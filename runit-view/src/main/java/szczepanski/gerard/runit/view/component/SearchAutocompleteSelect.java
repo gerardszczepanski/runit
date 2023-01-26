@@ -1,6 +1,17 @@
 package szczepanski.gerard.runit.view.component;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
@@ -10,10 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import lombok.Setter;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-
+import lombok.SneakyThrows;
 import lombok.Value;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
@@ -21,11 +29,6 @@ import szczepanski.gerard.runit.search.service.result.SearchResult;
 import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
 import szczepanski.gerard.runit.search.service.service.SearchService;
 import szczepanski.gerard.runit.view.tray.ProgramTrayManager;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This is Autocomplete Select component responsible for handle typed text, and
@@ -37,38 +40,85 @@ import java.util.concurrent.TimeUnit;
  * @author Gerard Szczepanski
  */
 public class SearchAutocompleteSelect {
+
     private static final Logger LOG = Logger.getLogger(SearchAutocompleteSelect.class);
 
     private static final int DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS = ProgramConfig.DELAY_TYPE_TIME_FOR_TRIGGER_SEARCH_IN_MS;
 
-    private RunitComboBox<SearchResult> innerSelect;
-    private final SearchAutocompleteSelectProperties properties;
+    private final ComboBox<SearchResult> innerSelect;
+
     private final SelectKeyFilter selectKeyFilter;
 
     @Setter
     private SearchService searchService;
 
-    private SearchAutocompleteSelect(SearchAutocompleteSelectProperties properties) {
-        this.properties = properties;
+    private SearchAutocompleteSelect() {
         this.selectKeyFilter = new SelectKeyFilter();
-        this.innerSelect = new RunitComboBox<>();
-        initializeRunitComboBox();
+        this.innerSelect = new ComboBox<>();
+    }
+
+    private void initializeInnerSelect(
+            SearchAutocompleteSelectProperties properties) {
+        innerSelect.setPrefWidth(properties.dimension.width);
+        innerSelect.setPrefHeight(properties.dimension.height);
+        innerSelect.setLayoutX(properties.position.x);
+        innerSelect.setLayoutY(properties.position.y);
+        innerSelect.setEditable(true);
+        innerSelect.setCellFactory(new InnerSelectCallback());
+        innerSelect.setConverter(new InnerSelectStringConverter());
+        innerSelect.setCache(false);
+        innerSelect.setMouseTransparent(true);
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
+                triggerRun();
+            }
+        });
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForTotalClear(e.getCode())) {
+                hideWithEditorAndOptionsClear();
+            }
+        });
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
+                hideWithOptionsClear();
+            }
+        });
+
+        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
+            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
+                hideWithOptionsClear();
+            }
+        });
+
+        initSelectTypeDelaySubscriber();
+
+        Platform.runLater(() -> {
+            innerSelect.getEditor().requestFocus();
+            innerSelect.requestFocus();
+        });
+
+        properties.pane.getChildren().add(innerSelect);
     }
 
     /**
      * Factory method for create SearchAutocomplete Select.
      *
      * @param currentPane - pane for SearchAutocompleteSelect object after create.
-     * @param dimension  - dimension for SearchAutocompleteSelect object.
+     * @param dimension   - dimension for SearchAutocompleteSelect object.
      * @param position    - position for SearchAutocompleteSelect object.
      */
     public static SearchAutocompleteSelect createSearchAutocompleteSelect(Pane currentPane, Dimension dimension, Position position) {
         final SearchAutocompleteSelectProperties properties = new SearchAutocompleteSelectProperties(currentPane, dimension, position);
-        return new SearchAutocompleteSelect(properties);
+        final SearchAutocompleteSelect searchAutocompleteSelect = new SearchAutocompleteSelect();
+        searchAutocompleteSelect.initializeInnerSelect(properties);
+        return searchAutocompleteSelect;
     }
 
     private void triggerSearchAction() {
-        if (StringUtils.isNotEmpty(innerSelect.text())) {
+        if (StringUtils.isNotEmpty(getSelectText())) {
             LOG.debug("--SEARCH START");
             search();
             LOG.debug("--SEARCH FINISHED");
@@ -108,12 +158,12 @@ public class SearchAutocompleteSelect {
     }
 
     private List<SearchResult> fireSearch() {
-        String searchTerm = innerSelect.text();
+        String searchTerm = getSelectText();
         return searchService.searchFor(searchTerm);
     }
 
     private void displaySearchResults(List<SearchResult> searchResults) {
-        innerSelect.applyNewOptions(searchResults);
+        applyNewOptions(searchResults);
 
         if (!searchResults.isEmpty()) {
             innerSelect.show();
@@ -121,59 +171,40 @@ public class SearchAutocompleteSelect {
     }
 
     private void hideWithEditorAndOptionsClear() {
-        innerSelect.clearEditorAndOptions();
+        clearEditorAndOptions();
         innerSelect.hide();
     }
 
     private void hideWithOptionsClear() {
-        innerSelect.clearCurrentOptions();
+        clearCurrentOptions();
         innerSelect.hide();
     }
 
-    private void initializeRunitComboBox() {
-        innerSelect.setPrefWidth(properties.dimension.width);
-        innerSelect.setPrefHeight(properties.dimension.height);
-        innerSelect.setLayoutX(properties.position.x);
-        innerSelect.setLayoutY(properties.position.y);
-        innerSelect.setEditable(true);
-        innerSelect.setCellFactory(new InnerSelectCallback());
-        innerSelect.setConverter(new InnerSelectStringConverter());
-        innerSelect.setCache(false);
-        innerSelect.setMouseTransparent(true);
-        innerSelect.setVisibleRowCount(10);
+    public String getSelectText() {
+        return innerSelect.getEditor().getText();
+    }
 
-        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-            if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
-                triggerRun();
-            }
-        });
+    public void applyNewOptions(List<SearchResult> options) {
+        clearCurrentOptions();
+        insertNewOptions(options);
+    }
 
-        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-            if (selectKeyFilter.isKeyAllowedForTotalClear(e.getCode())) {
-                hideWithEditorAndOptionsClear();
-            }
-        });
+    public void clearCurrentOptions() {
+        innerSelect.getSelectionModel().clearSelection();
+        innerSelect.getItems().removeAll(innerSelect.getItems());
+        innerSelect.itemsProperty().get().clear();
+        innerSelect.valueProperty().set(null);
+    }
 
-        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
-                hideWithOptionsClear();
-            }
-        });
+    @SneakyThrows
+    private void insertNewOptions(List<SearchResult> options) {
+        ObservableList<SearchResult> observableListOptions = FXCollections.observableArrayList(options);
+        innerSelect.setItems(observableListOptions);
+    }
 
-        innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
-            if (selectKeyFilter.isKeyAllowedForOptionsClear(e.getCode())) {
-                hideWithOptionsClear();
-            }
-        });
-
-        initSelectTypeDelaySubscriber();
-
-        Platform.runLater(() -> {
-            innerSelect.getEditor().requestFocus();
-            innerSelect.requestFocus();
-        });
-
-        properties.pane.getChildren().add(innerSelect);
+    public void clearEditorAndOptions() {
+        clearCurrentOptions();
+        innerSelect.getEditor().clear();
     }
 
     private void initSelectTypeDelaySubscriber() {
@@ -193,6 +224,7 @@ public class SearchAutocompleteSelect {
     private static class SelectKeyFilter {
 
         private final Set<KeyCode> allowedKeys;
+
         private final Set<KeyCode> keysIneligibleForOptionsClear;
 
         private SelectKeyFilter() {
@@ -205,6 +237,7 @@ public class SearchAutocompleteSelect {
         private void registerAllowedKeys() {
             allowedKeys.addAll(KeyboardSettings.getAllowedKeyCodes());
         }
+
         private void registerKeysIneligibleForOptionsClear() {
             keysIneligibleForOptionsClear.addAll(KeyboardSettings.getKeycodesIneligibleForOptionsClear());
         }
@@ -227,6 +260,7 @@ public class SearchAutocompleteSelect {
     }
 
     private static class InnerSelectCallback implements Callback<ListView<SearchResult>, ListCell<SearchResult>> {
+
         @Override
         public ListCell<SearchResult> call(ListView<SearchResult> l) {
             return new ListCell<SearchResult>() {
@@ -237,19 +271,20 @@ public class SearchAutocompleteSelect {
                 protected void updateItem(SearchResult item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    if (empty) {
+                    if (empty || item == null) {
                         setText(null);
                         setGraphic(null);
+                        setWidth(0);
+                        setHeight(0);
+                        return;
                     }
 
-                    if (!isEmpty()) {
-                        SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
-                        ImageView imgView = new ImageView(searchResultRepresentation.getImage());
-                        imgView.setFitWidth(ICON_SIZE);
-                        imgView.setFitHeight(ICON_SIZE);
-                        setGraphic(imgView);
-                        setText(searchResultRepresentation.getSearchResultTitle());
-                    }
+                    SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
+                    ImageView imgView = new ImageView(searchResultRepresentation.getImage());
+                    imgView.setFitWidth(ICON_SIZE);
+                    imgView.setFitHeight(ICON_SIZE);
+                    setGraphic(imgView);
+                    setText(searchResultRepresentation.getSearchResultTitle());
                 }
             };
         }
@@ -264,7 +299,8 @@ public class SearchAutocompleteSelect {
 
         @Override
         public SearchResult fromString(String string) {
-            return innerSelect.getItems().stream().filter(item -> item.getSearchResultRepresentation().getSearchResultTitle().equals(string)).findFirst()
+            return innerSelect.getItems().stream().filter(
+                    item -> item.getSearchResultRepresentation().getSearchResultTitle().equals(string)).findFirst()
                     .orElse(null);
         }
     }
@@ -273,7 +309,9 @@ public class SearchAutocompleteSelect {
     private static class SearchAutocompleteSelectProperties {
 
         Pane pane;
+
         Dimension dimension;
+
         Position position;
 
     }

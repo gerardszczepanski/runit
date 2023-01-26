@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Map;
 
+import static lombok.AccessLevel.*;
+
 /**
  * Facade for advanced Collections (not from standard Java API).
  * <p>
@@ -18,7 +20,7 @@ import java.util.Map;
  *
  * @author Gerard Szczepanski
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = PRIVATE)
 public class AdvancedCollectionFactory {
 
     public static <K, V> Map<K, V> map() {

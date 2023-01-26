@@ -9,10 +9,10 @@ public class StringPropertyConcator extends PropertyConcator<String> {
 
     @Override
     protected String convertToStringProperty(List<String> values) {
-        String outputString = StringUtils.EMPTY;
+        StringBuilder outputString = new StringBuilder(StringUtils.EMPTY);
 
         for (String val : values) {
-            outputString = outputString + StringUtils.DELIMITER + val;
+            outputString.append(StringUtils.DELIMITER).append(val);
         }
         return outputString.substring(1);
     }

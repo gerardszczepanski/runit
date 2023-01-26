@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.view.tray.ProgramTrayManager;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class ProgramErrorDisplayer {
 
     private static final String TITLE = "Runit Error";

@@ -8,7 +8,9 @@ import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class ProgramConfig {
 
     public static final String PROGRAM_TITLE = "Runit";

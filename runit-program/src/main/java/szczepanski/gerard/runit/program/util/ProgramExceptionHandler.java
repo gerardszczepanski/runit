@@ -7,7 +7,9 @@ import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.view.util.ProgramErrorDisplayer;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class ProgramExceptionHandler {
     private static final Logger LOG = Logger.getLogger(ProgramExceptionHandler.class);
 

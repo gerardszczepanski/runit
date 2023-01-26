@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class KeyboardSettings {
 
     public static List<KeyCode> getAllowedKeyCodes() {

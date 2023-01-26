@@ -17,6 +17,8 @@ import java.io.File;
 import java.util.Objects;
 import java.util.Optional;
 
+import static lombok.AccessLevel.*;
+
 /**
  * Represents File found by {@code SearchService}.
  *
@@ -68,7 +70,7 @@ public class FileResult extends SearchResult {
      *
      * @author Gerard Szczepanski
      */
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = PRIVATE)
     private static class FileResultImageProvider {
         private static final String DEFAULT_IMAGE_PATH = "/images/search-results/fileResult.png";
         private static final Image DEFAULT_IMAGE = new Image(WebPageResult.class.getResourceAsStream(DEFAULT_IMAGE_PATH));

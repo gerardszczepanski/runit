@@ -9,7 +9,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class DesktopFileRunner {
 
     public static void run(File file) {

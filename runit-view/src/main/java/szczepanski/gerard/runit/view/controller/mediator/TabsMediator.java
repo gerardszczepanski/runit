@@ -7,7 +7,9 @@ import szczepanski.gerard.runit.view.controller.AbstractSettingsTabController;
 
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class TabsMediator {
 
     private static final List<AbstractSettingsTabController> settingsTabsContollers = new ObjectArrayList<>();

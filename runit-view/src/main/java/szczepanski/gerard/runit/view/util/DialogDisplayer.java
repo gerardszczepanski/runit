@@ -16,7 +16,9 @@ import szczepanski.gerard.runit.common.util.StringUtils;
 import java.io.File;
 import java.util.Optional;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class DialogDisplayer {
 
     private static final Image ICON = new Image(DialogDisplayer.class.getResourceAsStream(ProgramConfig.PROGRAM_ICON_PATH));

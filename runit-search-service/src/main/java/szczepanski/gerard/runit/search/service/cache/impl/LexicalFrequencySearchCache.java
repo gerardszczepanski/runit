@@ -11,6 +11,8 @@ import szczepanski.gerard.runit.search.service.result.SearchResult;
 
 import java.util.*;
 
+import static lombok.AccessLevel.*;
+
 /**
  * Advanced, smart, less memory cost, refreshing cache.
  * <p>
@@ -220,7 +222,7 @@ public class LexicalFrequencySearchCache implements Cache {
         }
     }
 
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = PRIVATE)
     static class CacheRefreshAlgorithm {
         private static final int SEARCH_TERM_VALID_DURATION_IN_MS = 60000 * 20;
 

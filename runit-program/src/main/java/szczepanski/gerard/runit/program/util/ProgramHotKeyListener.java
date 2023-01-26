@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import static lombok.AccessLevel.*;
+
 /**
  * TrayKeyListener is being installed on key type action in main scene to listen
  * for program tray show/hide shortcut.
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author Gerard Szczepanski
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = PRIVATE)
 public class ProgramHotKeyListener implements NativeKeyListener {
 
     private static final int FIRST_HOT_KEY_MASK = NativeKeyEvent.ALT_MASK;

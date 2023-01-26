@@ -9,7 +9,9 @@ import szczepanski.gerard.runit.search.service.util.WebPageRunner;
 
 import java.awt.*;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class TrayPopupMenuFactory {
     private static final Logger LOG = Logger.getLogger(TrayPopupMenuFactory.class);
 

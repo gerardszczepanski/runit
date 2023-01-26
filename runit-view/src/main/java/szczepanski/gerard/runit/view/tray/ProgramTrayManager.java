@@ -14,7 +14,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+import static lombok.AccessLevel.*;
+
+@NoArgsConstructor(access = PRIVATE)
 public class ProgramTrayManager {
     private static final Logger LOG = Logger.getLogger(ProgramTrayManager.class);
 
