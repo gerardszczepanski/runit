@@ -5,10 +5,10 @@ import javafx.scene.control.ListView;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import szczepanski.gerard.runit.common.exception.RunitValidationException;
-import szczepanski.gerard.runit.settings.service.loader.Settings;
-import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
-import szczepanski.gerard.runit.settings.service.validator.Validator;
-import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
+import szczepanski.gerard.runit.settings.loader.Settings;
+import szczepanski.gerard.runit.settings.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.validator.Validator;
+import szczepanski.gerard.runit.settings.writer.SettingsWriter;
 import szczepanski.gerard.runit.view.controller.mediator.TabsMediator;
 import szczepanski.gerard.runit.view.util.DialogDisplayer;
 

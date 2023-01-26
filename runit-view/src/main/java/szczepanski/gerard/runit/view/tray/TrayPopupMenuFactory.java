@@ -1,11 +1,10 @@
 package szczepanski.gerard.runit.view.tray;
 
 import javafx.application.Platform;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.log4j.Logger;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
-import szczepanski.gerard.runit.search.service.util.WebPageRunner;
+import szczepanski.gerard.runit.search.util.WebPageRunner;
 
 import java.awt.*;
 

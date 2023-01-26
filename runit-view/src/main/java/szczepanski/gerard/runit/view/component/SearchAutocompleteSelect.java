@@ -25,9 +25,9 @@ import lombok.SneakyThrows;
 import lombok.Value;
 import rx.observables.JavaFxObservable;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
-import szczepanski.gerard.runit.search.service.result.SearchResult;
-import szczepanski.gerard.runit.search.service.result.SearchResultRepresentation;
-import szczepanski.gerard.runit.search.service.service.SearchService;
+import szczepanski.gerard.runit.search.result.SearchResult;
+import szczepanski.gerard.runit.search.result.SearchResultRepresentation;
+import szczepanski.gerard.runit.search.service.SearchService;
 import szczepanski.gerard.runit.view.tray.ProgramTrayManager;
 
 /**

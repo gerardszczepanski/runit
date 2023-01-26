@@ -7,11 +7,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
-import szczepanski.gerard.runit.search.service.cache.Cache;
-import szczepanski.gerard.runit.search.service.cache.CacheVisitor;
-import szczepanski.gerard.runit.search.service.cache.impl.CacheReportVisitor;
-import szczepanski.gerard.runit.search.service.cache.report.CacheReport;
-import szczepanski.gerard.runit.search.service.cache.report.CachedSearchTermInfo;
+import szczepanski.gerard.runit.search.cache.Cache;
+import szczepanski.gerard.runit.search.cache.CacheVisitor;
+import szczepanski.gerard.runit.search.cache.impl.CacheReportVisitor;
+import szczepanski.gerard.runit.search.cache.report.CacheReport;
+import szczepanski.gerard.runit.search.cache.report.CachedSearchTermInfo;
 import szczepanski.gerard.runit.view.util.DialogDisplayer;
 
 @RequiredArgsConstructor

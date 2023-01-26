@@ -11,12 +11,12 @@
     <dependencies>
         <dependency>
             <groupId>szczepanski.gerard</groupId>
-            <artifactId>runit-search-service</artifactId>
+            <artifactId>runit-search</artifactId>
         </dependency>
 
         <dependency>
             <groupId>szczepanski.gerard</groupId>
-            <artifactId>runit-settings-service</artifactId>
+            <artifactId>runit-settings</artifactId>
         </dependency>
 
         <dependency>

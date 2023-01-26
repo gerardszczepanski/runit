@@ -3,9 +3,9 @@ package szczepanski.gerard.runit.view.util;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
-import szczepanski.gerard.runit.settings.service.loader.Settings;
-import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
-import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
+import szczepanski.gerard.runit.settings.loader.Settings;
+import szczepanski.gerard.runit.settings.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.writer.SettingsWriter;
 
 /**
  * This class is responsible for load Settings if exist,

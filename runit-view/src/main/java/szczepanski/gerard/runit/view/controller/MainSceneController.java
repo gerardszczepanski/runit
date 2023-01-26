@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
-import szczepanski.gerard.runit.search.service.service.SearchService;
+import szczepanski.gerard.runit.search.service.SearchService;
 import szczepanski.gerard.runit.view.component.Dimension;
 import szczepanski.gerard.runit.view.component.Position;
 import szczepanski.gerard.runit.view.component.SearchAutocompleteSelect;

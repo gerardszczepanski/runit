@@ -7,11 +7,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import szczepanski.gerard.runit.common.exception.RunitValidationException;
-import szczepanski.gerard.runit.settings.service.loader.Alias;
-import szczepanski.gerard.runit.settings.service.loader.Settings;
-import szczepanski.gerard.runit.settings.service.loader.SettingsLoader;
-import szczepanski.gerard.runit.settings.service.validator.Validator;
-import szczepanski.gerard.runit.settings.service.writer.SettingsWriter;
+import szczepanski.gerard.runit.settings.loader.Alias;
+import szczepanski.gerard.runit.settings.loader.Settings;
+import szczepanski.gerard.runit.settings.loader.SettingsLoader;
+import szczepanski.gerard.runit.settings.validator.Validator;
+import szczepanski.gerard.runit.settings.writer.SettingsWriter;
 import szczepanski.gerard.runit.view.util.DialogDisplayer;
 
 import java.io.File;
