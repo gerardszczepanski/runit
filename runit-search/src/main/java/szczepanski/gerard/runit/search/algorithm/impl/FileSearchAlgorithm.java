@@ -16,7 +16,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class FileSearchAlgorithm implements SearchAlgorithm {
@@ -34,7 +37,14 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
         paths.forEach(p -> searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions)));
         LOG.debug("Searching finished");
 
-        return searchResults;
+        return toSearchResultsWithoutDuplicates(searchResults);
+    }
+
+    private List<SearchResult> toSearchResultsWithoutDuplicates(List<SearchResult> searchResults) {
+        final Set<SearchResult> searchRestulsSet = new HashSet<>(searchResults);
+        final List<SearchResult> listWithoutDuplicates = AdvancedCollectionFactory.list(searchRestulsSet.size());
+        listWithoutDuplicates.addAll(searchRestulsSet);
+        return listWithoutDuplicates;
     }
 
     private List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {

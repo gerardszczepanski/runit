@@ -1,7 +1,6 @@
 package szczepanski.gerard.runit.view.controller.mediator;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import szczepanski.gerard.runit.view.controller.AbstractSettingsTabController;
 
@@ -12,14 +11,14 @@ import static lombok.AccessLevel.*;
 @NoArgsConstructor(access = PRIVATE)
 public class TabsMediator {
 
-    private static final List<AbstractSettingsTabController> settingsTabsContollers = new ObjectArrayList<>();
+    private static final List<AbstractSettingsTabController> settingsTabsControllers = new ObjectArrayList<>();
 
     public static void registerController(AbstractSettingsTabController controller) {
-        settingsTabsContollers.add(controller);
+        settingsTabsControllers.add(controller);
     }
 
     public static void updateTabs() {
-        settingsTabsContollers.forEach(AbstractSettingsTabController::reloadTab);
+        settingsTabsControllers.forEach(AbstractSettingsTabController::reloadTab);
     }
 
 }

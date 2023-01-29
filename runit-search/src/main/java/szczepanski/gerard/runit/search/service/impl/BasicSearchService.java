@@ -50,21 +50,27 @@ public class BasicSearchService implements SearchService {
         if (searchResults.isEmpty()) {
             return searchResults;
         }
-
         final List<SearchResult> orderedResults = AdvancedCollectionFactory.list();
 
-        final List<SearchResult> orderedResultsWithSearchTerm = searchResults.stream()
-                .filter(result -> result.title().toLowerCase().contains(searchTerm.toLowerCase()))
+        final List<SearchResult> orderedResultsThatStartsWithSearchTerm = searchResults.stream()
+                .filter(result -> result.title().toLowerCase().startsWith(searchTerm.toLowerCase()))
                 .sorted(Comparator.comparing(SearchResult::title))
                 .collect(toList());
+        orderedResults.addAll(orderedResultsThatStartsWithSearchTerm);
+
+        final List<SearchResult> orderedResultsContainingSearchTerm = searchResults.stream()
+                .filter(result -> !orderedResultsThatStartsWithSearchTerm.contains(result)
+                        && result.title().toLowerCase().contains(searchTerm.toLowerCase()))
+                .sorted(Comparator.comparing(SearchResult::title))
+                .collect(toList());
+        orderedResults.addAll(orderedResultsContainingSearchTerm);
 
         final List<SearchResult> orderedRestOfSearchResults = searchResults.stream()
-                .filter(result -> !orderedResultsWithSearchTerm.contains(result))
+                .filter(result -> !orderedResults.contains(result))
                 .sorted(Comparator.comparing(SearchResult::title))
                 .collect(toList());
-
-        orderedResults.addAll(orderedResultsWithSearchTerm);
         orderedResults.addAll(orderedRestOfSearchResults);
+
         return orderedResults;
     }
 

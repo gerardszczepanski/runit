@@ -28,6 +28,7 @@ public class DefaultSettingsProvider {
         List<String> rootPaths = AdvancedCollectionFactory.list();
         rootPaths.add(System.getProperty("user.home") + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu");
         rootPaths.add("C:\\ProgramData\\Microsoft\\Windows\\Start Menu");
+
         return rootPaths;
     }
 

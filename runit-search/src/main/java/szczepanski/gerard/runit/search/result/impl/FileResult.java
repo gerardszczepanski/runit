@@ -50,11 +50,7 @@ public class FileResult extends SearchResult {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        FileResult that = (FileResult) o;
-        return Objects.equals(file, that.file);
+        return super.equals(o);
     }
 
     @Override
