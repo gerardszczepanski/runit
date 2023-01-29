@@ -1,5 +1,6 @@
 package szczepanski.gerard.runit.view.component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -166,6 +167,8 @@ public class SearchAutocompleteSelect {
         applyNewOptions(searchResults);
 
         if (!searchResults.isEmpty()) {
+            innerSelect.setVisibleRowCount(searchResults.size());
+            innerSelect.hide();
             innerSelect.show();
         }
     }
@@ -272,19 +275,26 @@ public class SearchAutocompleteSelect {
                     super.updateItem(item, empty);
 
                     if (empty || item == null) {
-                        setText(null);
-                        setGraphic(null);
-                        setWidth(0);
-                        setHeight(0);
+                        displayEmptyResult();
                         return;
                     }
+                    displayResult(item);
+                }
 
+                private void displayResult(SearchResult item) {
                     SearchResultRepresentation searchResultRepresentation = item.getSearchResultRepresentation();
                     ImageView imgView = new ImageView(searchResultRepresentation.getImage());
                     imgView.setFitWidth(ICON_SIZE);
                     imgView.setFitHeight(ICON_SIZE);
                     setGraphic(imgView);
                     setText(searchResultRepresentation.getSearchResultTitle());
+                }
+
+                private void displayEmptyResult() {
+                    setText(null);
+                    setGraphic(null);
+                    setWidth(0);
+                    setHeight(0);
                 }
             };
         }

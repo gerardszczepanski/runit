@@ -1,6 +1,5 @@
 package szczepanski.gerard.runit.common.util;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.*;

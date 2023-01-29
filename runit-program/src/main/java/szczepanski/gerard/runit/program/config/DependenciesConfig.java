@@ -13,7 +13,7 @@ import szczepanski.gerard.runit.search.cache.impl.LexicalFrequencySearchCache;
 import szczepanski.gerard.runit.search.service.SearchService;
 import szczepanski.gerard.runit.search.service.SearchTermMatcher;
 import szczepanski.gerard.runit.search.service.impl.FuzzySearchTermMatcher;
-import szczepanski.gerard.runit.search.service.impl.SearchServiceImpl;
+import szczepanski.gerard.runit.search.service.impl.BasicSearchService;
 import szczepanski.gerard.runit.settings.concator.PropertyConcator;
 import szczepanski.gerard.runit.settings.concator.impl.AliasPropertyConcator;
 import szczepanski.gerard.runit.settings.concator.impl.StringPropertyConcator;
@@ -153,7 +153,7 @@ public class DependenciesConfig {
 
     @Bean
     public SearchService searchService() {
-        return SearchServiceImpl.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader()).cache(cache()).build();
+        return BasicSearchService.builder().searchAlgorithms(searchAlgorithms()).settingsLoader(settingsLoader()).cache(cache()).build();
     }
 
     @Bean

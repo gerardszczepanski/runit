@@ -28,8 +28,8 @@ public class ProgramErrorDisplayer {
         alert.setHeaderText(code);
         alert.setContentText(message);
 
-        alert.setOnShowing((e) -> ProgramTrayManager.setAlwaysOnTop(false));
-        alert.setOnHiding((e) -> ProgramTrayManager.setAlwaysOnTop(true));
+        alert.setOnShowing(e -> ProgramTrayManager.setAlwaysOnTop(false));
+        alert.setOnHiding(e -> ProgramTrayManager.setAlwaysOnTop(true));
 
         alert.showAndWait();
     }

@@ -24,6 +24,10 @@ public abstract class SearchResult {
         this.searchResultRepresentation = searchResultRepresentation;
     }
 
+    public String title() {
+        return searchResultRepresentation.getSearchResultTitle();
+    }
+
     /**
      * Command pattern method. Execution of this method should run (open)
      * SearchResult.

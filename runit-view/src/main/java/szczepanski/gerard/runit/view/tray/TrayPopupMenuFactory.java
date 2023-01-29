@@ -37,10 +37,7 @@ public class TrayPopupMenuFactory {
 
     private static MenuItem createAboutProgramItem() {
         MenuItem aboutProgramItem = new MenuItem("About");
-        aboutProgramItem.addActionListener(event -> {
-            WebPageRunner.browsePage(ProgramConfig.PROGRAM_ABOUT_PAGE);
-        });
-
+        aboutProgramItem.addActionListener(event -> WebPageRunner.browsePage(ProgramConfig.PROGRAM_ABOUT_PAGE));
         return aboutProgramItem;
     }
 

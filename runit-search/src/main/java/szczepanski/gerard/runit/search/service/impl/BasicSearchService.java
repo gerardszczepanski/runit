@@ -12,12 +12,15 @@ import szczepanski.gerard.runit.settings.loader.Settings;
 import szczepanski.gerard.runit.settings.loader.SettingsLoader;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.toList;
+
 @Builder
-public class SearchServiceImpl implements SearchService {
-    private static final Logger LOG = Logger.getLogger(SearchServiceImpl.class);
+public class BasicSearchService implements SearchService {
+    private static final Logger LOG = Logger.getLogger(BasicSearchService.class);
     private static final List<SearchResult> EMPTY_SEARCH_RESULTS = new ArrayList<>(0);
 
     private final List<SearchAlgorithm> searchAlgorithms;
@@ -36,10 +39,33 @@ public class SearchServiceImpl implements SearchService {
 
     private List<SearchResult> triggerNewSearchFor(String searchTerm) {
         LOG.debug("Fire search for searchTerm: " + searchTerm);
-        Settings settings = settingsLoader.getSettings();
-        List<SearchResult> searchResults = triggerSearchAlgorithms(searchTerm, settings);
-        cache.addSearchResultsToCache(searchTerm, searchResults);
-        return searchResults;
+        final Settings settings = settingsLoader.getSettings();
+        final List<SearchResult> searchResults = triggerSearchAlgorithms(searchTerm, settings);
+        final List<SearchResult> orderedSearchResults = toOrderedSearchResults(searchResults, searchTerm);
+        cache.addSearchResultsToCache(searchTerm, orderedSearchResults);
+        return orderedSearchResults;
+    }
+
+    private List<SearchResult> toOrderedSearchResults(List<SearchResult> searchResults, String searchTerm) {
+        if (searchResults.isEmpty()) {
+            return searchResults;
+        }
+
+        final List<SearchResult> orderedResults = AdvancedCollectionFactory.list();
+
+        final List<SearchResult> orderedResultsWithSearchTerm = searchResults.stream()
+                .filter(result -> result.title().toLowerCase().contains(searchTerm.toLowerCase()))
+                .sorted(Comparator.comparing(SearchResult::title))
+                .collect(toList());
+
+        final List<SearchResult> orderedRestOfSearchResults = searchResults.stream()
+                .filter(result -> !orderedResultsWithSearchTerm.contains(result))
+                .sorted(Comparator.comparing(SearchResult::title))
+                .collect(toList());
+
+        orderedResults.addAll(orderedResultsWithSearchTerm);
+        orderedResults.addAll(orderedRestOfSearchResults);
+        return orderedResults;
     }
 
     private boolean isSearchTermEmpty(String searchTerm) {

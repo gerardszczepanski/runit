@@ -39,3 +39,7 @@
 .combo-box-popup .list-view .list-cell:filled:hover {
     -fx-background-color: -fx-select-selection-color;
 }
+
+.combo-box .list-view .list-cell{
+    -fx-cell-size: 35;
+}
