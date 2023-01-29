@@ -1,6 +1,5 @@
 package szczepanski.gerard.runit.view.component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,7 +54,7 @@ public class SearchAutocompleteSelect {
 
     private SearchAutocompleteSelect() {
         this.selectKeyFilter = new SelectKeyFilter();
-        this.innerSelect = new ComboBox<>();
+        this.innerSelect = new RunitComboBox<>();
     }
 
     private void initializeInnerSelect(
@@ -69,6 +68,7 @@ public class SearchAutocompleteSelect {
         innerSelect.setConverter(new InnerSelectStringConverter());
         innerSelect.setCache(false);
         innerSelect.setMouseTransparent(true);
+        innerSelect.setVisibleRowCount(10);
 
         innerSelect.addEventHandler(KeyEvent.KEY_RELEASED, e -> {
             if (selectKeyFilter.isKeyAllowedForRun(e.getCode())) {
@@ -267,6 +267,16 @@ public class SearchAutocompleteSelect {
         @Override
         public ListCell<SearchResult> call(ListView<SearchResult> l) {
             return new ListCell<SearchResult>() {
+                {
+                    /***
+                     * to future Gerard from 2030
+                     *
+                     * this saved my ass with randomly generated list size and empty rows.
+                     * Also with list width ;)
+                     */
+                    setPrefWidth(0);
+                    setMouseTransparent(true);
+                }
 
                 private static final double ICON_SIZE = 16;
 
