@@ -1,7 +1,6 @@
 *.class 
 *.classpath 
 *.prefs 
-*.jar 
 *.lst 
 *.project 
 *.MF
@@ -24,7 +23,6 @@
 .mtj.tmp/ 
  
 # Package Files # 
-*.jar 
 *.war 
 *.ear 
  
