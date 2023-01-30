@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class FileSearchAlgorithm implements SearchAlgorithm {
     private static final Logger LOG = Logger.getLogger(FileSearchAlgorithm.class);
 
-    private final SearchTermMatcher searchTermMatcher;
+    protected final SearchTermMatcher searchTermMatcher;
 
     @Override
     public List<SearchResult> search(String searchTerm, Settings settings) {
@@ -33,21 +33,23 @@ public class FileSearchAlgorithm implements SearchAlgorithm {
         List<String> paths = settings.getRootDirectioresToScan();
         List<String> fileExtensions = settings.getFileExtensions();
 
+        long start = System.currentTimeMillis();
         LOG.debug("Searching started");
         paths.forEach(p -> searchResults.addAll(searchForRootPath(p, searchTerm, fileExtensions)));
         LOG.debug("Searching finished");
-
+        long finish = System.currentTimeMillis();
+        LOG.debug("Search time [ms]: " + (finish - start));
         return toSearchResultsWithoutDuplicates(searchResults);
     }
 
-    private List<SearchResult> toSearchResultsWithoutDuplicates(List<SearchResult> searchResults) {
+    protected List<SearchResult> toSearchResultsWithoutDuplicates(List<SearchResult> searchResults) {
         final Set<SearchResult> searchRestulsSet = new HashSet<>(searchResults);
         final List<SearchResult> listWithoutDuplicates = AdvancedCollectionFactory.list(searchRestulsSet.size());
         listWithoutDuplicates.addAll(searchRestulsSet);
         return listWithoutDuplicates;
     }
 
-    private List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {
+    protected List<SearchResult> searchForRootPath(String rootPath, String searchTerm, List<String> fileExtensions) {
         List<File> foundFiles = findFiles(rootPath, searchTerm, fileExtensions);
         return convertFromFilesToSearchResults(foundFiles);
     }

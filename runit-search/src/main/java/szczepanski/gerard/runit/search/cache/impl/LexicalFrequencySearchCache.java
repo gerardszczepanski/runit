@@ -140,10 +140,7 @@ public class LexicalFrequencySearchCache implements Cache {
     @Override
     public void clear() {
         cacheContainer.firstFreeSlot = 1;
-        for (int i = 0; i < cacheContainer.buckets.length; i++) {
-            cacheContainer.buckets[i] = null;
-        }
-
+        Arrays.fill(cacheContainer.buckets, null);
         cacheContainer.initializeBucketForEmptySearchResults();
     }
 

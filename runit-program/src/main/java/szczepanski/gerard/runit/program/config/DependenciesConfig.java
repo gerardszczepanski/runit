@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import szczepanski.gerard.runit.common.config.ProgramConfig;
 import szczepanski.gerard.runit.search.algorithm.SearchAlgorithm;
 import szczepanski.gerard.runit.search.algorithm.impl.DirectoryAliasSearchAlgorithm;
+import szczepanski.gerard.runit.search.algorithm.impl.FileParallelSearchAlgorithm;
 import szczepanski.gerard.runit.search.algorithm.impl.FileSearchAlgorithm;
 import szczepanski.gerard.runit.search.algorithm.impl.WebAliasSearchAlgorithm;
 import szczepanski.gerard.runit.search.cache.Cache;
@@ -192,13 +193,13 @@ public class DependenciesConfig {
     }
 
     private List<SearchAlgorithm> searchAlgorithms() {
-        List<SearchAlgorithm> searchAlgrithms = new ArrayList<>(3);
+        List<SearchAlgorithm> searchAlgorithms = new ArrayList<>(3);
 
-        searchAlgrithms.add(new FileSearchAlgorithm(searchTermMatcher()));
-        searchAlgrithms.add(new WebAliasSearchAlgorithm(searchTermMatcher()));
-        searchAlgrithms.add(new DirectoryAliasSearchAlgorithm(searchTermMatcher()));
+        searchAlgorithms.add(FileParallelSearchAlgorithm.create(searchTermMatcher()));
+        searchAlgorithms.add(new WebAliasSearchAlgorithm(searchTermMatcher()));
+        searchAlgorithms.add(new DirectoryAliasSearchAlgorithm(searchTermMatcher()));
 
-        return searchAlgrithms;
+        return searchAlgorithms;
     }
 
     @Bean
