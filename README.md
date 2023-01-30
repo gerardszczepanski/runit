@@ -29,8 +29,10 @@ Runit allows you to quick search by term any file, defined website or directory,
 ## Screenshots ##
 
 <p align="center">
-  <img src="http://i.imgur.com/YMP1KtT.png" />
+  <img src="https://a.fsdn.com/con/app/proj/gspansky-runit/screenshots/r1.png" />
+  <img src="https://a.fsdn.com/con/app/proj/gspansky-runit/screenshots/r2.png" />
 </p>
+
 
 ## Requirements ##
 Windows system with installed JRE (minimum version 1.8.0_92).
