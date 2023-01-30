@@ -23,7 +23,6 @@ public class RunitEventBus {
         Set<RunitEventObserver> runitEventObservers = observersMap.get(eventName);
         if (runitEventObservers != null) {
             runitEventObservers.add(observer);
-            return;
         } else {
             runitEventObservers = new HashSet<>();
             runitEventObservers.add(observer);

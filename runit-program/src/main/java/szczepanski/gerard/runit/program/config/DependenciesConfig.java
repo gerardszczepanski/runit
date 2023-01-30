@@ -10,6 +10,7 @@ import szczepanski.gerard.runit.search.algorithm.impl.FileParallelSearchAlgorith
 import szczepanski.gerard.runit.search.algorithm.impl.FileSearchAlgorithm;
 import szczepanski.gerard.runit.search.algorithm.impl.WebAliasSearchAlgorithm;
 import szczepanski.gerard.runit.search.cache.Cache;
+import szczepanski.gerard.runit.search.cache.CacheEventObserver;
 import szczepanski.gerard.runit.search.cache.impl.LexicalFrequencySearchCache;
 import szczepanski.gerard.runit.search.service.SearchService;
 import szczepanski.gerard.runit.search.service.SearchTermMatcher;
@@ -165,6 +166,11 @@ public class DependenciesConfig {
     @Bean
     public SettingsPropertiesMapper settingsPropertiesMapper() {
         return new SettingsPropertiesMapper(stringPropertySpliterator(), aliasPropertySpliterator(), stringPropertyConcator(), aliasPropertyConcator());
+    }
+
+    @Bean
+    public CacheEventObserver cacheEventObserver() {
+        return CacheEventObserver.createFor(cache());
     }
 
     @Bean

@@ -2,6 +2,10 @@ package szczepanski.gerard.runit.settings.writer.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
+
+import szczepanski.gerard.runit.common.event.RunitEvent;
+import szczepanski.gerard.runit.common.event.RunitEventBus;
+import szczepanski.gerard.runit.common.event.RunitEventObserver;
 import szczepanski.gerard.runit.common.exception.ExceptionCode;
 import szczepanski.gerard.runit.common.exception.RunitRuntimeException;
 import szczepanski.gerard.runit.settings.loader.Settings;
@@ -31,6 +35,7 @@ public class PropertySettingsWriter implements SettingsWriter {
             writeProperties(properties);
             settingsLoader.loadSettingsIntoMemory();
             LOG.debug("Settings has been updated");
+            RunitEventBus.publish(new RunitEvent("settings-updated"));
         } catch (IOException | URISyntaxException e) {
             throw new RunitRuntimeException(ExceptionCode.R_011, e);
         }
